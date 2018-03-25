@@ -9,9 +9,10 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Kushal K Dey" />
 
 
-<title>Ecostructure of Wallacea</title>
+<title>Literature Review</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +20,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -164,6 +168,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -210,17 +309,22 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Ecostructure of Wallacea</h1>
+<h1 class="title toc-ignore">Literature Review</h1>
+<h4 class="author"><em>Kushal K Dey</em></h4>
+<h4 class="date"><em>3/25/2018</em></h4>
 
 </div>
 
 
-<p>We analyze the STRUCTURE of bird species based on the presence absence data in the Wallacea region [Australasian].</p>
+<p>The following is a list of papers to study related to the Wallace Line project.</p>
 <ul>
-<li><a href="literature_review.html"><em>Literature Review</em></a></li>
-<li><a href="java_bali_lombok_analysis.html"><em>Java, Bali, Lombok, Sumbaya GoM analysis</em></a></li>
-<li><a href="wallacea_analysis.html"><em>Entire Wallacea STRUCTURE analysis - with seabirds</em></a></li>
-<li><a href="wallacea_analysis_no_seabirds.html"><em>Entire Wallacea STRUCTURE analysis - without seabirds</em></a></li>
+<li><p><a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1365-2699.2010.02378.x/full">Integrating phylogenetic and taxonomic evidence illuminates complex biogeographic patterns along Huxley’s modification of Wallace’s Line</a></p></li>
+<li><p><a href="https://www.nature.com/articles/ncomms7848">A network approach for identifying and delimiting biogeographical regions</a></p></li>
+<li><p><a href="https://academic.oup.com/biolinnean/article/115/2/456/2235998">The relationship between biogeography and ecology: envelopes, models, predictions:Biogeography and ecology</a></p></li>
+<li><p><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/evo.12084">GEOGRAPHIC AND TAXONOMIC DISPARITIES IN SPECIES DIVERSITY: DISPERSAL AND DIVERSIFICATION RATES ACROSS WALLACE’S LINE</a></p></li>
+<li><p><a href="https://zslpublications.onlinelibrary.wiley.com/doi/pdf/10.1111/j.1469-7998.1975.tb02238.x">Bird counts either side of Wallace’s Line</a></p></li>
+<li><p><a href="https://www.journals.uchicago.edu/doi/abs/10.1086/394684">Wallace’s Line in the Light of Recent Zoogeographic Studies</a></p></li>
+<li><p><a href="https://books.google.com/books/about/Where_Worlds_Collide.html?id=SebJ9Bx_ZHoC">Where Worlds Collide: The Wallace Line</a></p></li>
 </ul>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
@@ -261,6 +365,8 @@ footer is added to webpages before the MathJax javascript. -->
 -->
 
 
+</div>
+</div>
 
 </div>
 

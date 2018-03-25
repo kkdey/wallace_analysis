@@ -1,0 +1,23 @@
+---
+title: "Literature Review"
+author: "Kushal K Dey"
+date: "3/25/2018"
+output: html_document
+---
+
+The following is a list of papers to study related to the Wallace Line project. 
+
+-  [Integrating phylogenetic and taxonomic evidence illuminates complex biogeographic patterns along Huxley’s modification of Wallace’s Line](http://onlinelibrary.wiley.com/doi/10.1111/j.1365-2699.2010.02378.x/full)
+
+- [A network approach for identifying and delimiting biogeographical regions](https://www.nature.com/articles/ncomms7848)
+
+- [The relationship between biogeography and ecology: envelopes, models, predictions:Biogeography and ecology](https://academic.oup.com/biolinnean/article/115/2/456/2235998)
+
+- [GEOGRAPHIC AND TAXONOMIC DISPARITIES IN SPECIES DIVERSITY: DISPERSAL AND DIVERSIFICATION RATES ACROSS WALLACE'S LINE](https://onlinelibrary.wiley.com/doi/full/10.1111/evo.12084)
+
+- [Bird counts either side of Wallace's Line](https://zslpublications.onlinelibrary.wiley.com/doi/pdf/10.1111/j.1469-7998.1975.tb02238.x)
+
+- [Wallace's Line in the Light of Recent Zoogeographic Studies](https://www.journals.uchicago.edu/doi/abs/10.1086/394684)
+
+- [Where Worlds Collide: The Wallace Line](https://books.google.com/books/about/Where_Worlds_Collide.html?id=SebJ9Bx_ZHoC)
+
