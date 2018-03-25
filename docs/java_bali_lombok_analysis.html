@@ -316,12 +316,23 @@ div.section {
 </div>
 
 
+<div id="intro" class="section level2">
+<h2>Intro</h2>
 <p>Here we observe the presence absence data of bird species in the Indonesian archipelago - comprising of Java, Bali, Lombok and Sumbawa. Lincoln (1975) observed bird counts on either side of the Wallace line <a href="https://zslpublications.onlinelibrary.wiley.com/doi/abs/10.1111/j.1469-7998.1975.tb02238.x">paper</a> and found the Western belt (Java Bali) to have a very distinct bird abundance pattern comared to the Eastern belt (Lombok and Sumbawa). We try to interpret that in the context of our Grade of Membership (GoM) model and its applications to presence absence data.</p>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
 <p>Load the data</p>
+</div>
+<div id="wallacea-region-data" class="section level2">
+<h2>Wallacea Region data</h2>
 <pre class="r"><code>datalist &lt;- get(load(&quot;../data/wallace_region_pres_ab_breeding_no_seabirds.rda&quot;))
 latlong &lt;- datalist$loc
 data &lt;- datalist$dat
 if(nrow(latlong) != nrow(data)) stop(&quot;dimensions matching error&quot;)</code></pre>
+</div>
+<div id="map-of-java-bali-lombok-sumbawa" class="section level2">
+<h2>Map of Java, Bali, Lombok, Sumbawa</h2>
 <p>Map of Java, Bali, Lombok and Sumbawa</p>
 <pre class="r"><code>world_map &lt;- map_data(&quot;world&quot;)
 world_map &lt;- world_map[world_map$region != &quot;Antarctica&quot;,] # intercourse antarctica
@@ -347,6 +358,9 @@ base_world &lt;- base_world_messy + cleanup
 
 base_world</code></pre>
 <p><img src="java_bali_lombok_analysis_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="birds-in-the-region" class="section level2">
+<h2>Birds in the region</h2>
 <p>Extracting the birds in this region</p>
 <pre class="r"><code>idx1 &lt;- which(latlong[,2] &gt; -9.3 &amp; latlong[,2] &lt; -7.3)
 idx2 &lt;- which(latlong[,1] &gt; 112 &amp; latlong[,1] &lt; 119.5)
@@ -356,6 +370,9 @@ length(idx)</code></pre>
 <pre class="r"><code>latlong2 &lt;- latlong[idx,]</code></pre>
 <pre class="r"><code>birds_pa_data_2 &lt;- data[idx, ]
 birds_pa_data_3 &lt;- birds_pa_data_2[, which(colSums(birds_pa_data_2)!=0)]</code></pre>
+</div>
+<div id="presence-absence-gom-model" class="section level2">
+<h2>Presence absence GoM model</h2>
 <p>Applying methclust presence absence Grade of Membership model to the presence absence data</p>
 <pre class="r"><code>topics_clust &lt;- list()
 topics_clust[[1]] &lt;- NULL
@@ -365,6 +382,9 @@ for(k in 2:4){
 }
 save(topics_clust, file = &quot;../output/methClust_java_bali_lombok.rda&quot;)</code></pre>
 <pre class="r"><code>topics_clust &lt;- get(load(&quot;../output/methClust_java_bali_lombok.rda&quot;))</code></pre>
+</div>
+<div id="geostructure-plots" class="section level2">
+<h2>Geostructure Plots</h2>
 <pre class="r"><code>color = c(&quot;red&quot;, &quot;cornflowerblue&quot;, &quot;cyan&quot;, &quot;brown4&quot;, &quot;burlywood&quot;, &quot;darkgoldenrod1&quot;,
           &quot;azure4&quot;, &quot;green&quot;,&quot;deepskyblue&quot;,&quot;yellow&quot;, &quot;azure1&quot;)
 intensity &lt;- 0.8
@@ -394,6 +414,9 @@ dev.off()
 }</code></pre>
 <p>The geostructure plot for K=2.</p>
 <p><img src="../output/Java_Bali_Lombok/geostructure_birds_2.png" alt="geostructure2" /> <img src="../output/Java_Bali_Lombok/geostructure_birds_3.png" alt="geostructure3" /> <img src="../output/Java_Bali_Lombok/geostructure_birds_4.png" alt="geostructure4" /></p>
+</div>
+<div id="driving-bird-species" class="section level2">
+<h2>Driving Bird Species</h2>
 <p>The bird species separating Java and Bali from Lombok and Sumbawa for K=2.</p>
 <pre class="r"><code>topics_freq &lt;- topics_clust[[2]]$freq
 diff &lt;- topics_freq[,2] - topics_freq[,1]
@@ -455,6 +478,7 @@ plot(diff[order(diff, decreasing = FALSE)], col = &quot;red&quot;)</code></pre>
 ## [45] &quot;Pericrocotus cinnamomeus&quot;    &quot;Phaenicophaeus curvirostris&quot;
 ## [47] &quot;Phodilus badius&quot;             &quot;Pitta guajana&quot;              
 ## [49] &quot;Ploceus manyar&quot;              &quot;Ploceus philippinus&quot;</code></pre>
+</div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see

@@ -5,8 +5,12 @@ date: "3/25/2018"
 output: html_document
 ---
 
+## Intro
+
 Here we observe the presence absence data of bird species in the Indonesian archipelago - comprising of Java, Bali, Lombok and Sumbawa. Lincoln (1975) observed bird counts on either
 side of the Wallace line [paper](https://zslpublications.onlinelibrary.wiley.com/doi/abs/10.1111/j.1469-7998.1975.tb02238.x) and found the Western belt (Java Bali) to have a very distinct bird abundance pattern comared to the Eastern belt (Lombok and Sumbawa). We try to interpret that in the context of our Grade of Membership (GoM) model and its applications to presence absence data.
+
+## Packages
 
 ```{r setup, include=FALSE}
 library(methClust)
@@ -22,7 +26,10 @@ library(scales)
 library(ggthemes)
 
 ```
+
 Load the data
+
+## Wallacea Region data
 
 ```{r}
 datalist <- get(load("../data/wallace_region_pres_ab_breeding_no_seabirds.rda"))
@@ -30,6 +37,8 @@ latlong <- datalist$loc
 data <- datalist$dat
 if(nrow(latlong) != nrow(data)) stop("dimensions matching error")
 ```
+
+## Map of Java, Bali, Lombok, Sumbawa
 
 Map of Java, Bali, Lombok and Sumbawa
 
@@ -60,6 +69,8 @@ base_world
 
 ```
 
+## Birds in the region
+
 Extracting the birds in this region 
 
 ```{r}
@@ -74,6 +85,8 @@ latlong2 <- latlong[idx,]
 birds_pa_data_2 <- data[idx, ]
 birds_pa_data_3 <- birds_pa_data_2[, which(colSums(birds_pa_data_2)!=0)]
 ```
+
+## Presence absence GoM model
 
 Applying methclust presence absence Grade of Membership model to the presence absence data
 
@@ -90,6 +103,9 @@ save(topics_clust, file = "../output/methClust_java_bali_lombok.rda")
 ```{r}
 topics_clust <- get(load("../output/methClust_java_bali_lombok.rda"))
 ```
+
+
+## Geostructure Plots
 
 ```{r}
 color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod1",
@@ -129,6 +145,7 @@ The geostructure plot for K=2.
 ![geostructure3](../output/Java_Bali_Lombok/geostructure_birds_3.png)
 ![geostructure4](../output/Java_Bali_Lombok/geostructure_birds_4.png)
 
+## Driving Bird Species
 
 The bird species separating Java and Bali from Lombok and Sumbawa for K=2.
 
