@@ -1,0 +1,87 @@
+---
+title: "Graphical relationship Indonesian birds"
+author: "Kushal K Dey"
+date: "3/25/2018"
+output: html_document
+---
+
+Here, we explore a graphical model connecting the different bird species in the Java,
+Bali, Lombok, Sumbawa areas.
+
+```{r message=FALSE, warning=FALSE}
+library(igraph)
+library(RColorBrewer)
+library(ape)
+```
+
+```{r}
+datalist <- get(load("../data/wallace_region_pres_ab_breeding_no_seabirds.rda"))
+latlong <- datalist$loc
+data <- datalist$dat
+
+idx1 <- which(latlong[,2] > -9.3 & latlong[,2] < -7.3)
+idx2 <- which(latlong[,1] > 112 & latlong[,1] < 119.5)
+idx <- intersect(idx1, idx2)
+length(idx)
+latlong2 <- latlong[idx,]
+
+birds_pa_data_2 <- data[idx, ]
+birds_pa_data_3 <- birds_pa_data_2[, which(colSums(birds_pa_data_2)!=0)]
+```
+
+```{r}
+co_occur_mat <- t(as.matrix(birds_pa_data_3)) %*% as.matrix(birds_pa_data_3)
+```
+
+## Minimal Spanning Tree (correlation)
+
+```{r}
+cor_dist <- 1 - cov2cor(co_occur_mat)
+system.time(mst2 <- ape::mst(cor_dist));
+mst2.graph <- igraph::graph.adjacency(as.matrix(mst2));
+
+cols1 <- c(RColorBrewer::brewer.pal(12, "Paired")[c(3,4,7,8,11,12,5,6,9,10)],
+           RColorBrewer::brewer.pal(12, "Set3")[c(1,2,5,8,9)],
+           RColorBrewer::brewer.pal(9, "Set1")[c(9,7)],
+           RColorBrewer::brewer.pal(8, "Dark2")[c(3,4,8)])
+
+plot(mst2.graph,
+     edge.arrow.mode=0,
+     vertex.size = 5,
+     vertex.shape="square",
+     vertex.label=NA,
+     layout= layout_with_fr
+)
+```
+
+```{r}
+topics_clust <- get(load("../output/methClust_java_bali_lombok.rda"))
+```
+
+```{r}
+
+cols1 <- c(RColorBrewer::brewer.pal(12, "Paired")[c(3,4,7,8,11,12,5,6,9,10)],
+           RColorBrewer::brewer.pal(12, "Set3")[c(1,2,5,8,9)],
+           RColorBrewer::brewer.pal(9, "Set1")[c(9,7)],
+           RColorBrewer::brewer.pal(8, "Dark2")[c(3,4,8)])
+
+for(k in 2:4){
+  freq <- topics_clust[[k]]$freq
+  max_clus <- apply(freq, 1, function(x) which.max(x))
+
+plot(mst2.graph,
+     edge.arrow.mode=0,
+     vertex.size = 5,
+     vertex.shape="square",
+     vertex.label=NA,
+     vertex.color=cols1[as.numeric(max_clus) + 1],
+     layout= layout_with_kk
+)
+ 
+}
+
+
+```
+
+
+
