@@ -21,3 +21,8 @@ Codes to reproduce the results in paper:
           
 * **Ecostructure on Indonesian region - Java, Bali, Lombok, Sumbaya**
     + [*analysis*](java_bali_lombok_analysis.html)
+    
+*  **Graphical Model on bird species with GoM coloring**
+    + [*Indonesian bird species*](indonesian_birds_graphs.html)
+    
+    
