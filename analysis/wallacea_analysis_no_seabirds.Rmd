@@ -71,7 +71,7 @@ base_world
 birds_pa_data_3 <- data
 ```
 
-## Presence absence GoM model
+## GoM model
 
 Applying methclust presence absence Grade of Membership model to the presence absence data
 
@@ -85,7 +85,7 @@ for(k in 2:10){
 save(topics_clust, file = "../output/methClust_wallacea.rda")
 
 ```
-
+## Visualization
 
 ```{r}
 topics_clust <- get(load("../output/methClust_wallacea.rda"))
@@ -115,24 +115,45 @@ dev.off()
 
 ```
 
+### K = 2
+
 The geostructure plot for different K.
 
 ![geostructure2](Wallacea/geostructure_birds_2.png)
 
+### K = 3
+
 ![geostructure3](Wallacea/geostructure_birds_3.png)
+
+### K = 4
 
 ![geostructure4](Wallacea/geostructure_birds_4.png)
 
+### K = 5
+
 ![geostructure5](Wallacea/geostructure_birds_5.png)
+
+### K = 6
 
 ![geostructure6](Wallacea/geostructure_birds_6.png)
 
+### K = 7
+
 ![geostructure7](Wallacea/geostructure_birds_7.png)
+
+### K = 8
+
 ![geostructure8](Wallacea/geostructure_birds_8.png)
+
+###  K = 9
+
 ![geostructure9](Wallacea/geostructure_birds_9.png)
 
+### K = 10
+
 ![geostructure10](Wallacea/geostructure_birds_10.png)
-## Driving Bird Species
+
+## Important Birds
 
 We obtain the driving bird species for each cluster using the **CountClust** package.
 
@@ -150,5 +171,11 @@ for(m in 1:10){
   plot(driving_species_ind$scores[m,], col='red', pch = 20, cex = 1.5)
 }
 
+```
+
+## SessionInfo
+
+```{r}
+sessionInfo()
 ```
 
