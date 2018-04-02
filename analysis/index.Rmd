@@ -9,8 +9,15 @@ We analyze the STRUCTURE of bird species based on the presence absence data in t
 
 ![Wallacea](Wallacea_w_seabirds/geostructure_birds_2.png)
 
-- [*Literature Review*](literature_review.html)
-- [*Java, Bali, Lombok, Sumbaya GoM analysis*](java_bali_lombok_analysis.html)
-- [*Entire Wallacea STRUCTURE analysis - with seabirds*](wallacea_analysis.html)
-- [*Entire Wallacea STRUCTURE analysis - without seabirds*](wallacea_analysis_no_seabirds.html)
 
+Codes to reproduce the results in paper: 
+
+* **Literature Review of the Wallace Line**
+    + [*analysis*](literature_review.html)
+          
+* **EcoStructure on the entire Wallacea**
+    + [*with seabirds*](wallacea_analysis.html)
+    + [*without seabirds*](wallacea_analysis_no_seabirds.html)
+          
+* **Ecostructure on Indonesian region - Java, Bali, Lombok, Sumbaya**
+    + [*analysis*](java_bali_lombok_analysis.html)

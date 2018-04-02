@@ -12,7 +12,7 @@
 <meta name="author" content="Kushal K Dey" />
 
 
-<title>Wallacea region GoM analysis</title>
+<title>Wallacea region GoM analysis - with seabirds</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -309,7 +309,7 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Wallacea region GoM analysis</h1>
+<h1 class="title toc-ignore">Wallacea region GoM analysis - with seabirds</h1>
 <h4 class="author"><em>Kushal K Dey</em></h4>
 <h4 class="date"><em>3/25/2018</em></h4>
 
@@ -322,6 +322,18 @@ div.section {
 </div>
 <div id="packages" class="section level2">
 <h2>Packages</h2>
+<pre class="r"><code>library(methClust)
+library(CountClust)
+library(rasterVis)
+library(gtools)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)</code></pre>
 <p>Load the data</p>
 </div>
 <div id="wallacea-region-data" class="section level2">
@@ -359,8 +371,8 @@ base_world</code></pre>
 <p><img src="wallacea_analysis_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>birds_pa_data_3 &lt;- data</code></pre>
 </div>
-<div id="presence-absence-gom-model" class="section level2">
-<h2>Presence absence GoM model</h2>
+<div id="gom-model" class="section level2">
+<h2>GoM model</h2>
 <p>Applying methclust presence absence Grade of Membership model to the presence absence data</p>
 <pre class="r"><code>topics_clust &lt;- list()
 topics_clust[[1]] &lt;- NULL
@@ -369,6 +381,9 @@ for(k in 2:10){
             K=k, tol = 10, use_squarem = FALSE)
 }
 save(topics_clust, file = &quot;../output/methClust_wallacea_w_seabirds.rda&quot;)</code></pre>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
 <pre class="r"><code>topics_clust &lt;- get(load(&quot;../output/methClust_wallacea_w_seabirds.rda&quot;))</code></pre>
 <pre class="r"><code>color = c(&quot;red&quot;, &quot;cornflowerblue&quot;, &quot;cyan&quot;, &quot;brown4&quot;, &quot;burlywood&quot;, &quot;darkgoldenrod1&quot;,
           &quot;azure4&quot;, &quot;green&quot;,&quot;deepskyblue&quot;,&quot;yellow&quot;, &quot;azure1&quot;)
@@ -391,28 +406,72 @@ lapply(1:dim(topics_clust[[k]]$omega)[1], function(r)
 dev.off()
 }</code></pre>
 <p>The geostructure plot for different K.</p>
+<div id="k-2" class="section level3">
+<h3>K = 2</h3>
 <div class="figure">
 <img src="Wallacea_w_seabirds//geostructure_birds_2.png" alt="geostructure2" />
 <p class="caption">geostructure2</p>
 </div>
+</div>
+<div id="k-3" class="section level3">
+<h3>K = 3</h3>
 <div class="figure">
 <img src="Wallacea_w_seabirds//geostructure_birds_3.png" alt="geostructure3" />
 <p class="caption">geostructure3</p>
 </div>
+</div>
+<div id="k-4" class="section level3">
+<h3>K = 4</h3>
 <div class="figure">
 <img src="Wallacea_w_seabirds//geostructure_birds_4.png" alt="geostructure4" />
 <p class="caption">geostructure4</p>
 </div>
+</div>
+<div id="k-5" class="section level3">
+<h3>K = 5</h3>
 <div class="figure">
 <img src="Wallacea_w_seabirds//geostructure_birds_5.png" alt="geostructure5" />
 <p class="caption">geostructure5</p>
 </div>
+</div>
+<div id="k-6" class="section level3">
+<h3>K = 6</h3>
 <div class="figure">
 <img src="Wallacea_w_seabirds//geostructure_birds_6.png" alt="geostructure6" />
 <p class="caption">geostructure6</p>
 </div>
-<p><img src="Wallacea_w_seabirds//geostructure_birds_7.png" alt="geostructure7" /> <img src="Wallacea_w_seabirds//geostructure_birds_8.png" alt="geostructure8" /> <img src="Wallacea_w_seabirds//geostructure_birds_9.png" alt="geostructure9" /></p>
-<p><img src="Wallacea_w_seabirds//geostructure_birds_10.png" alt="geostructure10" /> ## Driving Bird Species</p>
+</div>
+<div id="k-7" class="section level3">
+<h3>K = 7</h3>
+<div class="figure">
+<img src="Wallacea_w_seabirds//geostructure_birds_7.png" alt="geostructure7" />
+<p class="caption">geostructure7</p>
+</div>
+</div>
+<div id="k-8" class="section level3">
+<h3>K = 8</h3>
+<div class="figure">
+<img src="Wallacea_w_seabirds//geostructure_birds_8.png" alt="geostructure8" />
+<p class="caption">geostructure8</p>
+</div>
+</div>
+<div id="k-9" class="section level3">
+<h3>K = 9</h3>
+<div class="figure">
+<img src="Wallacea_w_seabirds//geostructure_birds_9.png" alt="geostructure9" />
+<p class="caption">geostructure9</p>
+</div>
+</div>
+<div id="k-10" class="section level3">
+<h3>K = 10</h3>
+<div class="figure">
+<img src="Wallacea_w_seabirds//geostructure_birds_10.png" alt="geostructure10" />
+<p class="caption">geostructure10</p>
+</div>
+</div>
+</div>
+<div id="important-birds" class="section level2">
+<h2>Important Birds</h2>
 <p>We obtain the driving bird species for each cluster using the <strong>CountClust</strong> package.</p>
 <pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[10]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;)
 species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[10]]$freq)[x]))
@@ -478,6 +537,50 @@ for(m in 1:10){
   plot(driving_species_ind$scores[m,], col=&#39;red&#39;, pch = 20, cex = 1.5)
 }</code></pre>
 <p><img src="wallacea_analysis_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+<div id="sessioninfo" class="section level2">
+<h2>SessionInfo</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.4.4 (2018-03-15)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] ggthemes_3.4.0      scales_0.5.0.9000   mapplots_1.5       
+##  [4] mapdata_2.2-6       maps_3.2.0          rgdal_1.2-16       
+##  [7] gtools_3.5.0        rasterVis_0.41      latticeExtra_0.6-28
+## [10] RColorBrewer_1.1-2  lattice_0.20-35     raster_2.6-7       
+## [13] sp_1.2-7            CountClust_1.5.1    ggplot2_2.2.1      
+## [16] methClust_0.1.0    
+## 
+## loaded via a namespace (and not attached):
+##  [1] zoo_1.8-0         modeltools_0.2-21 slam_0.1-42      
+##  [4] reshape2_1.4.3    colorspace_1.3-2  htmltools_0.3.6  
+##  [7] stats4_3.4.4      viridisLite_0.3.0 yaml_2.1.18      
+## [10] mgcv_1.8-23       rlang_0.2.0       hexbin_1.27.1    
+## [13] pillar_1.1.0      plyr_1.8.4        stringr_1.3.0    
+## [16] munsell_0.4.3     gtable_0.2.0      evaluate_0.10.1  
+## [19] labeling_0.3      knitr_1.20        permute_0.9-4    
+## [22] flexmix_2.3-14    parallel_3.4.4    Rcpp_0.12.16     
+## [25] backports_1.1.2   limma_3.34.8      vegan_2.4-4      
+## [28] maptpx_1.9-4      picante_1.6-2     digest_0.6.15    
+## [31] stringi_1.1.6     cowplot_0.9.2     grid_3.4.4       
+## [34] rprojroot_1.3-2   tools_3.4.4       magrittr_1.5     
+## [37] lazyeval_0.2.1    tibble_1.4.2      cluster_2.0.6    
+## [40] ape_5.0           MASS_7.3-47       Matrix_1.2-12    
+## [43] SQUAREM_2017.10-1 assertthat_0.2.0  rmarkdown_1.9    
+## [46] boot_1.3-20       nnet_7.3-12       nlme_3.1-131.1   
+## [49] compiler_3.4.4</code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

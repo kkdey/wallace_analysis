@@ -12,7 +12,7 @@ side of the Wallace line [paper](https://zslpublications.onlinelibrary.wiley.com
 
 ## Packages
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, warning = FALSE, message = FALSE}
 library(methClust)
 library(rasterVis)
 library(gtools)
@@ -69,7 +69,7 @@ base_world
 
 ```
 
-## Birds in the region
+## Data Preprocessing
 
 Extracting the birds in this region 
 
@@ -86,7 +86,7 @@ birds_pa_data_2 <- data[idx, ]
 birds_pa_data_3 <- birds_pa_data_2[, which(colSums(birds_pa_data_2)!=0)]
 ```
 
-## Presence absence GoM model
+## GoM model
 
 Applying methclust presence absence Grade of Membership model to the presence absence data
 
@@ -105,7 +105,7 @@ topics_clust <- get(load("../output/methClust_java_bali_lombok.rda"))
 ```
 
 
-## Geostructure Plots
+## Visualization
 
 ```{r}
 color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod1",
@@ -138,14 +138,21 @@ dev.off()
 
 ```
 
+### K = 2
 
 The geostructure plot for K=2.
 
 ![geostructure2](Java_Bali_Lombok/geostructure_birds_2.png)
+
+### K = 3
+
 ![geostructure3](Java_Bali_Lombok/geostructure_birds_3.png)
+
+### K = 4
+
 ![geostructure4](Java_Bali_Lombok/geostructure_birds_4.png)
 
-## Driving Bird Species
+## Important Birds
 
 The bird species separating Java and Bali from Lombok and Sumbawa for K=2.
 
@@ -168,3 +175,11 @@ Birds to the west of the Wallace line (red cluster)
 ```{r}
 rownames(topics_freq)[order(diff, decreasing = FALSE)[1:50]]
 ```
+
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+

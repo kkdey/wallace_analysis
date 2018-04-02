@@ -11,7 +11,7 @@ Here we observe the presence absence data of bird species in the Australasian re
 
 ## Packages
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE, message=FALSE, warning=FALSE}
 library(methClust)
 library(CountClust)
 library(rasterVis)
