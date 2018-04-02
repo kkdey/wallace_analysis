@@ -24,5 +24,6 @@ Codes to reproduce the results in paper:
     
 *  **Graphical Model on bird species with GoM coloring**
     + [*Indonesian bird species*](indonesian_birds_graphs.html)
+    + [*Entire Wallacea bird species*](wallacea_birds_graphs.html)
     
     

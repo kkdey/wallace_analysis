@@ -5,13 +5,22 @@ date: "3/26/2018"
 output: html_document
 ---
 
-Here, we explore a graphical model connecting the different bird species in the entire Wallacea.
+## Intro
 
-```{r message=FALSE, warning=FALSE}
+Here, we explore a graphical model connecting the different bird species in Wallacea.
+We here are interested in seeing how the clustering of bird species into communities 
+by the GoM model matches with an independently generated graphical structure of the bird species. 
+
+## Packages
+
+```{r message=FALSE, warning=FALSE, include = TRUE}
 library(igraph)
 library(RColorBrewer)
 library(ape)
 ```
+
+
+## Data
 
 ```{r}
 datalist <- get(load("../data/wallace_region_pres_ab_breeding_no_seabirds.rda"))
@@ -49,6 +58,7 @@ plot(mst2.graph,
 )
 ```
 
+## Visualization
 
 ```{r}
 topics_clust <- get(load("../output/methClust_wallacea.rda"))
@@ -60,10 +70,13 @@ cols1 <- c(RColorBrewer::brewer.pal(12, "Paired")[c(3,4,7,8,11,12,5,6,9,10)],
            RColorBrewer::brewer.pal(12, "Set3")[c(1,2,5,8,9)],
            RColorBrewer::brewer.pal(9, "Set1")[c(9,7)],
            RColorBrewer::brewer.pal(8, "Dark2")[c(3,4,8)])
+```
 
-for(k in 2:4){
-  freq <- topics_clust[[k]]$freq
-  max_clus <- apply(freq, 1, function(x) which.max(x))
+### K = 2
+
+```{r}
+freq <- topics_clust[[2]]$freq
+max_clus <- apply(freq, 1, function(x) which.max(x))
 
 plot(mst2.graph,
      edge.arrow.mode=0,
@@ -73,9 +86,48 @@ plot(mst2.graph,
      vertex.color=cols1[as.numeric(max_clus) + 1],
      layout= layout_with_kk
 )
- 
-}
-
 
 ```
+
+### K = 3
+
+```{r}
+freq <- topics_clust[[3]]$freq
+max_clus <- apply(freq, 1, function(x) which.max(x))
+
+plot(mst2.graph,
+     edge.arrow.mode=0,
+     vertex.size = 5,
+     vertex.shape="square",
+     vertex.label=NA,
+     vertex.color=cols1[as.numeric(max_clus) + 1],
+     layout= layout_with_kk
+)
+
+```
+
+### K = 4
+
+```{r}
+freq <- topics_clust[[4]]$freq
+max_clus <- apply(freq, 1, function(x) which.max(x))
+
+plot(mst2.graph,
+     edge.arrow.mode=0,
+     vertex.size = 5,
+     vertex.shape="square",
+     vertex.label=NA,
+     vertex.color=cols1[as.numeric(max_clus) + 1],
+     layout= layout_with_kk
+)
+
+```
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+
+
 
