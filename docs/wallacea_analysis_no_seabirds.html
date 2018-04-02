@@ -374,7 +374,7 @@ save(topics_clust, file = &quot;../output/methClust_wallacea.rda&quot;)</code></
           &quot;azure4&quot;, &quot;green&quot;,&quot;deepskyblue&quot;,&quot;yellow&quot;, &quot;azure1&quot;)
 intensity &lt;- 0.8
 for(k in 2:10){
-  png(filename=paste0(&quot;../output/Wallacea/geostructure_birds_&quot;, k, &quot;.png&quot;),width = 1000, height = 800)
+  png(filename=paste0(&quot;../docs/Wallacea/geostructure_birds_&quot;, k, &quot;.png&quot;),width = 1000, height = 800)
 map(&quot;worldHires&quot;,
     ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
     col = &quot;gray&quot;, fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
@@ -392,27 +392,27 @@ dev.off()
 }</code></pre>
 <p>The geostructure plot for different K.</p>
 <div class="figure">
-<img src="../output/Wallacea/geostructure_birds_2.png" alt="geostructure2" />
+<img src="Wallacea/geostructure_birds_2.png" alt="geostructure2" />
 <p class="caption">geostructure2</p>
 </div>
 <div class="figure">
-<img src="../output/Wallacea/geostructure_birds_3.png" alt="geostructure3" />
+<img src="Wallacea/geostructure_birds_3.png" alt="geostructure3" />
 <p class="caption">geostructure3</p>
 </div>
 <div class="figure">
-<img src="../output/Wallacea/geostructure_birds_4.png" alt="geostructure4" />
+<img src="Wallacea/geostructure_birds_4.png" alt="geostructure4" />
 <p class="caption">geostructure4</p>
 </div>
 <div class="figure">
-<img src="../output/Wallacea/geostructure_birds_5.png" alt="geostructure5" />
+<img src="Wallacea/geostructure_birds_5.png" alt="geostructure5" />
 <p class="caption">geostructure5</p>
 </div>
 <div class="figure">
-<img src="../output/Wallacea/geostructure_birds_6.png" alt="geostructure6" />
+<img src="Wallacea/geostructure_birds_6.png" alt="geostructure6" />
 <p class="caption">geostructure6</p>
 </div>
-<p><img src="../output/Wallacea/geostructure_birds_7.png" alt="geostructure7" /> <img src="../output/Wallacea/geostructure_birds_8.png" alt="geostructure8" /> <img src="../output/Wallacea/geostructure_birds_9.png" alt="geostructure9" /></p>
-<p><img src="../output/Wallacea/geostructure_birds_10.png" alt="geostructure10" /> ## Driving Bird Species</p>
+<p><img src="Wallacea/geostructure_birds_7.png" alt="geostructure7" /> <img src="Wallacea/geostructure_birds_8.png" alt="geostructure8" /> <img src="Wallacea/geostructure_birds_9.png" alt="geostructure9" /></p>
+<p><img src="Wallacea/geostructure_birds_10.png" alt="geostructure10" /> ## Driving Bird Species</p>
 <p>We obtain the driving bird species for each cluster using the <strong>CountClust</strong> package.</p>
 <pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[10]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;)
 species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[10]]$freq)[x]))

@@ -1,0 +1,141 @@
+---
+title: "Robust phylogenetic analysis of Wallacea bird species"
+author: "Kushal K Dey"
+date: "4/2/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(methClust)
+library(CountClust)
+library(rasterVis)
+library(gtools)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)
+library(ape)
+library(phytools)
+```
+
+
+We look at phylogenetic analyses of the bird species in Wallacea. 
+
+```{r}
+library(ape)
+MyTree <- read.tree("../data/wallaces_line_trees_med_no_seabirds.nwk")
+```
+
+```{r}
+datalist <- get(load("../data/wallace_region_pres_ab_breeding_no_seabirds.rda"))
+latlong <- datalist$loc
+data <- datalist$dat
+```
+
+
+```{r}
+names_phylogeny_match <- read.csv("../data/names_matched_to_phylogeny.csv", 
+                                  header = TRUE, row.names = 1)
+
+tip_labels <- MyTree$tip.label
+tip_labels <- gsub("_", " ", tip_labels)
+common_names <- intersect(colnames(data), names_phylogeny_match[,1])
+data2 <- data[, match(common_names, colnames(data))]
+
+new_names <- names_phylogeny_match[match(colnames(data2), names_phylogeny_match[,1]),2]
+colnames(data2) <- new_names
+
+idx2 <- match(tip_labels, as.character(names_phylogeny_match[,2]))
+
+newTree <- MyTree
+newTree$tip.label <- tip_labels
+```
+
+```{r echo=TRUE, eval=FALSE}
+source("../code/collapse_counts_by_phylo.R")
+sliced_data_cutoffs <- list()
+k <- 1
+for(cut in c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80)){
+  sliced_data_cutoffs[[k]] <- collapse_counts_by_phylo(data2, newTree, collapse_at = cut)
+  k  =  k + 1
+}
+save(sliced_data_cutoffs, file = "../output/sliced_data_cutoffs_robust.rda")
+```
+
+```{r echo=FALSE, eval=TRUE}
+source("../code/collapse_counts_by_phylo.R")
+sliced_data_cutoffs <- get(load("../output/sliced_data_cutoffs_robust.rda"))
+```
+
+
+```{r}
+cuts <- c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80)
+topic_clust <- list()
+for(k in 1:length(cuts)){
+  num_groups_mat <- t(sliced_data_cutoffs[[k]]$num_groups %*% t(rep(1, dim(data2)[1])))
+  meth <- sliced_data_cutoffs[[k]]$outdat
+  unmeth <- num_groups_mat - meth
+  topic_clust[[k]] <- meth_topics(meth, unmeth, K=2, tol = 0.1, use_squarem = FALSE)
+}
+
+save(topic_clust, file = "../output/phylogenetic_wallacea_methClust_robust.rda")
+
+```
+
+```{r}
+
+color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod1",
+          "azure4", "green","deepskyblue","yellow", "azure1")
+intensity <- 0.8
+for(k in 1:length(cuts)){
+  png(filename=paste0("../docs/robust_phylogenetic_wallacea/cutoff_", cuts[k], ".png"),width = 1000, height = 800)
+map("worldHires",
+    ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
+    col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
+lapply(1:dim(topic_clust[[k]]$omega)[1], function(r)
+  add.pie(z=as.integer(100*topic_clust[[k]]$omega[r,]),
+          x=latlong[r,1], y=latlong[r,2], labels=c("","",""),
+          radius = 0.5,
+          col=c(alpha(color[1],intensity),alpha(color[2],intensity),
+                alpha(color[3], intensity), alpha(color[4], intensity),
+                alpha(color[5], intensity), alpha(color[6], intensity),
+                alpha(color[7], intensity), alpha(color[8], intensity),
+                alpha(color[9], intensity), alpha(color[10], intensity),
+                alpha(color[11], intensity))));
+dev.off()
+}
+
+```
+
+
+cut-off = 5
+
+![cutoff1](robust_phylogenetic_wallacea/cutoff_5.png)
+
+cut-off = 10
+
+![cutoff2](robust_phylogenetic_wallacea/cutoff_10.png)
+
+cut-off = 20
+
+![cutoff2](robust_phylogenetic_wallacea/cutoff_20.png)
+
+cut-off = 40
+
+![cutoff2](robust_phylogenetic_wallacea/cutoff_40.png)
+
+cut-off = 50
+
+![cutoff2](robust_phylogenetic_wallacea/cutoff_50.png)
+
+cut-off = 60
+
+![cutoff2](robust_phylogenetic_wallacea/cutoff_60.png)
+
+cut-off = 80
+
+![cutoff2](robust_phylogenetic_wallacea/cutoff_80.png)

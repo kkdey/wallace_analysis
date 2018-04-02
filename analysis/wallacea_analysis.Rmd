@@ -96,7 +96,7 @@ color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod
           "azure4", "green","deepskyblue","yellow", "azure1")
 intensity <- 0.8
 for(k in 2:10){
-  png(filename=paste0("../output/Wallacea_w_seabirds/geostructure_birds_", k, ".png"),width = 1000, height = 800)
+  png(filename=paste0("../docs/Wallacea_w_seabirds/geostructure_birds_", k, ".png"),width = 1000, height = 800)
 map("worldHires",
     ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
     col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
@@ -117,21 +117,21 @@ dev.off()
 
 The geostructure plot for different K.
 
-![geostructure2](../output/Wallacea_w_seabirds//geostructure_birds_2.png)
+![geostructure2](Wallacea_w_seabirds//geostructure_birds_2.png)
 
-![geostructure3](../output/Wallacea_w_seabirds//geostructure_birds_3.png)
+![geostructure3](Wallacea_w_seabirds//geostructure_birds_3.png)
 
-![geostructure4](../output/Wallacea_w_seabirds//geostructure_birds_4.png)
+![geostructure4](Wallacea_w_seabirds//geostructure_birds_4.png)
 
-![geostructure5](../output/Wallacea_w_seabirds//geostructure_birds_5.png)
+![geostructure5](Wallacea_w_seabirds//geostructure_birds_5.png)
 
-![geostructure6](../output/Wallacea_w_seabirds//geostructure_birds_6.png)
+![geostructure6](Wallacea_w_seabirds//geostructure_birds_6.png)
 
-![geostructure7](../output/Wallacea_w_seabirds//geostructure_birds_7.png)
-![geostructure8](../output/Wallacea_w_seabirds//geostructure_birds_8.png)
-![geostructure9](../output/Wallacea_w_seabirds//geostructure_birds_9.png)
+![geostructure7](Wallacea_w_seabirds//geostructure_birds_7.png)
+![geostructure8](Wallacea_w_seabirds//geostructure_birds_8.png)
+![geostructure9](Wallacea_w_seabirds//geostructure_birds_9.png)
 
-![geostructure10](../output/Wallacea_w_seabirds//geostructure_birds_10.png)
+![geostructure10](Wallacea_w_seabirds//geostructure_birds_10.png)
 ## Driving Bird Species
 
 We obtain the driving bird species for each cluster using the **CountClust** package.

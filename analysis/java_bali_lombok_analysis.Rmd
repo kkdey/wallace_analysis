@@ -119,7 +119,7 @@ latlong3[9,2] = -8.5
 latlong3[10,2] = -8.5
 
 for(k in 2:4){
-  png(filename=paste0("../output/Java_Bali_Lombok/geostructure_birds_", k, ".png"),width = 1000, height = 800)
+  png(filename=paste0("../docs/Java_Bali_Lombok/geostructure_birds_", k, ".png"),width = 1000, height = 800)
 map("worldHires",
     ylim=c(-9.3,-7.1), xlim=c(112,119.5), # Re-defines the latitude and longitude range
     col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
@@ -141,9 +141,9 @@ dev.off()
 
 The geostructure plot for K=2.
 
-![geostructure2](../output/Java_Bali_Lombok/geostructure_birds_2.png)
-![geostructure3](../output/Java_Bali_Lombok/geostructure_birds_3.png)
-![geostructure4](../output/Java_Bali_Lombok/geostructure_birds_4.png)
+![geostructure2](Java_Bali_Lombok/geostructure_birds_2.png)
+![geostructure3](Java_Bali_Lombok/geostructure_birds_3.png)
+![geostructure4](Java_Bali_Lombok/geostructure_birds_4.png)
 
 ## Driving Bird Species
 

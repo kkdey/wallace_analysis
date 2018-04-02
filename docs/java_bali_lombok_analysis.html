@@ -396,7 +396,7 @@ latlong3[9,2] = -8.5
 latlong3[10,2] = -8.5
 
 for(k in 2:4){
-  png(filename=paste0(&quot;../output/Java_Bali_Lombok/geostructure_birds_&quot;, k, &quot;.png&quot;),width = 1000, height = 800)
+  png(filename=paste0(&quot;../docs/Java_Bali_Lombok/geostructure_birds_&quot;, k, &quot;.png&quot;),width = 1000, height = 800)
 map(&quot;worldHires&quot;,
     ylim=c(-9.3,-7.1), xlim=c(112,119.5), # Re-defines the latitude and longitude range
     col = &quot;gray&quot;, fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
@@ -413,7 +413,7 @@ lapply(1:dim(topics_clust[[k]]$omega)[1], function(r)
 dev.off()
 }</code></pre>
 <p>The geostructure plot for K=2.</p>
-<p><img src="../output/Java_Bali_Lombok/geostructure_birds_2.png" alt="geostructure2" /> <img src="../output/Java_Bali_Lombok/geostructure_birds_3.png" alt="geostructure3" /> <img src="../output/Java_Bali_Lombok/geostructure_birds_4.png" alt="geostructure4" /></p>
+<p><img src="Java_Bali_Lombok/geostructure_birds_2.png" alt="geostructure2" /> <img src="Java_Bali_Lombok/geostructure_birds_3.png" alt="geostructure3" /> <img src="Java_Bali_Lombok/geostructure_birds_4.png" alt="geostructure4" /></p>
 </div>
 <div id="driving-bird-species" class="section level2">
 <h2>Driving Bird Species</h2>

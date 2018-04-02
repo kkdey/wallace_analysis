@@ -12,7 +12,7 @@
 <meta name="author" content="Kushal K Dey" />
 
 
-<title>Wallacea region GoM analysis</title>
+<title>Robust phylogenetic analysis of Wallacea bird species</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -309,77 +309,94 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Wallacea region GoM analysis</h1>
+<h1 class="title toc-ignore">Robust phylogenetic analysis of Wallacea bird species</h1>
 <h4 class="author"><em>Kushal K Dey</em></h4>
-<h4 class="date"><em>3/25/2018</em></h4>
+<h4 class="date"><em>4/2/2018</em></h4>
 
 </div>
 
 
-<div id="intro" class="section level2">
-<h2>Intro</h2>
-<p>Here we observe the presence absence data of bird species in the Australasian region (Wallacea). We try to interpret that in the context of our Grade of Membership (GoM) model and its applications to presence absence data.</p>
-</div>
-<div id="packages" class="section level2">
-<h2>Packages</h2>
-<p>Load the data</p>
-</div>
-<div id="wallacea-region-data" class="section level2">
-<h2>Wallacea Region data</h2>
-<pre class="r"><code>datalist &lt;- get(load(&quot;../data/wallace_region_pres_ab_breeding_with_seabirds.rda&quot;))
+<p>We look at phylogenetic analyses of the bird species in Wallacea.</p>
+<pre class="r"><code>library(ape)
+MyTree &lt;- read.tree(&quot;../data/wallaces_line_trees_med_no_seabirds.nwk&quot;)</code></pre>
+<pre class="r"><code>datalist &lt;- get(load(&quot;../data/wallace_region_pres_ab_breeding_no_seabirds.rda&quot;))
 latlong &lt;- datalist$loc
-data &lt;- datalist$dat
-if(nrow(latlong) != nrow(data)) stop(&quot;dimensions matching error&quot;)</code></pre>
-</div>
-<div id="map-of-wallacea" class="section level2">
-<h2>Map of Wallacea</h2>
-<pre class="r"><code>world_map &lt;- map_data(&quot;world&quot;)
-world_map &lt;- world_map[world_map$region != &quot;Antarctica&quot;,] # intercourse antarctica
+data &lt;- datalist$dat</code></pre>
+<pre class="r"><code>names_phylogeny_match &lt;- read.csv(&quot;../data/names_matched_to_phylogeny.csv&quot;, 
+                                  header = TRUE, row.names = 1)
 
-world_map &lt;- world_map[world_map$long &gt; 90 &amp; world_map$long &lt; 160, ]
-world_map &lt;- world_map[world_map$lat &gt; -18 &amp; world_map$lat &lt; 20, ]
+tip_labels &lt;- MyTree$tip.label
+tip_labels &lt;- gsub(&quot;_&quot;, &quot; &quot;, tip_labels)
+common_names &lt;- intersect(colnames(data), names_phylogeny_match[,1])
+data2 &lt;- data[, match(common_names, colnames(data))]
 
+new_names &lt;- names_phylogeny_match[match(colnames(data2), names_phylogeny_match[,1]),2]
+colnames(data2) &lt;- new_names
 
-p &lt;- ggplot() + coord_fixed() +
-  xlab(&quot;&quot;) + ylab(&quot;&quot;)
+idx2 &lt;- match(tip_labels, as.character(names_phylogeny_match[,2]))
 
-#Add map to base plot
-base_world_messy &lt;- p + geom_polygon(data=world_map, aes(x=long, y=lat, group=group), colour=&quot;light green&quot;, fill=&quot;light green&quot;)
-
-cleanup &lt;- 
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
-        panel.background = element_rect(fill = &#39;white&#39;, colour = &#39;white&#39;), 
-        axis.line = element_line(colour = &quot;white&quot;), legend.position=&quot;none&quot;,
-        axis.ticks=element_blank(), axis.text.x=element_blank(),
-        axis.text.y=element_blank())
-
-base_world &lt;- base_world_messy + cleanup
-
-base_world</code></pre>
-<p><img src="wallacea_analysis_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<pre class="r"><code>birds_pa_data_3 &lt;- data</code></pre>
-</div>
-<div id="presence-absence-gom-model" class="section level2">
-<h2>Presence absence GoM model</h2>
-<p>Applying methclust presence absence Grade of Membership model to the presence absence data</p>
-<pre class="r"><code>topics_clust &lt;- list()
-topics_clust[[1]] &lt;- NULL
-for(k in 2:10){
-  topics_clust[[k]] &lt;- meth_topics(birds_pa_data_3, 1 - birds_pa_data_3, 
-            K=k, tol = 10, use_squarem = FALSE)
+newTree &lt;- MyTree
+newTree$tip.label &lt;- tip_labels</code></pre>
+<pre class="r"><code>source(&quot;../code/collapse_counts_by_phylo.R&quot;)
+sliced_data_cutoffs &lt;- list()
+k &lt;- 1
+for(cut in c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80)){
+  sliced_data_cutoffs[[k]] &lt;- collapse_counts_by_phylo(data2, newTree, collapse_at = cut)
+  k  =  k + 1
 }
-save(topics_clust, file = &quot;../output/methClust_wallacea_w_seabirds.rda&quot;)</code></pre>
-<pre class="r"><code>topics_clust &lt;- get(load(&quot;../output/methClust_wallacea_w_seabirds.rda&quot;))</code></pre>
+save(sliced_data_cutoffs, file = &quot;../output/sliced_data_cutoffs_robust.rda&quot;)</code></pre>
+<pre class="r"><code>cuts &lt;- c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80)
+topic_clust &lt;- list()
+for(k in 1:length(cuts)){
+  num_groups_mat &lt;- t(sliced_data_cutoffs[[k]]$num_groups %*% t(rep(1, dim(data2)[1])))
+  meth &lt;- sliced_data_cutoffs[[k]]$outdat
+  unmeth &lt;- num_groups_mat - meth
+  topic_clust[[k]] &lt;- meth_topics(meth, unmeth, K=2, tol = 0.1, use_squarem = FALSE)
+}</code></pre>
+<pre><code>## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 181975.5, 1787.9, 1032.9, 815.3, 208.7, 39.7, 2.9, 7, 7.2, 8.4, 4.8, 7.8, 4.2, 1.2, 1.9, 16.8, 0.9, 0.5, 0.3, 0.3, 0.3, 0.3, 0.5, 0.5, 0.2, 0.2, 1.1, 1.6, 0.2, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 81608.7, 219.6, 178.2, 43.1, 0.7, 0.4, 0.3, 0.2, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 257581.4, 1596.8, 3775.7, 124, 3.3, 1.7, 1.3, 1.1, 0.9, 0.7, 0.5, 0.3, 0.2, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 142524.5, 879.2, 1432, 243.3, 270.1, 150.5, 559.9, 42.2, 1.4, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 10783.3, 187.5, 15.3, 0.6, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 3905.9, 75.8, 6.7, 1.5, 0.8, 0.5, 0.3, 0.2, 0.2, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 2929.4, 97.8, 46.4, 20.6, 9.3, 4.3, 2, 1, 0.5, 0.2, 0.1, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 27094.7, 767.4, 88.6, 24.3, 9.9, 4.8, 2.8, 1.8, 1.2, 0.9, 0.7, 0.5, 0.4, 0.3, 0.3, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 9743.8, 443.4, 477.5, 119, 49.5, 19.8, 9.5, 5.3, 3.2, 2.1, 1.4, 1, 0.7, 0.5, 0.4, 0.3, 0.3, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 11608.3, 458.1, 153, 79.7, 43.2, 26.7, 17.9, 12.6, 8.9, 5.5, 4, 3, 2.3, 1.7, 1.3, 1.1, 0.9, 0.7, 0.6, 0.5, 0.4, 0.4, 0.3, 0.3, 0.3, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 8615.3, 169.1, 118.5, 22.4, 8.1, 4, 2.4, 1.6, 1.1, 0.8, 0.7, 0.5, 0.4, 0.4, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, done.</code></pre>
+<pre class="r"><code>save(topic_clust, file = &quot;../output/phylogenetic_wallacea_methClust_robust.rda&quot;)</code></pre>
 <pre class="r"><code>color = c(&quot;red&quot;, &quot;cornflowerblue&quot;, &quot;cyan&quot;, &quot;brown4&quot;, &quot;burlywood&quot;, &quot;darkgoldenrod1&quot;,
           &quot;azure4&quot;, &quot;green&quot;,&quot;deepskyblue&quot;,&quot;yellow&quot;, &quot;azure1&quot;)
 intensity &lt;- 0.8
-for(k in 2:10){
-  png(filename=paste0(&quot;../docs/Wallacea_w_seabirds/geostructure_birds_&quot;, k, &quot;.png&quot;),width = 1000, height = 800)
+for(k in 1:length(cuts)){
+  png(filename=paste0(&quot;../docs/robust_phylogenetic_wallacea/cutoff_&quot;, cuts[k], &quot;.png&quot;),width = 1000, height = 800)
 map(&quot;worldHires&quot;,
     ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
     col = &quot;gray&quot;, fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
-lapply(1:dim(topics_clust[[k]]$omega)[1], function(r)
-  add.pie(z=as.integer(100*topics_clust[[k]]$omega[r,]),
+lapply(1:dim(topic_clust[[k]]$omega)[1], function(r)
+  add.pie(z=as.integer(100*topic_clust[[k]]$omega[r,]),
           x=latlong[r,1], y=latlong[r,2], labels=c(&quot;&quot;,&quot;&quot;,&quot;&quot;),
           radius = 0.5,
           col=c(alpha(color[1],intensity),alpha(color[2],intensity),
@@ -390,94 +407,40 @@ lapply(1:dim(topics_clust[[k]]$omega)[1], function(r)
                 alpha(color[11], intensity))));
 dev.off()
 }</code></pre>
-<p>The geostructure plot for different K.</p>
+<p>cut-off = 5</p>
 <div class="figure">
-<img src="Wallacea_w_seabirds//geostructure_birds_2.png" alt="geostructure2" />
-<p class="caption">geostructure2</p>
+<img src="robust_phylogenetic_wallacea/cutoff_5.png" alt="cutoff1" />
+<p class="caption">cutoff1</p>
 </div>
+<p>cut-off = 10</p>
 <div class="figure">
-<img src="Wallacea_w_seabirds//geostructure_birds_3.png" alt="geostructure3" />
-<p class="caption">geostructure3</p>
+<img src="robust_phylogenetic_wallacea/cutoff_10.png" alt="cutoff2" />
+<p class="caption">cutoff2</p>
 </div>
+<p>cut-off = 20</p>
 <div class="figure">
-<img src="Wallacea_w_seabirds//geostructure_birds_4.png" alt="geostructure4" />
-<p class="caption">geostructure4</p>
+<img src="robust_phylogenetic_wallacea/cutoff_20.png" alt="cutoff2" />
+<p class="caption">cutoff2</p>
 </div>
+<p>cut-off = 40</p>
 <div class="figure">
-<img src="Wallacea_w_seabirds//geostructure_birds_5.png" alt="geostructure5" />
-<p class="caption">geostructure5</p>
+<img src="robust_phylogenetic_wallacea/cutoff_40.png" alt="cutoff2" />
+<p class="caption">cutoff2</p>
 </div>
+<p>cut-off = 50</p>
 <div class="figure">
-<img src="Wallacea_w_seabirds//geostructure_birds_6.png" alt="geostructure6" />
-<p class="caption">geostructure6</p>
+<img src="robust_phylogenetic_wallacea/cutoff_50.png" alt="cutoff2" />
+<p class="caption">cutoff2</p>
 </div>
-<p><img src="Wallacea_w_seabirds//geostructure_birds_7.png" alt="geostructure7" /> <img src="Wallacea_w_seabirds//geostructure_birds_8.png" alt="geostructure8" /> <img src="Wallacea_w_seabirds//geostructure_birds_9.png" alt="geostructure9" /></p>
-<p><img src="Wallacea_w_seabirds//geostructure_birds_10.png" alt="geostructure10" /> ## Driving Bird Species</p>
-<p>We obtain the driving bird species for each cluster using the <strong>CountClust</strong> package.</p>
-<pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[10]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;)
-species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[10]]$freq)[x]))
-species_names</code></pre>
-<pre><code>##       [,1]                        [,2]                      
-##  [1,] &quot;Ixos malaccensis&quot;          &quot;Anthreptes simplex&quot;      
-##  [2,] &quot;Pterodroma brevipes&quot;       &quot;Pterodroma leucoptera&quot;   
-##  [3,] &quot;Chalcites osculans&quot;        &quot;Ramsayornis fasciatus&quot;   
-##  [4,] &quot;Melilestes megarhynchus&quot;   &quot;Gymnocrex plumbeiventris&quot;
-##  [5,] &quot;Arborophila brunneopectus&quot; &quot;Zoothera marginata&quot;      
-##  [6,] &quot;Ardeola grayii&quot;            &quot;Leptoptilos dubius&quot;      
-##  [7,] &quot;Streptopelia dusumieri&quot;    &quot;Tanygnathus lucionensis&quot; 
-##  [8,] &quot;Ceyx fallax&quot;               &quot;Ducula radiata&quot;          
-##  [9,] &quot;Alcedo euryzona&quot;           &quot;Coracina javensis&quot;       
-## [10,] &quot;Charadrius alexandrinus&quot;   &quot;Dendrocopos major&quot;       
-##       [,3]                       [,4]                     
-##  [1,] &quot;Iole olivacea&quot;            &quot;Rhizothera longirostris&quot;
-##  [2,] &quot;Megapodius eremita&quot;       &quot;Aerodramus spodiopygius&quot;
-##  [3,] &quot;Dicaeum hirundinaceum&quot;    &quot;Artamus personatus&quot;     
-##  [4,] &quot;Ninox theomacha&quot;          &quot;Peltops blainvillii&quot;    
-##  [5,] &quot;Niltava macgrigoriae&quot;     &quot;Chloropsis hardwickii&quot;  
-##  [6,] &quot;Picus viridanus&quot;          &quot;Dinopium shorii&quot;        
-##  [7,] &quot;Cacatua haematuropygia&quot;   &quot;Ducula carola&quot;          
-##  [8,] &quot;Gallicolumba tristigmata&quot; &quot;Ramphiculus epius&quot;      
-##  [9,] &quot;Halcyon cyanoventris&quot;     &quot;Lonchura ferruginosa&quot;   
-## [10,] &quot;Gorsachius magnificus&quot;    &quot;Halcyon pileata&quot;        
-##       [,5]                         [,6]                      
-##  [1,] &quot;Rollulus rouloul&quot;           &quot;Prionochilus maculatus&quot;  
-##  [2,] &quot;Geoffroyus heteroclitus&quot;    &quot;Cacatua ducorpsii&quot;       
-##  [3,] &quot;Aquila audax&quot;               &quot;Chalcites basalis&quot;       
-##  [4,] &quot;Loriculus aurantiifrons&quot;    &quot;Gerygone chrysogaster&quot;   
-##  [5,] &quot;Blythipicus pyrrhotis&quot;      &quot;Seicercus poliogenys&quot;    
-##  [6,] &quot;Calandrella raytal&quot;         &quot;Haliaeetus leucoryphus&quot;  
-##  [7,] &quot;Ninox randi&quot;                &quot;Microhierax erythrogenys&quot;
-##  [8,] &quot;Aramidopsis plateni&quot;        &quot;Coracias temminckii&quot;     
-##  [9,] &quot;Padda oryzivora&quot;            &quot;Pitta guajana&quot;           
-## [10,] &quot;Hirundapus cochinchinensis&quot; &quot;Niltava davidi&quot;          
-##       [,7]                        [,8]                       
-##  [1,] &quot;Rhinortha chlorophaea&quot;     &quot;Platysmurus leucopterus&quot;  
-##  [2,] &quot;Haliaeetus sanfordi&quot;       &quot;Ducula pistrinaria&quot;       
-##  [3,] &quot;Elseyornis melanops&quot;       &quot;Eurostopodus argus&quot;       
-##  [4,] &quot;Harpyopsis novaeguineae&quot;   &quot;Ailuroedus buccoides&quot;     
-##  [5,] &quot;Arborophila rufogularis&quot;   &quot;Pomatorhinus ferruginosus&quot;
-##  [6,] &quot;Phalacrocorax fuscicollis&quot; &quot;Anastomus oscitans&quot;       
-##  [7,] &quot;Surniculus velutinus&quot;      &quot;Terpsiphone cinnamomea&quot;   
-##  [8,] &quot;Coracina leucopygia&quot;       &quot;Loriculus stigmatus&quot;      
-##  [9,] &quot;Psilopogon armillaris&quot;     &quot;Orthotomus sepium&quot;        
-## [10,] &quot;Pycnonotus sinensis&quot;       &quot;Sturnus sericeus&quot;         
-##       [,9]                        [,10]                        
-##  [1,] &quot;Meiglyptes grammithorax&quot;   &quot;Pycnonotus cyaniventris&quot;    
-##  [2,] &quot;Ducula rubricera&quot;          &quot;Dicaeum aeneum&quot;             
-##  [3,] &quot;Hamirostra melanosternon&quot;  &quot;Pachycephala rufiventris&quot;   
-##  [4,] &quot;Megatriorchis doriae&quot;      &quot;Microdynamis parva&quot;         
-##  [5,] &quot;Pomatorhinus ochraceiceps&quot; &quot;Stachyris ambigua&quot;          
-##  [6,] &quot;Saxicola leucurus&quot;         &quot;Clanga hastata&quot;             
-##  [7,] &quot;Dicaeum bicolor&quot;           &quot;Picoides maculatus&quot;         
-##  [8,] &quot;Picoides temminckii&quot;       &quot;Rhamphococcyx calyorhynchus&quot;
-##  [9,] &quot;Sturnus melanopterus&quot;      &quot;Stachyris melanothorax&quot;     
-## [10,] &quot;Surniculus dicruroides&quot;    &quot;Hemixos castanonotus&quot;</code></pre>
-<p>The weighting on the influence of the top 10 driving birds on the clusters for each of the 10 clusters under the K=10 model.</p>
-<pre class="r"><code>par(mfrow=c(3,4))
-for(m in 1:10){
-  plot(driving_species_ind$scores[m,], col=&#39;red&#39;, pch = 20, cex = 1.5)
-}</code></pre>
-<p><img src="wallacea_analysis_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>cut-off = 60</p>
+<div class="figure">
+<img src="robust_phylogenetic_wallacea/cutoff_60.png" alt="cutoff2" />
+<p class="caption">cutoff2</p>
+</div>
+<p>cut-off = 80</p>
+<div class="figure">
+<img src="robust_phylogenetic_wallacea/cutoff_80.png" alt="cutoff2" />
+<p class="caption">cutoff2</p>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
