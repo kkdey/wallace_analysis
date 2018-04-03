@@ -14,6 +14,8 @@ Codes to reproduce the results in paper:
 
 * **Literature Review of the Wallace Line**
     + [*analysis*](literature_review.html)
+    
+* **Ecostructure GoM model**
           
 * **EcoStructure on the entire Wallacea**
     + [*with seabirds*](wallacea_analysis.html)
