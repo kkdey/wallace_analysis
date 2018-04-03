@@ -5,6 +5,16 @@ date: "3/27/2018"
 output: html_document
 ---
 
+## Intro
+
+We use the phylogenetic information on bird species to combine them at different 
+stages of history going up from current time, that corresponds to all the reported
+species. Then GoM model was run on the combined species at each cut off of the
+phylogentic tree and the resultant grouping. Here we concentrate on 
+the bird species from Wallacea except the sea birds.
+
+## Packages
+
 ```{r setup, include=FALSE}
 library(methClust)
 library(CountClust)
@@ -23,6 +33,8 @@ library(phytools)
 ```
 
 
+## Data
+
 We look at phylogenetic analyses of the bird species in Wallacea. 
 
 ```{r}
@@ -36,6 +48,8 @@ latlong <- datalist$loc
 data <- datalist$dat
 ```
 
+
+## Data + phylogeny
 
 ```{r}
 names_phylogeny_match <- read.csv("../data/names_matched_to_phylogeny.csv", 
@@ -71,6 +85,7 @@ source("../code/collapse_counts_by_phylo.R")
 sliced_data_cutoffs <- get(load("../output/sliced_data_cutoffs.rda"))
 ```
 
+## GoM model
 
 ```{r}
 cuts <- c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80)
@@ -85,6 +100,8 @@ for(k in 1:length(cuts)){
 save(topic_clust, file = "../output/phylogenetic_wallacea_methClust.rda")
 
 ```
+
+## Visualization
 
 ```{r}
 
@@ -111,47 +128,53 @@ dev.off()
 
 ```
 
-cut-off = 5
+### cut-off = 5
 
 ![cutoff1](../output/phylogenetic_wallacea/cutoff_5.png)
 
-cut-off = 10
+### cut-off = 10
 
 ![cutoff2](phylogenetic_wallacea/cutoff_10.png)
 
-cut-off = 15
+### cut-off = 15
 
 ![cutoff3](phylogenetic_wallacea/cutoff_15.png)
 
-cut-off = 20
+### cut-off = 20
 
 ![cutoff4](phylogenetic_wallacea/cutoff_20.png)
 
-cut-off = 30
+### cut-off = 30
 
 ![cutoff5](phylogenetic_wallacea/cutoff_30.png)
 
-cut-off = 40
+### cut-off = 40
 
 ![cutoff6](phylogenetic_wallacea/cutoff_40.png)
 
-cut-off = 50
+### cut-off = 50
 
 ![cutoff7](phylogenetic_wallacea/cutoff_50.png)
 
-cut-off = 60
+### cut-off = 60
 
 ![cutoff8](phylogenetic_wallacea/cutoff_60.png)
 
-cut-off = 70
+### cut-off = 70
 
 ![cutoff9](phylogenetic_wallacea/cutoff_70.png)
 
-cut-off = 75
+### cut-off = 75
 
 ![cutoff10](phylogenetic_wallacea/cutoff_75.png)
 
-cut-off = 80
+### cut-off = 80
 
 ![cutoff11](phylogenetic_wallacea/cutoff_80.png)
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
 

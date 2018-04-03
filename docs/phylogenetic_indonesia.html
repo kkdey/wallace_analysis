@@ -316,7 +316,29 @@ div.section {
 </div>
 
 
-<p>We look at phylogenetic analyses of the Indonesian bird species in Java, Bali, Lombok and Sumbawa.</p>
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>We use the phylogenetic information on bird species to combine them at different stages of history going up from current time, that corresponds to all the reported species. Then GoM model was run on the combined species at each cut off of the phylogentic tree and the resultant grouping. Here we concentrate on only the bird species from Java, Bali, Lombok and Sumbawa.</p>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<pre class="r"><code>library(methClust)
+library(CountClust)
+library(rasterVis)
+library(gtools)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)
+library(ape)
+library(phytools)</code></pre>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
 <pre class="r"><code>library(ape)
 MyTree &lt;- read.tree(&quot;../data/wallaces_line_trees_mean_no_seabirds.nwk&quot;)</code></pre>
 <pre class="r"><code>datalist &lt;- get(load(&quot;../data/wallace_region_pres_ab_breeding_no_seabirds.rda&quot;))
@@ -332,6 +354,9 @@ length(idx)</code></pre>
 
 birds_pa_data_2 &lt;- data[idx, ]
 birds_pa_data_3 &lt;- birds_pa_data_2[, which(colSums(birds_pa_data_2)!=0)]</code></pre>
+</div>
+<div id="processing-data-phylogeny" class="section level2">
+<h2>Processing data + phylogeny</h2>
 <pre class="r"><code>data &lt;- birds_pa_data_3
 names_phylogeny_match &lt;- read.csv(&quot;../data/names_matched_to_phylogeny.csv&quot;, 
                                   header = TRUE, row.names = 1)
@@ -356,6 +381,9 @@ for(cut in c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 100)){
   k  =  k + 1
 }
 save(sliced_data_cutoffs, file = &quot;../output/sliced_data_cutoffs_indonesia.rda&quot;)</code></pre>
+</div>
+<div id="gom-model" class="section level2">
+<h2>GoM model</h2>
 <pre class="r"><code>cuts &lt;- c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 100)
 topic_clust &lt;- list()
 for(k in 1:length(cuts)){
@@ -366,50 +394,53 @@ for(k in 1:length(cuts)){
 }</code></pre>
 <pre><code>## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 678.44, 0.06, 0.01, done.
+## log posterior increase: 967.46, 0.03, -1.12, 0.97, 0.31, 0.23, 0, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 480.32, 0.07, 7.3, 0.14, 2.43, 0.06, 0.03, done.
+## log posterior increase: 7531.88, 49.42, 0.09, 0.01, 3.73, 0.44, 0.32, 0.27, 0.83, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 964.16, 0.1, 1.4, 0, done.
+## log posterior increase: 593.56, 0, 2.27, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 2907.98, 0.9, 0, done.
+## log posterior increase: 1270.56, 0.09, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 199.97, 1.56, 6.58, done.
+## log posterior increase: 1110.56, 0.09, 0.03, 1.47, 0, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 936.8, 0.05, done.
+## log posterior increase: 171.46, 0.01, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 85.72, 0.11, 0, done.
+## log posterior increase: 102.68, 0.04, 0, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 163.89, 0.16, 3.6, 0, done.
+## log posterior increase: 110.23, 0.02, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 152.98, 0.12, 0.02, 0.01, done.
+## log posterior increase: 203.98, 0.3, 0.73, 0.01, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 279.13, 0.65, 0.15, 0.07, 0.04, 0.03, 0.02, 0.02, 0.01, 0.01, done.
+## log posterior increase: 154.65, 0.48, 0.13, 0.07, 0.04, 0.03, 0.02, 0.02, 0.01, 0.01, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 46.65, 0.39, 0.13, 0.07, 0.04, 0.03, 0.02, 0.02, 0.01, done.
+## log posterior increase: 103.06, 0.55, 0.15, 0.07, 0.05, 0.03, 0.02, 0.02, 0.01, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 87.61, 0.49, 0.14, 0.07, 0.05, 0.03, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01, done.
+## log posterior increase: 66.52, 0.47, 0.14, 0.08, 0.05, 0.03, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01, 0.01, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 75.45, 0.51, 0.15, 0.08, 0.05, 0.03, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01, 0.01, done.
+## log posterior increase: 24.55, 0.37, 0.13, 0.07, 0.05, 0.03, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 110.06, 0.52, 0.15, 0.08, 0.05, 0.04, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01, 0.01, done.
+## log posterior increase: 2.12, 0.23, 0.1, 0.06, 0.04, 0.03, 0.02, 0.02, 0.02, 0.01, 0.01, 0.01, done.
 ## 
 ## Estimating on a 10 samples collection.
-## log posterior increase: 35.66, 0.44, 0.13, 0.07, 0.05, 0.03, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01, done.</code></pre>
+## log posterior increase: 12.94, 0.31, 0.12, 0.07, 0.04, 0.03, 0.03, 0.02, 0.02, 0.01, 0.01, 0.01, done.</code></pre>
 <pre class="r"><code>save(topic_clust, file = &quot;../output/phylogenetic_indonesia_methClust.rda&quot;)</code></pre>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
 <pre class="r"><code>color = c(&quot;red&quot;, &quot;cornflowerblue&quot;, &quot;cyan&quot;, &quot;brown4&quot;, &quot;burlywood&quot;, &quot;darkgoldenrod1&quot;,
           &quot;azure4&quot;, &quot;green&quot;,&quot;deepskyblue&quot;,&quot;yellow&quot;, &quot;azure1&quot;)
 intensity &lt;- 0.8
@@ -437,31 +468,109 @@ lapply(1:dim(topic_clust[[k]]$omega)[1], function(r)
                 alpha(color[11], intensity))));
 dev.off()
 }</code></pre>
-<p>cut-off = 10</p>
+<div id="cut-off-10" class="section level3">
+<h3>cut-off = 10</h3>
 <div class="figure">
 <img src="phylogenetic_indonesia/cutoff_10.png" alt="cutoff" />
 <p class="caption">cutoff</p>
 </div>
-<p>cut-off = 20</p>
+</div>
+<div id="cut-off-20" class="section level3">
+<h3>cut-off = 20</h3>
 <div class="figure">
 <img src="phylogenetic_indonesia/cutoff_20.png" alt="cutoff" />
 <p class="caption">cutoff</p>
 </div>
-<p>cut-off = 50</p>
+</div>
+<div id="cut-off-50" class="section level3">
+<h3>cut-off = 50</h3>
 <div class="figure">
 <img src="phylogenetic_indonesia/cutoff_50.png" alt="cutoff" />
 <p class="caption">cutoff</p>
 </div>
-<p>cut-off = 70</p>
+</div>
+<div id="cut-off-70" class="section level3">
+<h3>cut-off = 70</h3>
 <div class="figure">
 <img src="phylogenetic_indonesia/cutoff_70.png" alt="cutoff" />
 <p class="caption">cutoff</p>
 </div>
-<p>cut-off = 80</p>
-<p><img src="phylogenetic_indonesia/cutoff_80.png" alt="cutoff" /> cut-off = 90</p>
+</div>
+<div id="cut-off-80" class="section level3">
+<h3>cut-off = 80</h3>
+<div class="figure">
+<img src="phylogenetic_indonesia/cutoff_80.png" alt="cutoff" />
+<p class="caption">cutoff</p>
+</div>
+</div>
+<div id="cut-off-90" class="section level3">
+<h3>cut-off = 90</h3>
 <div class="figure">
 <img src="phylogenetic_indonesia/cutoff_90.png" alt="cutoff" />
 <p class="caption">cutoff</p>
+</div>
+<p>In summary, we see a distinction between species in Eastern and Western Indonesia going far far back.</p>
+</div>
+</div>
+<div id="sessioninfo" class="section level2">
+<h2>SessionInfo</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.4.4 (2018-03-15)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] phytools_0.6-44     ape_5.0             ggthemes_3.4.0     
+##  [4] scales_0.5.0.9000   mapplots_1.5        mapdata_2.2-6      
+##  [7] maps_3.2.0          rgdal_1.2-16        gtools_3.5.0       
+## [10] rasterVis_0.41      latticeExtra_0.6-28 RColorBrewer_1.1-2 
+## [13] lattice_0.20-35     raster_2.6-7        sp_1.2-7           
+## [16] CountClust_1.5.1    ggplot2_2.2.1       methClust_0.1.0    
+## 
+## loaded via a namespace (and not attached):
+##  [1] viridisLite_0.3.0       splines_3.4.4          
+##  [3] assertthat_0.2.0        expm_0.999-2           
+##  [5] stats4_3.4.4            animation_2.5          
+##  [7] yaml_2.1.18             slam_0.1-42            
+##  [9] numDeriv_2016.8-1       pillar_1.1.0           
+## [11] backports_1.1.2         quadprog_1.5-5         
+## [13] limma_3.34.8            phangorn_2.3.1         
+## [15] digest_0.6.15           colorspace_1.3-2       
+## [17] picante_1.6-2           cowplot_0.9.2          
+## [19] htmltools_0.3.6         Matrix_1.2-12          
+## [21] plyr_1.8.4              pkgconfig_2.0.1        
+## [23] mvtnorm_1.0-6           combinat_0.0-8         
+## [25] tibble_1.4.2            mgcv_1.8-23            
+## [27] nnet_7.3-12             hexbin_1.27.1          
+## [29] lazyeval_0.2.1          mnormt_1.5-5           
+## [31] survival_2.41-3         magrittr_1.5           
+## [33] evaluate_0.10.1         msm_1.6.5              
+## [35] nlme_3.1-131.1          MASS_7.3-47            
+## [37] vegan_2.4-4             tools_3.4.4            
+## [39] stringr_1.3.0           munsell_0.4.3          
+## [41] plotrix_3.7             cluster_2.0.6          
+## [43] compiler_3.4.4          clusterGeneration_1.3.4
+## [45] rlang_0.2.0             grid_3.4.4             
+## [47] igraph_1.1.2            rmarkdown_1.9          
+## [49] boot_1.3-20             gtable_0.2.0           
+## [51] flexmix_2.3-14          reshape2_1.4.3         
+## [53] zoo_1.8-0               knitr_1.20             
+## [55] fastmatch_1.1-0         rprojroot_1.3-2        
+## [57] maptpx_1.9-4            permute_0.9-4          
+## [59] modeltools_0.2-21       stringi_1.1.6          
+## [61] parallel_3.4.4          SQUAREM_2017.10-1      
+## [63] Rcpp_0.12.16            coda_0.19-1            
+## [65] scatterplot3d_0.3-40</code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

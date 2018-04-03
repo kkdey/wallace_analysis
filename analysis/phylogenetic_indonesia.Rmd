@@ -5,7 +5,17 @@ date: "4/2/2018"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+## Intro
+
+We use the phylogenetic information on bird species to combine them at different 
+stages of history going up from current time, that corresponds to all the reported
+species. Then GoM model was run on the combined species at each cut off of the
+phylogentic tree and the resultant grouping. Here we concentrate on only
+the bird species from  Java, Bali, Lombok and Sumbawa.
+
+## Packages
+
+```{r setup, include=TRUE, warning=FALSE, message=FALSE}
 library(methClust)
 library(CountClust)
 library(rasterVis)
@@ -23,7 +33,7 @@ library(phytools)
 ```
 
 
-We look at phylogenetic analyses of the Indonesian bird species in Java, Bali, Lombok and Sumbawa.
+## Data
 
 ```{r}
 library(ape)
@@ -45,6 +55,8 @@ birds_pa_data_2 <- data[idx, ]
 birds_pa_data_3 <- birds_pa_data_2[, which(colSums(birds_pa_data_2)!=0)]
 
 ```
+
+## Processing data + phylogeny 
 
 ```{r}
 data <- birds_pa_data_3
@@ -81,6 +93,7 @@ source("../code/collapse_counts_by_phylo.R")
 sliced_data_cutoffs <- get(load("../output/sliced_data_cutoffs_indonesia.rda"))
 ```
 
+## GoM model
 
 ```{r}
 cuts <- c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 100)
@@ -95,6 +108,8 @@ for(k in 1:length(cuts)){
 save(topic_clust, file = "../output/phylogenetic_indonesia_methClust.rda")
 
 ```
+
+## Visualization
 
 ```{r}
 color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod1",
@@ -128,27 +143,37 @@ dev.off()
 ```
 
 
-cut-off = 10
+### cut-off = 10
 
 ![cutoff](phylogenetic_indonesia/cutoff_10.png)
 
 
-cut-off = 20
+### cut-off = 20
 
 ![cutoff](phylogenetic_indonesia/cutoff_20.png)
 
-cut-off = 50
+### cut-off = 50
 
 ![cutoff](phylogenetic_indonesia/cutoff_50.png)
 
-cut-off = 70
+### cut-off = 70
 
 ![cutoff](phylogenetic_indonesia/cutoff_70.png)
 
-cut-off = 80
+### cut-off = 80
 
 ![cutoff](phylogenetic_indonesia/cutoff_80.png)
-cut-off = 90
+
+### cut-off = 90
 
 ![cutoff](phylogenetic_indonesia/cutoff_90.png)
+
+In summary, we see a distinction between species in Eastern and Western Indonesia going far far back.
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+
 

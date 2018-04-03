@@ -26,4 +26,11 @@ Codes to reproduce the results in paper:
     + [*Indonesian bird species*](indonesian_birds_graphs.html)
     + [*Entire Wallacea bird species*](wallacea_birds_graphs.html)
     
+*  **Combining GoM model with phylogenetic information**
+    + [*All Wallacea birds*](phylogenetic_wallacea.html)
+    + [*All Wallacea birds + robust phylogeny*](robust_phylogenetic_wallacea.html)
+    + [*Indonesian bird species*](phylogenetic_indonesia.html)
+    
+*  **Combining GoM clusters with bird species diets**
+    
     

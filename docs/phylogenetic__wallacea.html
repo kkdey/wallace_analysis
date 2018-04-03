@@ -316,12 +316,24 @@ div.section {
 </div>
 
 
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>We use the phylogenetic information on bird species to combine them at different stages of history going up from current time, that corresponds to all the reported species. Then GoM model was run on the combined species at each cut off of the phylogentic tree and the resultant grouping. Here we concentrate on the bird species from Wallacea except the sea birds.</p>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
 <p>We look at phylogenetic analyses of the bird species in Wallacea.</p>
 <pre class="r"><code>library(ape)
 MyTree &lt;- read.tree(&quot;../data/wallaces_line_trees_mean_no_seabirds.nwk&quot;)</code></pre>
 <pre class="r"><code>datalist &lt;- get(load(&quot;../data/wallace_region_pres_ab_breeding_no_seabirds.rda&quot;))
 latlong &lt;- datalist$loc
 data &lt;- datalist$dat</code></pre>
+</div>
+<div id="data-phylogeny" class="section level2">
+<h2>Data + phylogeny</h2>
 <pre class="r"><code>names_phylogeny_match &lt;- read.csv(&quot;../data/names_matched_to_phylogeny.csv&quot;, 
                                   header = TRUE, row.names = 1)
 
@@ -345,6 +357,9 @@ for(cut in c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80)){
   k  =  k + 1
 }
 save(sliced_data_cutoffs, file = &quot;../output/sliced_data_cutoffs.rda&quot;)</code></pre>
+</div>
+<div id="gom-model" class="section level2">
+<h2>GoM model</h2>
 <pre class="r"><code>cuts &lt;- c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80)
 topic_clust &lt;- list()
 for(k in 1:length(cuts)){
@@ -355,38 +370,41 @@ for(k in 1:length(cuts)){
 }</code></pre>
 <pre><code>## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 63596.1, 164.9, 2.3, 292.4, 160, 6.2, 54.2, 191.4, 1.1, 16.2, 3.3, 1.3, 1, 0.4, 0.1, done.
+## log posterior increase: 97444.9, 134.9, 9.3, 27.2, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 189601.6, 2083, 1636.5, 202.4, 18.1, 0.4, 0.2, 0.2, 0.1, done.
+## log posterior increase: 138888.6, 787.5, 92.8, 61.1, 3.4, 0.1, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 22900.5, 130.9, 3.8, 0.8, 0.4, done.
+## log posterior increase: 20254.5, 165.3, 1.2, 1, 23, 6.3, 1.7, 1.7, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 27572.7, 152.1, 4.4, 0.3, 0.4, done.
+## log posterior increase: 125361.7, 506, 333.7, 210.9, 244.4, 180.9, 200.5, 40, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 66050.5, 560.7, 240.3, 104.4, 50.4, 29.7, 32.7, 213.5, 594.9, 154.3, 112.6, 405.2, 151.4, 328.8, 142.6, 153.4, 42.9, 16.9, 104.4, 62.4, 23.6, 53.2, 26.3, 0.7, 9.6, 0.4, 7.7, 7, 5.8, 10.5, 0.5, 0.4, 1.2, 3.5, 7, 3.9, 0.5, done.
+## log posterior increase: 6831.8, 126.7, 1.1, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 183862.9, 125.3, 44.7, 25.7, 18.9, 15, 8.8, 7.5, 7.3, 7.8, 9, 10.4, 11.9, 13.1, 13.8, 14.2, 14.7, 16.1, 20.6, 29.3, 30.5, 36.4, 35.3, 19.6, 14.1, 23.4, 28.9, 23.9, 37.9, 39.9, 41.6, 77.2, 167.1, 214.5, 145.1, 126.1, 111.3, 9.4, 3.2, 256.8, 1.1, 22.5, 8.7, 4.3, 2.1, 6.2, 2.2, done.
+## log posterior increase: 79117.8, 290.5, 322, 273.2, 362.8, 346, 231.3, 95.1, 20.3, 38.5, 9.6, 28.1, 39, 11.2, 4.7, 4.1, 3.2, 2.5, 2.3, 2.3, 2.3, 2.2, 2, 1.8, 1.7, 1.8, 2, 2.3, 3, 4.1, 6, 8.8, 12.2, 15.5, 17.6, 18.8, 20.2, 21.7, 22.2, 22.7, 34.1, 29.7, 38.4, 30.7, 39.3, 15.1, 10.1, 58.4, 51.4, 7.3, 0.8, 0.3, 0.6, 1.7, 4.7, 6.9, 5.1, 4.2, 3.1, 2.4, 2.9, 11, 119.7, 81.9, 71.8, 13.9, 38.2, 247.5, 224.2, 3.4, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 21105.6, 250.6, 46.1, 3.5, 0.3, done.
+## log posterior increase: 12233.7, 550.9, 410.3, 159.9, 68.7, 63.8, 24.5, 19.2, 16.6, 15.3, 14.6, 14.3, 14.7, 17.4, 24.5, 31.6, 38.2, 44.4, 47.4, 61.3, 59, 11.5, 1.1, 0.1, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 6452.1, 306.5, 334.7, 130.5, 53.2, 25.5, 18.9, 16, 8.3, 4.5, 2.8, 1.9, 1.4, 1, 0.8, 0.6, 0.5, 0.4, 0.3, 0.2, 0.2, 0.2, 0.1, 0.1, done.
+## log posterior increase: 11030.7, 287.7, 147.5, 79.5, 48.6, 28, 18.2, 15.2, 7.5, 5.5, 4.2, 3.3, 2.7, 2.2, 1.9, 1.6, 1.4, 1.3, 1.2, 1.1, 1, 0.9, 0.8, 0.7, 0.7, 0.6, 0.6, 0.5, 0.5, 0.5, 0.4, 0.4, 0.4, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 6230.5, 266.3, 127.6, 65.2, 35.2, 21.4, 14.2, 10, 7.4, 4.5, 3.6, 2.9, 2.4, 2, 1.7, 1.5, 1.3, 1.1, 1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.5, 0.4, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, done.
+## log posterior increase: 15161.8, 1236.1, 221.8, 35.5, 11.7, 5.2, 2.8, 1.8, 1.2, 0.9, 0.7, 0.5, 0.4, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 8780.6, 139.3, 81.8, 19.5, 8.2, 6.2, 10.9, 4.1, 1.7, 1, 0.7, 0.5, 0.4, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, done.
+## log posterior increase: 2600.5, 247.9, 154.4, 76.5, 40.9, 25, 16.6, 11.6, 8.2, 5, 3.7, 2.7, 2.1, 1.6, 1.2, 1, 0.8, 0.6, 0.5, 0.5, 0.4, 0.4, 0.3, 0.3, 0.3, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, done.
 ## 
 ## Estimating on a 703 samples collection.
-## log posterior increase: 10405.6, 190.1, 715.1, 315.1, 147.9, 73.8, 38.4, 21.7, 17.7, 8.1, 5.3, 3, 2.1, 1.5, 1.1, 0.8, 0.6, 0.5, 0.5, 0.4, 0.4, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, done.</code></pre>
+## log posterior increase: 16580.7, 192.9, 153, 23.6, 8, 3.9, 2.3, 1.5, 1.1, 0.8, 0.7, 0.5, 0.4, 0.4, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, done.</code></pre>
 <pre class="r"><code>save(topic_clust, file = &quot;../output/phylogenetic_wallacea_methClust.rda&quot;)</code></pre>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
 <pre class="r"><code>color = c(&quot;red&quot;, &quot;cornflowerblue&quot;, &quot;cyan&quot;, &quot;brown4&quot;, &quot;burlywood&quot;, &quot;darkgoldenrod1&quot;,
           &quot;azure4&quot;, &quot;green&quot;,&quot;deepskyblue&quot;,&quot;yellow&quot;, &quot;azure1&quot;)
 intensity &lt;- 0.8
@@ -407,60 +425,143 @@ lapply(1:dim(topic_clust[[k]]$omega)[1], function(r)
                 alpha(color[11], intensity))));
 dev.off()
 }</code></pre>
-<p>cut-off = 5</p>
+<div id="cut-off-5" class="section level3">
+<h3>cut-off = 5</h3>
 <div class="figure">
 <img src="../output/phylogenetic_wallacea/cutoff_5.png" alt="cutoff1" />
 <p class="caption">cutoff1</p>
 </div>
-<p>cut-off = 10</p>
+</div>
+<div id="cut-off-10" class="section level3">
+<h3>cut-off = 10</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_10.png" alt="cutoff2" />
 <p class="caption">cutoff2</p>
 </div>
-<p>cut-off = 15</p>
+</div>
+<div id="cut-off-15" class="section level3">
+<h3>cut-off = 15</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_15.png" alt="cutoff3" />
 <p class="caption">cutoff3</p>
 </div>
-<p>cut-off = 20</p>
+</div>
+<div id="cut-off-20" class="section level3">
+<h3>cut-off = 20</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_20.png" alt="cutoff4" />
 <p class="caption">cutoff4</p>
 </div>
-<p>cut-off = 30</p>
+</div>
+<div id="cut-off-30" class="section level3">
+<h3>cut-off = 30</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_30.png" alt="cutoff5" />
 <p class="caption">cutoff5</p>
 </div>
-<p>cut-off = 40</p>
+</div>
+<div id="cut-off-40" class="section level3">
+<h3>cut-off = 40</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_40.png" alt="cutoff6" />
 <p class="caption">cutoff6</p>
 </div>
-<p>cut-off = 50</p>
+</div>
+<div id="cut-off-50" class="section level3">
+<h3>cut-off = 50</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_50.png" alt="cutoff7" />
 <p class="caption">cutoff7</p>
 </div>
-<p>cut-off = 60</p>
+</div>
+<div id="cut-off-60" class="section level3">
+<h3>cut-off = 60</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_60.png" alt="cutoff8" />
 <p class="caption">cutoff8</p>
 </div>
-<p>cut-off = 70</p>
+</div>
+<div id="cut-off-70" class="section level3">
+<h3>cut-off = 70</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_70.png" alt="cutoff9" />
 <p class="caption">cutoff9</p>
 </div>
-<p>cut-off = 75</p>
+</div>
+<div id="cut-off-75" class="section level3">
+<h3>cut-off = 75</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_75.png" alt="cutoff10" />
 <p class="caption">cutoff10</p>
 </div>
-<p>cut-off = 80</p>
+</div>
+<div id="cut-off-80" class="section level3">
+<h3>cut-off = 80</h3>
 <div class="figure">
 <img src="phylogenetic_wallacea/cutoff_80.png" alt="cutoff11" />
 <p class="caption">cutoff11</p>
+</div>
+</div>
+</div>
+<div id="sessioninfo" class="section level2">
+<h2>SessionInfo</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.4.4 (2018-03-15)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] phytools_0.6-44     ape_5.0             ggthemes_3.4.0     
+##  [4] scales_0.5.0.9000   mapplots_1.5        mapdata_2.2-6      
+##  [7] maps_3.2.0          rgdal_1.2-16        gtools_3.5.0       
+## [10] rasterVis_0.41      latticeExtra_0.6-28 RColorBrewer_1.1-2 
+## [13] lattice_0.20-35     raster_2.6-7        sp_1.2-7           
+## [16] CountClust_1.5.1    ggplot2_2.2.1       methClust_0.1.0    
+## 
+## loaded via a namespace (and not attached):
+##  [1] viridisLite_0.3.0       splines_3.4.4          
+##  [3] assertthat_0.2.0        expm_0.999-2           
+##  [5] stats4_3.4.4            animation_2.5          
+##  [7] yaml_2.1.18             slam_0.1-42            
+##  [9] numDeriv_2016.8-1       pillar_1.1.0           
+## [11] backports_1.1.2         quadprog_1.5-5         
+## [13] limma_3.34.8            phangorn_2.3.1         
+## [15] digest_0.6.15           colorspace_1.3-2       
+## [17] picante_1.6-2           cowplot_0.9.2          
+## [19] htmltools_0.3.6         Matrix_1.2-12          
+## [21] plyr_1.8.4              pkgconfig_2.0.1        
+## [23] mvtnorm_1.0-6           combinat_0.0-8         
+## [25] tibble_1.4.2            mgcv_1.8-23            
+## [27] nnet_7.3-12             hexbin_1.27.1          
+## [29] lazyeval_0.2.1          mnormt_1.5-5           
+## [31] survival_2.41-3         magrittr_1.5           
+## [33] evaluate_0.10.1         msm_1.6.5              
+## [35] nlme_3.1-131.1          MASS_7.3-47            
+## [37] vegan_2.4-4             tools_3.4.4            
+## [39] stringr_1.3.0           munsell_0.4.3          
+## [41] plotrix_3.7             cluster_2.0.6          
+## [43] compiler_3.4.4          clusterGeneration_1.3.4
+## [45] rlang_0.2.0             grid_3.4.4             
+## [47] igraph_1.1.2            rmarkdown_1.9          
+## [49] boot_1.3-20             gtable_0.2.0           
+## [51] flexmix_2.3-14          reshape2_1.4.3         
+## [53] zoo_1.8-0               knitr_1.20             
+## [55] fastmatch_1.1-0         rprojroot_1.3-2        
+## [57] maptpx_1.9-4            permute_0.9-4          
+## [59] modeltools_0.2-21       stringi_1.1.6          
+## [61] parallel_3.4.4          SQUAREM_2017.10-1      
+## [63] Rcpp_0.12.16            coda_0.19-1            
+## [65] scatterplot3d_0.3-40</code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
