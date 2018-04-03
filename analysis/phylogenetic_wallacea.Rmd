@@ -15,7 +15,7 @@ the bird species from Wallacea except the sea birds.
 
 ## Packages
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE, warning = FALSE, message = FALSE}
 library(methClust)
 library(CountClust)
 library(rasterVis)

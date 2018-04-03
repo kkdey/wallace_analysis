@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Kushal K Dey" />
+
+
+<title>Phylogenetic analysis of Wallacea bird species - no seabirds</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">wallace_analysis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Phylogenetic analysis of Wallacea bird species - no seabirds</h1>
+<h4 class="author"><em>Kushal K Dey</em></h4>
+<h4 class="date"><em>3/27/2018</em></h4>
+
+</div>
+
+
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>We use the phylogenetic information on bird species to combine them at different stages of history going up from current time, that corresponds to all the reported species. Then GoM model was run on the combined species at each cut off of the phylogentic tree and the resultant grouping. Here we concentrate on the bird species from Wallacea except the sea birds.</p>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<pre class="r"><code>library(methClust)
+library(CountClust)
+library(rasterVis)
+library(gtools)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)
+library(ape)
+library(phytools)</code></pre>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>We look at phylogenetic analyses of the bird species in Wallacea.</p>
+<pre class="r"><code>library(ape)
+MyTree &lt;- read.tree(&quot;../data/wallaces_line_trees_mean_no_seabirds.nwk&quot;)</code></pre>
+<pre class="r"><code>datalist &lt;- get(load(&quot;../data/wallace_region_pres_ab_breeding_no_seabirds.rda&quot;))
+latlong &lt;- datalist$loc
+data &lt;- datalist$dat</code></pre>
+</div>
+<div id="data-phylogeny" class="section level2">
+<h2>Data + phylogeny</h2>
+<pre class="r"><code>names_phylogeny_match &lt;- read.csv(&quot;../data/names_matched_to_phylogeny.csv&quot;, 
+                                  header = TRUE, row.names = 1)
+
+tip_labels &lt;- MyTree$tip.label
+tip_labels &lt;- gsub(&quot;_&quot;, &quot; &quot;, tip_labels)
+common_names &lt;- intersect(colnames(data), names_phylogeny_match[,1])
+data2 &lt;- data[, match(common_names, colnames(data))]
+
+new_names &lt;- names_phylogeny_match[match(colnames(data2), names_phylogeny_match[,1]),2]
+colnames(data2) &lt;- new_names
+
+idx2 &lt;- match(tip_labels, as.character(names_phylogeny_match[,2]))
+
+newTree &lt;- MyTree
+newTree$tip.label &lt;- tip_labels</code></pre>
+<pre class="r"><code>source(&quot;../code/collapse_counts_by_phylo.R&quot;)
+sliced_data_cutoffs &lt;- list()
+k &lt;- 1
+for(cut in c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80)){
+  sliced_data_cutoffs[[k]] &lt;- collapse_counts_by_phylo(data2, newTree, collapse_at = cut)
+  k  =  k + 1
+}
+save(sliced_data_cutoffs, file = &quot;../output/sliced_data_cutoffs.rda&quot;)</code></pre>
+</div>
+<div id="gom-model" class="section level2">
+<h2>GoM model</h2>
+<pre class="r"><code>cuts &lt;- c(5, 10, 15, 20, 30, 40, 50, 60, 70, 75, 80)
+topic_clust &lt;- list()
+for(k in 1:length(cuts)){
+  num_groups_mat &lt;- t(sliced_data_cutoffs[[k]]$num_groups %*% t(rep(1, dim(data2)[1])))
+  meth &lt;- sliced_data_cutoffs[[k]]$outdat
+  unmeth &lt;- num_groups_mat - meth
+  topic_clust[[k]] &lt;- meth_topics(meth, unmeth, K=2, tol = 0.1, use_squarem = FALSE)
+}</code></pre>
+<pre><code>## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 48696.4, 146.4, 3.1, 1, 0.5, 2.1, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 63379.4, 178.3, 78.8, 44.8, 0.3, 2.3, 0.2, 0.2, 0.2, 0.1, 0.2, 0.3, 0.3, 0.2, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 95482.5, 299.8, 248.1, 0.8, 0.5, 0.2, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 83698, 176.6, 1.4, 0.2, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 21960.4, 130.6, 3.7, 9.3, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 50392.5, 285.2, 98.5, 63.6, 62.4, 64.7, 62.8, 59.1, 162.8, 179, 21.9, 0.7, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 57938.5, 568.7, 839.5, 281.9, 144.4, 95.6, 64.3, 42.2, 27.7, 33.6, 28.2, 18.5, 16.8, 27, 39.3, 29.2, 19.6, 16.6, 55.9, 19.9, 14.7, 29.4, 49.3, 74.9, 48.9, 59.4, 76.2, 45, 7.8, 0.7, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 11513.2, 218.7, 94.2, 34.1, 19.5, 9.3, 5.3, 4.6, 7.9, 4.5, 2.1, 1.3, 0.9, 0.6, 0.5, 0.4, 0.3, 0.3, 0.2, 0.2, 0.1, 0.1, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 27169.4, 212.1, 106.3, 21.8, 8.2, 4.2, 2.6, 1.7, 1.2, 0.9, 0.7, 0.6, 0.5, 0.4, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 9805.3, 121.7, 541.2, 252.7, 130.6, 72.1, 42.9, 27.1, 17.3, 12.1, 8.7, 6.3, 4.7, 3.5, 2.7, 2.1, 1.6, 1.3, 1, 0.8, 0.7, 0.6, 0.5, 0.4, 0.4, 0.3, 0.3, 0.3, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, done.
+## 
+## Estimating on a 703 samples collection.
+## log posterior increase: 11471.3, 170.2, 122.4, 22.5, 8, 3.9, 2.3, 1.5, 1.1, 0.8, 0.6, 0.5, 0.4, 0.4, 0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1, done.</code></pre>
+<pre class="r"><code>save(topic_clust, file = &quot;../output/phylogenetic_wallacea_methClust.rda&quot;)</code></pre>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
+<pre class="r"><code>color = c(&quot;red&quot;, &quot;cornflowerblue&quot;, &quot;cyan&quot;, &quot;brown4&quot;, &quot;burlywood&quot;, &quot;darkgoldenrod1&quot;,
+          &quot;azure4&quot;, &quot;green&quot;,&quot;deepskyblue&quot;,&quot;yellow&quot;, &quot;azure1&quot;)
+intensity &lt;- 0.8
+for(k in 1:length(cuts)){
+  png(filename=paste0(&quot;../docs/phylogenetic_wallacea/cutoff_&quot;, cuts[k], &quot;.png&quot;),width = 1000, height = 800)
+map(&quot;worldHires&quot;,
+    ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
+    col = &quot;gray&quot;, fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
+lapply(1:dim(topic_clust[[k]]$omega)[1], function(r)
+  add.pie(z=as.integer(100*topic_clust[[k]]$omega[r,]),
+          x=latlong[r,1], y=latlong[r,2], labels=c(&quot;&quot;,&quot;&quot;,&quot;&quot;),
+          radius = 0.5,
+          col=c(alpha(color[1],intensity),alpha(color[2],intensity),
+                alpha(color[3], intensity), alpha(color[4], intensity),
+                alpha(color[5], intensity), alpha(color[6], intensity),
+                alpha(color[7], intensity), alpha(color[8], intensity),
+                alpha(color[9], intensity), alpha(color[10], intensity),
+                alpha(color[11], intensity))));
+dev.off()
+}</code></pre>
+<div id="cut-off-5" class="section level3">
+<h3>cut-off = 5</h3>
+<div class="figure">
+<img src="../output/phylogenetic_wallacea/cutoff_5.png" alt="cutoff1" />
+<p class="caption">cutoff1</p>
+</div>
+</div>
+<div id="cut-off-10" class="section level3">
+<h3>cut-off = 10</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_10.png" alt="cutoff2" />
+<p class="caption">cutoff2</p>
+</div>
+</div>
+<div id="cut-off-15" class="section level3">
+<h3>cut-off = 15</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_15.png" alt="cutoff3" />
+<p class="caption">cutoff3</p>
+</div>
+</div>
+<div id="cut-off-20" class="section level3">
+<h3>cut-off = 20</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_20.png" alt="cutoff4" />
+<p class="caption">cutoff4</p>
+</div>
+</div>
+<div id="cut-off-30" class="section level3">
+<h3>cut-off = 30</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_30.png" alt="cutoff5" />
+<p class="caption">cutoff5</p>
+</div>
+</div>
+<div id="cut-off-40" class="section level3">
+<h3>cut-off = 40</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_40.png" alt="cutoff6" />
+<p class="caption">cutoff6</p>
+</div>
+</div>
+<div id="cut-off-50" class="section level3">
+<h3>cut-off = 50</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_50.png" alt="cutoff7" />
+<p class="caption">cutoff7</p>
+</div>
+</div>
+<div id="cut-off-60" class="section level3">
+<h3>cut-off = 60</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_60.png" alt="cutoff8" />
+<p class="caption">cutoff8</p>
+</div>
+</div>
+<div id="cut-off-70" class="section level3">
+<h3>cut-off = 70</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_70.png" alt="cutoff9" />
+<p class="caption">cutoff9</p>
+</div>
+</div>
+<div id="cut-off-75" class="section level3">
+<h3>cut-off = 75</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_75.png" alt="cutoff10" />
+<p class="caption">cutoff10</p>
+</div>
+</div>
+<div id="cut-off-80" class="section level3">
+<h3>cut-off = 80</h3>
+<div class="figure">
+<img src="phylogenetic_wallacea/cutoff_80.png" alt="cutoff11" />
+<p class="caption">cutoff11</p>
+</div>
+</div>
+</div>
+<div id="sessioninfo" class="section level2">
+<h2>SessionInfo</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.4.4 (2018-03-15)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] phytools_0.6-44     ape_5.0             ggthemes_3.4.0     
+##  [4] scales_0.5.0.9000   mapplots_1.5        mapdata_2.2-6      
+##  [7] maps_3.2.0          rgdal_1.2-16        gtools_3.5.0       
+## [10] rasterVis_0.41      latticeExtra_0.6-28 RColorBrewer_1.1-2 
+## [13] lattice_0.20-35     raster_2.6-7        sp_1.2-7           
+## [16] CountClust_1.5.1    ggplot2_2.2.1       methClust_0.1.0    
+## 
+## loaded via a namespace (and not attached):
+##  [1] viridisLite_0.3.0       splines_3.4.4          
+##  [3] assertthat_0.2.0        expm_0.999-2           
+##  [5] stats4_3.4.4            animation_2.5          
+##  [7] yaml_2.1.18             slam_0.1-42            
+##  [9] numDeriv_2016.8-1       pillar_1.1.0           
+## [11] backports_1.1.2         quadprog_1.5-5         
+## [13] limma_3.34.8            phangorn_2.3.1         
+## [15] digest_0.6.15           colorspace_1.3-2       
+## [17] picante_1.6-2           cowplot_0.9.2          
+## [19] htmltools_0.3.6         Matrix_1.2-12          
+## [21] plyr_1.8.4              pkgconfig_2.0.1        
+## [23] mvtnorm_1.0-6           combinat_0.0-8         
+## [25] tibble_1.4.2            mgcv_1.8-23            
+## [27] nnet_7.3-12             hexbin_1.27.1          
+## [29] lazyeval_0.2.1          mnormt_1.5-5           
+## [31] survival_2.41-3         magrittr_1.5           
+## [33] evaluate_0.10.1         msm_1.6.5              
+## [35] nlme_3.1-131.1          MASS_7.3-47            
+## [37] vegan_2.4-4             tools_3.4.4            
+## [39] stringr_1.3.0           munsell_0.4.3          
+## [41] plotrix_3.7             cluster_2.0.6          
+## [43] compiler_3.4.4          clusterGeneration_1.3.4
+## [45] rlang_0.2.0             grid_3.4.4             
+## [47] igraph_1.1.2            rmarkdown_1.9          
+## [49] boot_1.3-20             gtable_0.2.0           
+## [51] flexmix_2.3-14          reshape2_1.4.3         
+## [53] zoo_1.8-0               knitr_1.20             
+## [55] fastmatch_1.1-0         rprojroot_1.3-2        
+## [57] maptpx_1.9-4            permute_0.9-4          
+## [59] modeltools_0.2-21       stringi_1.1.6          
+## [61] parallel_3.4.4          SQUAREM_2017.10-1      
+## [63] Rcpp_0.12.16            coda_0.19-1            
+## [65] scatterplot3d_0.3-40</code></pre>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+    This <a href="http://rmarkdown.rstudio.com">R Markdown</a> site was created with <a href="https://github.com/jdblischak/workflowr">workflowr</a>
+</p>
+<hr>
+
+<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+
+<!-- disqus
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+-->
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

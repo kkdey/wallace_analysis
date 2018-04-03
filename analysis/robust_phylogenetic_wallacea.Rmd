@@ -16,7 +16,7 @@ determined in a more robust way.
 
 ## Packages
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE, warning = FALSE, message = FALSE}
 library(methClust)
 library(CountClust)
 library(rasterVis)
