@@ -1,0 +1,79 @@
+---
+title: "Tracking phylogenetic dependence for bird species"
+author: "Kushal K Dey"
+date: "4/11/2018"
+output: html_document
+---
+
+## Introduction
+
+In this script, we create random lists of bird species assigned to clusters
+in order to create a random phylogeny for each cluster and compare these 
+randomly generated phylogenies between clusters. 
+
+## Packages
+
+```{r setup, include=TRUE, warning = FALSE, message = FALSE}
+library(methClust)
+library(CountClust)
+library(rasterVis)
+library(gtools)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)
+```
+
+Load the data
+
+## Wallacea Region data
+
+```{r}
+datalist <- get(load("../data/wallace_region_pres_ab_breeding_with_seabirds.rda"))
+latlong <- datalist$loc
+data <- datalist$dat
+if(nrow(latlong) != nrow(data)) stop("dimensions matching error")
+```
+
+
+```{r}
+topics_clust <- get(load("../output/methClust_wallacea_w_seabirds.rda"))
+```
+
+## K = 2
+
+### Extracting lists of bird species
+
+```{r}
+topics <- topics_clust[[2]]
+freq <- topics$freq
+order1 <- order(freq[,1] - freq[,2], decreasing = TRUE)[1:250]
+order2 <- order(freq[,2] - freq[,1], decreasing = TRUE)[1:250]
+rand_freq <- freq[union(order1, order2), ]
+rand_freq_norm <- t(apply(rand_freq, 1, function(x) return(x/sum(x))))
+```
+
+### Random sampling birds into clusters 
+
+```{r}
+ll <- list()
+for(m in 1:1000){
+  blocks <- apply(rand_freq_norm, 1, function(x) {
+  if(runif(1, 0, 1) < x[1]) return (1)
+  else return(2)
+  })
+  ll[[m]] <- list()
+  ll[[m]][[1]] <- names(blocks)[which(blocks == 1)]
+  ll[[m]][[2]] <- names(blocks)[which(blocks == 2)]
+}
+
+save(ll, file = "../output/bird_lists_for_phylogeny_clusters_2_wallacea.rda")
+```
+
+
+
+
