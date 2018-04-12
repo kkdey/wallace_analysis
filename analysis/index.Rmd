@@ -20,6 +20,7 @@ Codes to reproduce the results in paper:
 * **EcoStructure on the entire Wallacea**
     + [*with seabirds*](wallacea_analysis.html)
     + [*without seabirds*](wallacea_analysis_no_seabirds.html)
+    + [*Regions of high admixture*](high_admixture_regions.html)
           
 * **Ecostructure on Indonesian region - Java, Bali, Lombok, Sumbaya**
     + [*analysis*](java_bali_lombok_analysis.html)
@@ -37,4 +38,7 @@ Codes to reproduce the results in paper:
 *  **Combining GoM clusters with bird species diets**
     + [*analysis*](wallacea_functional_analysis.html)
     
+*  **Investigating specific regions of interest**
+    + [*Birds in Thai lowlands*](birds_in_thailand.html)
+    + [*Birds in Philippines and Sulawayi*]
     

@@ -1,0 +1,175 @@
+---
+title: "High admixture regions in the Wallace region"
+author: "Kushal K Dey"
+date: "4/12/2018"
+output: html_document
+---
+
+## Introduction
+
+In this script, we look at the high admixture regions in Wallacea. High admixture
+is defined as having substantial memberships in many clusters. 
+Usually each grid cell has substantial membership (say > 0.1) in one cluster - 
+but some grid cells may have an admixing of the different communities of 
+bird species and they will show high memberships in multiple clusters.
+
+## Packages
+
+```{r setup, include=TRUE, warning = FALSE, message = FALSE}
+library(methClust)
+library(CountClust)
+library(rasterVis)
+library(gtools)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)
+```
+
+Load the data
+
+## Wallacea Region data
+
+```{r}
+datalist <- get(load("../data/wallace_region_pres_ab_breeding_with_seabirds.rda"))
+latlong <- datalist$loc
+data <- datalist$dat
+if(nrow(latlong) != nrow(data)) stop("dimensions matching error")
+```
+
+## GoM model
+
+```{r}
+topics_clust <- get(load("../output/methClust_wallacea_w_seabirds.rda"))
+```
+
+## ecoSTRUCTURE plot visualization 
+
+### K = 8
+
+![geostructure10](Wallacea_w_seabirds/geostructure_birds_8.png)
+
+### K = 9
+
+![geostructure10](Wallacea_w_seabirds/geostructure_birds_9.png)
+
+###  K = 10
+
+![geostructure10](Wallacea_w_seabirds/geostructure_birds_10.png)
+
+## Identifying number of mixed components
+
+### K = 8
+
+```{r}
+topics <- topics_clust[[8]]
+num_components <- apply(topics$omega, 1, function(x) return (length(which(x > 0.1))))
+modelmat <- model.matrix(~as.factor(num_components)-1)
+```
+
+```{r}
+color = colorRampPalette(c("white", "red"))(5)
+intensity <- 0.8
+for(m in 1:1){
+  png(filename=paste0("../docs/High_ADMIX_regions/high_admixture_K_8.png"),width = 1000, height = 800)
+map("worldHires",
+    ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
+    col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
+lapply(1:dim(modelmat)[1], function(r)
+  add.pie(z=as.integer(100*modelmat[r,]),
+          x=latlong[r,1], y=latlong[r,2], labels=c("","",""),
+          radius = 0.5,
+          col=c(alpha(color[1],intensity),alpha(color[2],intensity),
+                alpha(color[3], intensity), alpha(color[4], intensity),
+                alpha(color[5], intensity))));
+dev.off()
+}
+
+```
+
+
+### K = 9
+
+```{r}
+topics <- topics_clust[[9]]
+num_components <- apply(topics$omega, 1, function(x) return (length(which(x > 0.1))))
+modelmat <- model.matrix(~as.factor(num_components)-1)
+```
+
+```{r}
+color = colorRampPalette(c("white", "red"))(5)
+intensity <- 0.8
+for(m in 1:1){
+  png(filename=paste0("../docs/High_ADMIX_regions/high_admixture_K_9.png"),width = 1000, height = 800)
+map("worldHires",
+    ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
+    col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
+lapply(1:dim(modelmat)[1], function(r)
+  add.pie(z=as.integer(100*modelmat[r,]),
+          x=latlong[r,1], y=latlong[r,2], labels=c("","",""),
+          radius = 0.5,
+          col=c(alpha(color[1],intensity),alpha(color[2],intensity),
+                alpha(color[3], intensity), alpha(color[4], intensity),
+                alpha(color[5], intensity))));
+dev.off()
+}
+
+```
+
+
+### K = 10
+
+```{r}
+topics <- topics_clust[[10]]
+num_components <- apply(topics$omega, 1, function(x) return (length(which(x > 0.1))))
+modelmat <- model.matrix(~as.factor(num_components)-1)
+```
+
+```{r}
+color = colorRampPalette(c("white", "red"))(5)
+intensity <- 0.8
+for(m in 1:1){
+  png(filename=paste0("../docs/High_ADMIX_regions/high_admixture_K_10.png"),width = 1000, height = 800)
+map("worldHires",
+    ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
+    col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
+lapply(1:dim(modelmat)[1], function(r)
+  add.pie(z=as.integer(100*modelmat[r,]),
+          x=latlong[r,1], y=latlong[r,2], labels=c("","",""),
+          radius = 0.5,
+          col=c(alpha(color[1],intensity),alpha(color[2],intensity),
+                alpha(color[3], intensity), alpha(color[4], intensity),
+                alpha(color[5], intensity))));
+dev.off()
+}
+
+```
+
+
+## Visualization of high admix regions
+
+### K = 8
+
+![geostructure10](High_ADMIX_regions/high_admixture_K_8.png)
+
+### K = 9
+
+![geostructure10](High_ADMIX_regions/high_admixture_K_9.png)
+
+
+### K = 10
+
+![geostructure10](High_ADMIX_regions/high_admixture_K_10.png)
+
+Overall we see that the strips of islnads in the Wallacea region are highly admixed.
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+
