@@ -1,0 +1,232 @@
+---
+title: "Wallace analysis with functional grouping of bird species"
+author: "Kushal K Dey"
+date: "4/11/2018"
+output: html_document
+---
+
+## Packages
+
+```{r setup, include=TRUE, warning = FALSE, message = FALSE}
+library(methClust)
+library(CountClust)
+library(rasterVis)
+library(gtools)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)
+library(ape)
+library(phytools)
+```
+
+## Extracting Functional group data
+
+```{r}
+functional_groups <- read.csv("../data/bird_FG_apr18.csv", header = TRUE, stringsAsFactors = FALSE)
+functional_names <- as.character(functional_groups[,1])
+```
+
+
+```{r}
+datalist <- get(load("../data/wallace_region_pres_ab_breeding_with_seabirds.rda"))
+latlong <- datalist$loc
+data <- datalist$dat
+if(nrow(latlong) != nrow(data)) stop("dimensions matching error")
+```
+
+The number of common birds that match between the functional data and the taxonomic data
+are as follows
+
+```{r}
+length(which(!is.na(match(functional_names, colnames(data)))))
+```
+
+
+```{r}
+common_birds <- intersect(colnames(data), functional_names)
+functional_groups_2 <- functional_groups[match(common_birds, functional_names),]
+data2 <- data[, match(common_birds, colnames(data))]
+```
+
+```{r}
+unique_functional_groups <- unique(functional_groups_2[,4])
+```
+
+```{r}
+meth <- matrix(0, dim(data2)[1], length(unique_functional_groups))
+unmeth <- matrix(0, dim(data2)[1], length(unique_functional_groups))
+```
+
+```{r}
+for(num in 1:length(unique_functional_groups)){
+  idx <- which(functional_groups_2[,4] == unique_functional_groups[num])
+  if(length(idx) > 1){
+    tmp <- data2[, idx]
+    meth[,num] <- apply(tmp, 1, sum)
+    unmeth[,num] <- apply(1-tmp, 1, sum)
+  }else{
+    meth[,num] <- data2[,idx]
+    unmeth[,num] <- 1 - data2[,idx]
+  }
+}
+
+colnames(meth) <- unique_functional_groups
+colnames(unmeth) <- unique_functional_groups
+```
+
+
+## Map of Wallacea 
+
+```{r}
+world_map <- map_data("world")
+world_map <- world_map[world_map$region != "Antarctica",] # intercourse antarctica
+
+world_map <- world_map[world_map$long > 90 & world_map$long < 160, ]
+world_map <- world_map[world_map$lat > -18 & world_map$lat < 20, ]
+
+
+p <- ggplot() + coord_fixed() +
+  xlab("") + ylab("")
+
+#Add map to base plot
+base_world_messy <- p + geom_polygon(data=world_map, aes(x=long, y=lat, group=group), colour="light green", fill="light green")
+
+cleanup <- 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+        panel.background = element_rect(fill = 'white', colour = 'white'), 
+        axis.line = element_line(colour = "white"), legend.position="none",
+        axis.ticks=element_blank(), axis.text.x=element_blank(),
+        axis.text.y=element_blank())
+
+base_world <- base_world_messy + cleanup
+
+base_world
+
+```
+
+## Ecostructure
+
+Apply Binomial ecostructure model on the functional data.
+
+```{r echo=TRUE, eval=FALSE}
+topics_clust <- list()
+topics_clust[[1]] <- NULL
+for(k in 2:10){
+  topics_clust[[k]] <- meth_topics(meth, unmeth, 
+            K=k, tol = 0.1, use_squarem = FALSE)
+}
+save(topics_clust, file = "../output/methClust_wallacea_functional.rda")
+```
+
+
+## Visualization
+
+```{r}
+topics_clust <- get(load("../output/methClust_wallacea_functional.rda"))
+```
+
+```{r}
+color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod1",
+          "azure4", "green","deepskyblue","yellow", "azure1")
+intensity <- 0.8
+for(k in 2:10){
+  png(filename=paste0("../docs/Wallacea_functional/geostructure_birds_", k, ".png"),width = 1000, height = 800)
+map("worldHires",
+    ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
+    col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
+lapply(1:dim(topics_clust[[k]]$omega)[1], function(r)
+  add.pie(z=as.integer(100*topics_clust[[k]]$omega[r,]),
+          x=latlong[r,1], y=latlong[r,2], labels=c("","",""),
+          radius = 0.5,
+          col=c(alpha(color[1],intensity),alpha(color[2],intensity),
+                alpha(color[3], intensity), alpha(color[4], intensity),
+                alpha(color[5], intensity), alpha(color[6], intensity),
+                alpha(color[7], intensity), alpha(color[8], intensity),
+                alpha(color[9], intensity), alpha(color[10], intensity),
+                alpha(color[11], intensity))));
+dev.off()
+}
+
+```
+
+
+The geostructure plot for different K.
+
+### K = 2
+
+![geostructure2](Wallacea_functional/geostructure_birds_2.png)
+
+### K = 3
+
+![geostructure3](Wallacea_functional/geostructure_birds_3.png)
+
+
+### K = 4
+
+![geostructure4](Wallacea_functional//geostructure_birds_4.png)
+
+
+### K = 5
+
+![geostructure5](Wallacea_functional//geostructure_birds_5.png)
+
+
+### K = 6
+
+![geostructure6](Wallacea_functional//geostructure_birds_6.png)
+
+### K = 7
+
+![geostructure7](Wallacea_functional//geostructure_birds_7.png)
+
+### K = 8
+
+![geostructure8](Wallacea_functional//geostructure_birds_8.png)
+
+### K = 9
+
+![geostructure9](Wallacea_functional//geostructure_birds_9.png)
+
+###  K = 10
+
+![geostructure10](Wallacea_functional//geostructure_birds_10.png)
+
+## Important functional categories
+
+We obtain the driving bird species for each cluster using the **CountClust** package.
+
+### K =2
+
+```{r}
+driving_cat_ind <-  ExtractTopFeatures(topics_clust[[2]]$freq, method = "poisson", options = "min", top_features = 10)
+func_cat_names <- apply(driving_cat_ind$indices, c(1,2), function(x) return (colnames(meth)[x]))
+t(func_cat_names)
+```
+
+### K =3
+
+```{r}
+driving_cat_ind <-  ExtractTopFeatures(topics_clust[[3]]$freq, method = "poisson", options = "min", top_features = 5)
+func_cat_names <- apply(driving_cat_ind$indices, c(1,2), function(x) return (colnames(meth)[x]))
+t(func_cat_names)
+```
+
+### K =5
+
+```{r}
+driving_cat_ind <-  ExtractTopFeatures(topics_clust[[5]]$freq, method = "poisson", options = "min", top_features = 5)
+func_cat_names <- apply(driving_cat_ind$indices, c(1,2), function(x) return (colnames(meth)[x]))
+t(func_cat_names)
+```
+
+## SessionInfo
+
+```{r}
+sessionInfo()
+```
+

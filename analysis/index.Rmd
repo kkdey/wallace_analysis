@@ -34,5 +34,6 @@ Codes to reproduce the results in paper:
     + [*Indonesian bird species*](phylogenetic_indonesia.html)
     
 *  **Combining GoM clusters with bird species diets**
+    + [*analysis*](wallacea_functional_analysis.html)
     
     

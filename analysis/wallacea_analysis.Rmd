@@ -162,6 +162,16 @@ The geostructure plot for different K.
 
 We obtain the driving bird species for each cluster using the **CountClust** package.
 
+### K =2
+
+```{r}
+driving_species_ind <-  ExtractTopFeatures(topics_clust[[2]]$freq, method = "poisson", options = "min", top_features = 50)
+species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
+species_names
+```
+
+### K = 10
+
 ```{r}
 driving_species_ind <-  ExtractTopFeatures(topics_clust[[10]]$freq, method = "poisson", options = "min")
 species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[10]]$freq)[x]))

@@ -473,6 +473,80 @@ dev.off()
 <div id="important-birds" class="section level2">
 <h2>Important Birds</h2>
 <p>We obtain the driving bird species for each cluster using the <strong>CountClust</strong> package.</p>
+<div id="k-2-1" class="section level3">
+<h3>K =2</h3>
+<pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[2]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;, top_features = 50)
+species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
+species_names</code></pre>
+<pre><code>##      [,1]                  [,2]                     
+## [1,] &quot;Cacatua galerita&quot;    &quot;Accipiter cirrocephalus&quot;
+## [2,] &quot;Eumyias thalassinus&quot; &quot;Dicrurus aeneus&quot;        
+##      [,3]                   [,4]                 [,5]                  
+## [1,] &quot;Ardea plumifera&quot;      &quot;Coracina papuensis&quot; &quot;Rhipidura leucophrys&quot;
+## [2,] &quot;Malacocincla abbotti&quot; &quot;Dicaeum cruentatum&quot; &quot;Hemipus picatus&quot;     
+##      [,6]                    [,7]                   [,8]              
+## [1,] &quot;Corvus orru&quot;           &quot;Ceyx azureus&quot;         &quot;Falco berigora&quot;  
+## [2,] &quot;Picoides canicapillus&quot; &quot;Dicaeum chrysorrheum&quot; &quot;Lonchura striata&quot;
+##      [,9]                  [,10]                [,11]                    
+## [1,] &quot;Haliastur sphenurus&quot; &quot;Radjah radjah&quot;      &quot;Anhinga novaehollandiae&quot;
+## [2,] &quot;Buceros bicornis&quot;    &quot;Corydon sumatranus&quot; &quot;Stachyris rufifrons&quot;    
+##      [,12]                   [,13]                   
+## [1,] &quot;Rhipidura rufiventris&quot; &quot;Vanellus miles&quot;        
+## [2,] &quot;Ducula badia&quot;          &quot;Phaenicophaeus tristis&quot;
+##      [,14]                    [,15]                
+## [1,] &quot;Gerygone magnirostris&quot;  &quot;Myiagra alecto&quot;     
+## [2,] &quot;Anthreptes singalensis&quot; &quot;Prinia flaviventris&quot;
+##      [,16]                     [,17]                    
+## [1,] &quot;Cracticus quoyi&quot;         &quot;Colluricincla harmonica&quot;
+## [2,] &quot;Micropternus brachyurus&quot; &quot;Eurylaimus javanicus&quot;   
+##      [,18]                    [,19]                      
+## [1,] &quot;Gerygone chloronota&quot;    &quot;Colluricincla megarhyncha&quot;
+## [2,] &quot;Orthotomus atrogularis&quot; &quot;Strix leptogrammica&quot;      
+##      [,20]                        [,21]                  
+## [1,] &quot;Nettapus pulchellus&quot;        &quot;Centropus phasianinus&quot;
+## [2,] &quot;Chloropsis cochinchinensis&quot; &quot;Ketupa ketupu&quot;        
+##      [,22]                       [,23]              [,24]               
+## [1,] &quot;Dacelo leachii&quot;            &quot;Myiagra rubecula&quot; &quot;Geopelia humeralis&quot;
+## [2,] &quot;Anthracoceros albirostris&quot; &quot;Sitta frontalis&quot;  &quot;Ninox scutulata&quot;   
+##      [,25]                       [,26]                 
+## [1,] &quot;Daphoenositta chrysoptera&quot; &quot;Amaurornis moluccana&quot;
+## [2,] &quot;Cuculus micropterus&quot;       &quot;Tephrodornis gularis&quot;
+##      [,27]                   [,28]                 
+## [1,] &quot;Antigone rubicunda&quot;    &quot;Ceyx pusillus&quot;       
+## [2,] &quot;Copsychus malabaricus&quot; &quot;Erpornis zantholeuca&quot;
+##      [,29]                     [,30]                  
+## [1,] &quot;Geopelia placida&quot;        &quot;Ardeotis australis&quot;   
+## [2,] &quot;Meiglyptes grammithorax&quot; &quot;Enicurus leschenaulti&quot;
+##      [,31]                   [,32]                   
+## [1,] &quot;Synoicus ypsilophorus&quot; &quot;Aplonis cantoroides&quot;   
+## [2,] &quot;Dicrurus paradiseus&quot;   &quot;Prionochilus maculatus&quot;
+##      [,33]                   [,34]                  [,35]               
+## [1,] &quot;Ninox rufa&quot;            &quot;Pachycephala simplex&quot; &quot;Podargus papuensis&quot;
+## [2,] &quot;Rhinortha chlorophaea&quot; &quot;Otus spilocephalus&quot;   &quot;Nyctyornis amictus&quot;
+##      [,36]                  [,37]                      
+## [1,] &quot;Mino dumontii&quot;        &quot;Aprosmictus erythropterus&quot;
+## [2,] &quot;Rhipidura albicollis&quot; &quot;Abroscopus superciliaris&quot; 
+##      [,38]                      [,39]                    
+## [1,] &quot;Lalage leucomela&quot;         &quot;Pomatostomus temporalis&quot;
+## [2,] &quot;Hypogramma hypogrammicum&quot; &quot;Hemicircus sordidus&quot;    
+##      [,40]                  [,41]                     
+## [1,] &quot;Lichmera indistincta&quot; &quot;Oriolus sagittatus&quot;      
+## [2,] &quot;Alcedo peninsulae&quot;    &quot;Psilopogon mystacophanos&quot;
+##      [,42]                   [,43]             [,44]                 
+## [1,] &quot;Ptilinopus superbus&quot;   &quot;Ninox connivens&quot; &quot;Aegotheles cristatus&quot;
+## [2,] &quot;Cacomantis sonneratii&quot; &quot;Irena puella&quot;    &quot;Aegithina tiphia&quot;    
+##      [,45]                    [,46]                     [,47]             
+## [1,] &quot;Philemon citreogularis&quot; &quot;Merops ornatus&quot;          &quot;Lalage tricolor&quot; 
+## [2,] &quot;Rhyticeros undulatus&quot;   &quot;Platysmurus leucopterus&quot; &quot;Ixos malaccensis&quot;
+##      [,48]                     [,49]                   
+## [1,] &quot;Gerygone palpebrosa&quot;     &quot;Xanthotis flaviventer&quot; 
+## [2,] &quot;Blythipicus rubiginosus&quot; &quot;Stachyris erythroptera&quot;
+##      [,50]                   
+## [1,] &quot;Megaloprepia magnifica&quot;
+## [2,] &quot;Rollulus rouloul&quot;</code></pre>
+</div>
+<div id="k-10-1" class="section level3">
+<h3>K = 10</h3>
 <pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[10]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;)
 species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[10]]$freq)[x]))
 species_names</code></pre>
@@ -536,7 +610,8 @@ species_names</code></pre>
 for(m in 1:10){
   plot(driving_species_ind$scores[m,], col=&#39;red&#39;, pch = 20, cex = 1.5)
 }</code></pre>
-<p><img src="wallacea_analysis_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="wallacea_analysis_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
 </div>
 <div id="sessioninfo" class="section level2">
 <h2>SessionInfo</h2>
