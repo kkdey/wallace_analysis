@@ -63,8 +63,8 @@ rand_freq_norm <- t(apply(rand_freq, 1, function(x) return(x/sum(x))))
 ll <- list()
 for(m in 1:1000){
   blocks <- apply(rand_freq_norm, 1, function(x) {
-  if(runif(1, 0, 1) < x[1]) return (1)
-  else return(2)
+  if(runif(1, 0, 1) < x[1]) {return (1)}
+  else {return(2)}
   })
   ll[[m]] <- list()
   ll[[m]][[1]] <- names(blocks)[which(blocks == 1)]

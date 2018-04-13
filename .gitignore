@@ -8,3 +8,4 @@ analysis/figure
 analysis/*html
 analysis/*_cache
 data/
+output/methClust_best_runs/
