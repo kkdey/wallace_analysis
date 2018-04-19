@@ -9,3 +9,4 @@ analysis/*html
 analysis/*_cache
 data/
 output/methClust_best_runs/
+output/phylo_meth/
