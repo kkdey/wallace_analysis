@@ -1,13 +1,14 @@
 ---
-title: "Wallacea region GoM analysis - with seabirds"
+title: 'Wallacea region GoM analysis : mammals with bats'
 author: "Kushal K Dey"
-date: "3/25/2018"
+date: "6/5/2018"
 output: html_document
 ---
 
 ## Intro
 
-Here we observe the presence absence data of bird species in the Australasian region (Wallacea).  We try to interpret that in the context of our Grade of Membership (GoM) model and its applications to presence absence data.
+Here we observe the presence absence data of mammals species (including different species
+of bats) in the Australasian region (Wallacea).  We try to interpret that in the context of our Grade of Membership (GoM) model and its applications to presence absence data.
 
 ## Packages
 
@@ -24,7 +25,6 @@ library(mapdata)
 library(mapplots)
 library(scales)
 library(ggthemes)
-
 ```
 
 Load the data
@@ -32,10 +32,12 @@ Load the data
 ## Wallacea Region data
 
 ```{r}
-datalist <- get(load("../data/wallace_region_pres_ab_breeding_with_seabirds.rda"))
-latlong <- datalist$loc
-data <- datalist$dat
-if(nrow(latlong) != nrow(data)) stop("dimensions matching error")
+mamms <- get(load("../data/mammals_with_bats.rda"))
+latlong_chars <- rownames(mamms)
+latlong <- cbind.data.frame(as.numeric(sapply(latlong_chars, 
+                              function(x) return(strsplit(x, "_")[[1]][1]))),
+         as.numeric(sapply(latlong_chars, 
+                           function(x) return(strsplit(x, "_")[[1]][2]))))
 ```
 
 ## Map of Wallacea 
@@ -68,25 +70,17 @@ base_world
 ```
 
 ```{r}
-birds_pa_data_3 <- data
+mamms_data <- mamms
 ```
 
 ```{r}
-richness <- rowSums(birds_pa_data_3)
+richness <- rowSums(mamms_data)
 ```
 
 ```{r fig.height=4, fig.width = 5}
-colorGradient <- colorRampPalette(c("blue", "white", "red"))(500)
-layout(matrix(1:2, nrow=2), widths = c(1), heights = c(0.2, 0.8), FALSE) 
-  # Plot legend first on top.
-  plot(c(0, 1), c(0, 0.05), type = 'n', axes = F, xlab = '', ylab = '',  cex.main=0.5)
-  legend_image <- as.raster(matrix(colorGradient, nrow = 1))
-  rasterImage(legend_image, 0, 0, 1, 1)
-#plot(latlong[,1], latlong[,2], col = colorGradient[richness], pch = 20)
-  plot(latlong[,1], latlong[,2], col= colorGradient[richness], pch = 20, cex = 1)
+colorGradient <- colorRampPalette(c("blue", "white", "red"))(200)
+plot(latlong[,1], latlong[,2], col= colorGradient[richness], pch = 20, cex = 1)
 ```
-
-## GoM model
 
 Applying methclust presence absence Grade of Membership model to the presence absence data
 
@@ -94,17 +88,17 @@ Applying methclust presence absence Grade of Membership model to the presence ab
 topics_clust <- list()
 topics_clust[[1]] <- NULL
 for(k in 2:10){
-  topics_clust[[k]] <- meth_topics(birds_pa_data_3, 1 - birds_pa_data_3, 
+  topics_clust[[k]] <- meth_topics(mamms_data, 1 - mamms_data, 
             K=k, tol = 10, use_squarem = FALSE)
 }
-save(topics_clust, file = "../output/methClust_wallacea_w_seabirds.rda")
+save(topics_clust, file = "../output/methClust_wallacea_mammals_bats.rda")
 
 ```
 
 ## Visualization
 
 ```{r}
-topics_clust <- get(load("../output/methClust_wallacea_w_seabirds.rda"))
+topics_clust <- get(load("../output/methClust_wallacea_mammals_bats.rda"))
 ```
 
 ```{r}
@@ -112,7 +106,7 @@ color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod
           "azure4", "green","deepskyblue","yellow", "azure1")
 intensity <- 0.8
 for(k in 2:10){
-  png(filename=paste0("../docs/Wallacea_w_seabirds/geostructure_birds_", k, ".png"),width = 1000, height = 800)
+  png(filename=paste0("../docs/Wallacea_mammals_bats/geostructure_birds_", k, ".png"),width = 1000, height = 800)
 map("worldHires",
     ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
     col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
@@ -131,81 +125,71 @@ dev.off()
 
 ```
 
+
 The geostructure plot for different K.
 
 ### K = 2
 
-![geostructure2](Wallacea_w_seabirds//geostructure_birds_2.png)
+![](Wallacea_mammals_bats/geostructure_birds_2.png)
 
 
 ### K = 3
 
-![geostructure3](Wallacea_w_seabirds//geostructure_birds_3.png)
-
+![](Wallacea_mammals_bats/geostructure_birds_3.png)
 
 ### K = 4
 
-![geostructure4](Wallacea_w_seabirds//geostructure_birds_4.png)
-
+![](Wallacea_mammals_bats/geostructure_birds_4.png)
 
 ### K = 5
 
-![geostructure5](Wallacea_w_seabirds//geostructure_birds_5.png)
-
+![](Wallacea_mammals_bats/geostructure_birds_5.png)
 
 ### K = 6
 
-![geostructure6](Wallacea_w_seabirds//geostructure_birds_6.png)
+![](Wallacea_mammals_bats/geostructure_birds_6.png)
+
 
 ### K = 7
 
-![geostructure7](Wallacea_w_seabirds//geostructure_birds_7.png)
+![](Wallacea_mammals_bats/geostructure_birds_7.png)
 
 ### K = 8
 
-![geostructure8](Wallacea_w_seabirds//geostructure_birds_8.png)
+![](Wallacea_mammals_bats/geostructure_birds_8.png)
+
 
 ### K = 9
 
-![geostructure9](Wallacea_w_seabirds//geostructure_birds_9.png)
+![](Wallacea_mammals_bats/geostructure_birds_9.png)
 
-###  K = 10
+### K = 10
 
-![geostructure10](Wallacea_w_seabirds//geostructure_birds_10.png)
+![](Wallacea_mammals_bats/geostructure_birds_10.png)
+
 
 ## Important Birds
 
 We obtain the driving bird species for each cluster using the **CountClust** package.
 
-### K =2
+### K = 2
 
 ```{r}
 driving_species_ind <-  ExtractTopFeatures(topics_clust[[2]]$freq, method = "poisson", options = "min", top_features = 50)
 species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
-species_names
+t(species_names)
 ```
 
-### K = 10
+### K = 2
 
 ```{r}
-driving_species_ind <-  ExtractTopFeatures(topics_clust[[10]]$freq, method = "poisson", options = "min")
-species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[10]]$freq)[x]))
-species_names
+driving_species_ind <-  ExtractTopFeatures(topics_clust[[3]]$freq, method = "poisson", options = "min", top_features = 50)
+species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
+t(species_names)
 ```
-
-The weighting on the influence of the top 10 driving birds on the clusters for each of the 10 clusters under the K=10 model.
-
-```{r}
-par(mfrow=c(3,4))
-for(m in 1:10){
-  plot(driving_species_ind$scores[m,], col='red', pch = 20, cex = 1.5)
-}
-
-```
-
-## SessionInfo
 
 ```{r}
 sessionInfo()
 ```
+
 

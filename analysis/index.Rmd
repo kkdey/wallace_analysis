@@ -12,10 +12,14 @@ We analyze the STRUCTURE of bird species based on the presence absence data in t
 
 Codes to reproduce the results in paper: 
 
+# Methods and Materials
+
 * **Literature Review of the Wallace Line**
     + [*analysis*](literature_review.html)
     
 * **Ecostructure GoM model**
+
+# Birds
           
 * **EcoStructure on the entire Wallacea**
     + [*with seabirds*](wallacea_analysis.html)
@@ -41,4 +45,10 @@ Codes to reproduce the results in paper:
 *  **Investigating specific regions of interest**
     + [*Birds in Thai lowlands*](birds_in_thailand.html)
     + [*Birds in Philippines and Sulawayi*]
+    
+# Mammals
+
+* **EcoStructure on the entire Wallacea**
+    + [*with bats*](wallacea_analysis_mammals_bats.html)
+    + [*without seabirds*](wallacea_analysis_mammals_no_bats.html)
     
