@@ -50,5 +50,6 @@ Codes to reproduce the results in paper:
 
 * **EcoStructure on the entire Wallacea**
     + [*with bats*](wallacea_analysis_mammals_bats.html)
-    + [*without seabirds*](wallacea_analysis_mammals_no_bats.html)
+    + [*without bats*](wallacea_analysis_mammals_no_bats.html)
+    + [*Regions of high admixture*](high_admixture_regions_mammals.html)
     
