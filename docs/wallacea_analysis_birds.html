@@ -372,7 +372,7 @@ base_world &lt;- base_world_messy + cleanup
 base_world</code></pre>
 <p><img src="wallacea_analysis_birds_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <pre class="r"><code>richness &lt;- rowSums(birds)</code></pre>
-<pre class="r"><code>colorGradient &lt;- colorRampPalette(c(&quot;blue&quot;, &quot;white&quot;, &quot;red&quot;))(500)
+<pre class="r"><code>colorGradient &lt;- colorRampPalette(c(&quot;blue&quot;, &quot;white&quot;, &quot;red&quot;))(max(richness))
 plot(latlong[,1], latlong[,2], col= colorGradient[richness], pch = 20, cex = 1.5)</code></pre>
 <p><img src="wallacea_analysis_birds_files/figure-html/unnamed-chunk-4-1.png" width="480" /></p>
 </div>
@@ -414,14 +414,14 @@ dev.off()
 <div id="k-2" class="section level3">
 <h3>K = 2</h3>
 <div class="figure">
-<img src="Wallacea_w_seabirds//geostructure_birds_2.png" alt="geostructure2" />
+<img src="Wallacea_w_seabirds/geostructure_birds_2.png" alt="geostructure2" />
 <p class="caption">geostructure2</p>
 </div>
 </div>
 <div id="k-3" class="section level3">
 <h3>K = 3</h3>
 <div class="figure">
-<img src="Wallacea_w_seabirds//geostructure_birds_3.png" alt="geostructure3" />
+<img src="Wallacea_w_seabirds/geostructure_birds_3.png" alt="geostructure3" />
 <p class="caption">geostructure3</p>
 </div>
 </div>
@@ -475,144 +475,93 @@ dev.off()
 </div>
 </div>
 </div>
-<div id="important-birds" class="section level2">
-<h2>Important Birds</h2>
+<div id="key-birds" class="section level2">
+<h2>Key Birds</h2>
 <p>We obtain the driving bird species for each cluster using the <strong>CountClust</strong> package.</p>
 <div id="k-2-1" class="section level3">
 <h3>K =2</h3>
 <pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[2]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;, top_features = 50)
 species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
-species_names</code></pre>
-<pre><code>##      [,1]                  [,2]                  [,3]                     
-## [1,] &quot;Coracina papuensis&quot;  &quot;Cacatua galerita&quot;    &quot;Accipiter cirrocephalus&quot;
-## [2,] &quot;Eumyias thalassinus&quot; &quot;Strix leptogrammica&quot; &quot;Corydon sumatranus&quot;     
-##      [,4]              [,5]                   [,6]                      
-## [1,] &quot;Corvus orru&quot;     &quot;Rhipidura leucophrys&quot; &quot;Ardea plumifera&quot;         
-## [2,] &quot;Dicrurus aeneus&quot; &quot;Dicaeum chrysorrheum&quot; &quot;Abroscopus superciliaris&quot;
-##      [,7]                     [,8]                   [,9]            
-## [1,] &quot;Ceyx azureus&quot;           &quot;Radjah radjah&quot;        &quot;Falco berigora&quot;
-## [2,] &quot;Orthotomus atrogularis&quot; &quot;Malacocincla abbotti&quot; &quot;Ducula badia&quot;  
-##      [,10]                 [,11]                    
-## [1,] &quot;Haliastur sphenurus&quot; &quot;Anhinga novaehollandiae&quot;
-## [2,] &quot;Sitta frontalis&quot;     &quot;Eurylaimus javanicus&quot;   
-##      [,12]                   [,13]                   [,14]                
-## [1,] &quot;Centropus phasianinus&quot; &quot;Rhipidura rufiventris&quot; &quot;Myiagra alecto&quot;     
-## [2,] &quot;Ninox scutulata&quot;       &quot;Dicaeum cruentatum&quot;    &quot;Prinia flaviventris&quot;
-##      [,15]                        [,16]                    
-## [1,] &quot;Vanellus miles&quot;             &quot;Gerygone magnirostris&quot;  
-## [2,] &quot;Chloropsis cochinchinensis&quot; &quot;Micropternus brachyurus&quot;
-##      [,17]             [,18]                       [,19]                  
-## [1,] &quot;Cracticus quoyi&quot; &quot;Colluricincla megarhyncha&quot; &quot;Nettapus pulchellus&quot;  
-## [2,] &quot;Hemipus picatus&quot; &quot;Nyctyornis amictus&quot;        &quot;Rhinortha chlorophaea&quot;
-##      [,20]                     [,21]                   
-## [1,] &quot;Colluricincla harmonica&quot; &quot;Gerygone chloronota&quot;   
-## [2,] &quot;Meiglyptes grammithorax&quot; &quot;Prionochilus maculatus&quot;
-##      [,22]                [,23]                 [,24]                  
-## [1,] &quot;Geopelia humeralis&quot; &quot;Dacelo leachii&quot;      &quot;Antigone rubicunda&quot;   
-## [2,] &quot;Nisaetus nanus&quot;     &quot;Stachyris rufifrons&quot; &quot;Copsychus malabaricus&quot;
-##      [,25]                   [,26]                [,27]                  
-## [1,] &quot;Geopelia placida&quot;      &quot;Ardeotis australis&quot; &quot;Synoicus ypsilophorus&quot;
-## [2,] &quot;Picoides canicapillus&quot; &quot;Eupetes macrocerus&quot; &quot;Hemicircus sordidus&quot;  
-##      [,28]                    [,29]                     
-## [1,] &quot;Ceyx pusillus&quot;          &quot;Coracina tenuirostris&quot;   
-## [2,] &quot;Anthreptes singalensis&quot; &quot;Hypogramma hypogrammicum&quot;
-##      [,30]                       [,31]                    
-## [1,] &quot;Aprosmictus erythropterus&quot; &quot;Pomatostomus temporalis&quot;
-## [2,] &quot;Psilopogon mystacophanos&quot;  &quot;Pycnonotus melanoleucos&quot;
-##      [,32]                  [,33]                  [,34]                  
-## [1,] &quot;Lichmera indistincta&quot; &quot;Amaurornis moluccana&quot; &quot;Myiagra rubecula&quot;     
-## [2,] &quot;Alcedo peninsulae&quot;    &quot;Lyncornis temminckii&quot; &quot;Psilopogon duvaucelii&quot;
-##      [,35]                       [,36]                 
-## [1,] &quot;Daphoenositta chrysoptera&quot; &quot;Eudynamys orientalis&quot;
-## [2,] &quot;Platysmurus leucopterus&quot;   &quot;Melanoperdix niger&quot;  
-##      [,37]                [,38]                  
-## [1,] &quot;Oriolus sagittatus&quot; &quot;Aegotheles cristatus&quot; 
-## [2,] &quot;Rhipidura perlata&quot;  &quot;Phaenicophaeus diardi&quot;
-##      [,39]                       [,40]                   
-## [1,] &quot;Merops ornatus&quot;            &quot;Philemon citreogularis&quot;
-## [2,] &quot;Phaenicophaeus sumatranus&quot; &quot;Centropus rectunguis&quot;  
-##      [,41]                     [,42]                     
-## [1,] &quot;Lalage tricolor&quot;         &quot;Coracina novaehollandiae&quot;
-## [2,] &quot;Prionochilus thoracicus&quot; &quot;Rhinomyias umbratilis&quot;   
-##      [,43]              [,44]                    [,45]                  
-## [1,] &quot;Ninox connivens&quot;  &quot;Neochmia phaeton&quot;       &quot;Aquila audax&quot;         
-## [2,] &quot;Rollulus rouloul&quot; &quot;Stachyris erythroptera&quot; &quot;Tricholestes criniger&quot;
-##      [,46]                  [,47]                
-## [1,] &quot;Chalcites basalis&quot;    &quot;Elseyornis melanops&quot;
-## [2,] &quot;Trichixos pyrropygus&quot; &quot;Iole olivacea&quot;      
-##      [,48]                     [,49]                     
-## [1,] &quot;Eurostopodus argus&quot;      &quot;Hamirostra melanosternon&quot;
-## [2,] &quot;Blythipicus rubiginosus&quot; &quot;Harpactes duvaucelii&quot;    
-##      [,50]                       
-## [1,] &quot;Pachycephala rufiventris&quot;  
-## [2,] &quot;Pycnonotus erythropthalmos&quot;</code></pre>
+t(species_names)</code></pre>
+<pre><code>##       [,1]                       [,2]                        
+##  [1,] &quot;Rhipidura leucophrys&quot;     &quot;Eumyias thalassinus&quot;       
+##  [2,] &quot;Coracina papuensis&quot;       &quot;Dicaeum chrysorrheum&quot;      
+##  [3,] &quot;Aquila audax&quot;             &quot;Dicrurus aeneus&quot;           
+##  [4,] &quot;Chalcites basalis&quot;        &quot;Anthreptes singalensis&quot;    
+##  [5,] &quot;Elseyornis melanops&quot;      &quot;Eurylaimus javanicus&quot;      
+##  [6,] &quot;Eurostopodus argus&quot;       &quot;Malacocincla abbotti&quot;      
+##  [7,] &quot;Hamirostra melanosternon&quot; &quot;Ketupa ketupu&quot;             
+##  [8,] &quot;Pachycephala rufiventris&quot; &quot;Sitta frontalis&quot;           
+##  [9,] &quot;Podargus strigoides&quot;      &quot;Chloropsis cochinchinensis&quot;
+## [10,] &quot;Smicrornis brevirostris&quot;  &quot;Ninox scutulata&quot;           
+## [11,] &quot;Threskiornis spinicollis&quot; &quot;Prinia flaviventris&quot;       
+## [12,] &quot;Todiramphus sanctus&quot;      &quot;Prionochilus maculatus&quot;    
+## [13,] &quot;Artamus minor&quot;            &quot;Rhinortha chlorophaea&quot;     
+## [14,] &quot;Calyptorhynchus banksii&quot;  &quot;Meiglyptes grammithorax&quot;   
+## [15,] &quot;Chlamydera nuchalis&quot;      &quot;Micropternus brachyurus&quot;   
+## [16,] &quot;Elanus axillaris&quot;         &quot;Ducula badia&quot;              
+## [17,] &quot;Heteroscenes pallidus&quot;    &quot;Hemicircus sordidus&quot;       
+## [18,] &quot;Hieraaetus morphnoides&quot;   &quot;Strix leptogrammica&quot;       
+## [19,] &quot;Malurus melanocephalus&quot;   &quot;Anthracoceros albirostris&quot; 
+## [20,] &quot;Taeniopygia bichenovii&quot;   &quot;Abroscopus superciliaris&quot;  
+## [21,] &quot;Todiramphus pyrrhopygius&quot; &quot;Dicaeum cruentatum&quot;        
+## [22,] &quot;Ardea pacifica&quot;           &quot;Copsychus malabaricus&quot;     
+## [23,] &quot;Aythya australis&quot;         &quot;Tricholestes criniger&quot;     
+## [24,] &quot;Dendrocygna eytoni&quot;       &quot;Stachyris erythroptera&quot;    
+## [25,] &quot;Geopelia cuneata&quot;         &quot;Hemipus picatus&quot;           
+## [26,] &quot;Turnix pyrrhothorax&quot;      &quot;Cuculus micropterus&quot;       
+## [27,] &quot;Corvus orru&quot;              &quot;Tephrodornis gularis&quot;      
+## [28,] &quot;Certhionyx pectoralis&quot;    &quot;Stachyris rufifrons&quot;       
+## [29,] &quot;Cracticus nigrogularis&quot;   &quot;Phaenicophaeus diardi&quot;     
+## [30,] &quot;Conopophila rufogularis&quot;  &quot;Phaenicophaeus sumatranus&quot; 
+## [31,] &quot;Chalcites osculans&quot;       &quot;Corydon sumatranus&quot;        
+## [32,] &quot;Eolophus roseicapilla&quot;    &quot;Blythipicus rubiginosus&quot;   
+## [33,] &quot;Entomyzon cyanotis&quot;       &quot;Alcedo peninsulae&quot;         
+## [34,] &quot;Artamus personatus&quot;       &quot;Enicurus leschenaulti&quot;     
+## [35,] &quot;Pelecanus conspicillatus&quot; &quot;Platysmurus leucopterus&quot;   
+## [36,] &quot;Lichenostomus unicolor&quot;   &quot;Nyctyornis amictus&quot;        
+## [37,] &quot;Falco berigora&quot;           &quot;Pycnonotus erythropthalmos&quot;
+## [38,] &quot;Eudynamys orientalis&quot;     &quot;Rollulus rouloul&quot;          
+## [39,] &quot;Grallina cyanoleuca&quot;      &quot;Arachnothera flavigaster&quot;  
+## [40,] &quot;Cacatua galerita&quot;         &quot;Ixos malaccensis&quot;          
+## [41,] &quot;Dicaeum hirundinaceum&quot;    &quot;Cacomantis sonneratii&quot;     
+## [42,] &quot;Psitteuteles versicolor&quot;  &quot;Treron capellei&quot;           
+## [43,] &quot;Haliastur sphenurus&quot;      &quot;Iole olivacea&quot;             
+## [44,] &quot;Microeca fascinans&quot;       &quot;Harpactes duvaucelii&quot;      
+## [45,] &quot;Ceyx azureus&quot;             &quot;Irena puella&quot;              
+## [46,] &quot;Accipiter cirrocephalus&quot;  &quot;Aegithina viridissima&quot;     
+## [47,] &quot;Radjah radjah&quot;            &quot;Malacocincla malaccensis&quot;  
+## [48,] &quot;Falco cenchroides&quot;        &quot;Aegithina tiphia&quot;          
+## [49,] &quot;Ardea plumifera&quot;          &quot;Dicrurus paradiseus&quot;       
+## [50,] &quot;Lichenostomus virescens&quot;  &quot;Picoides canicapillus&quot;</code></pre>
 </div>
-<div id="k-10-1" class="section level3">
-<h3>K = 10</h3>
-<pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[10]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;)
+<div id="k-3-1" class="section level3">
+<h3>K = 3</h3>
+<pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[3]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;)
 species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[10]]$freq)[x]))
-species_names</code></pre>
-<pre><code>##       [,1]                    [,2]                  
-##  [1,] &quot;Coracina personata&quot;    &quot;Dicrurus densus&quot;     
-##  [2,] &quot;Psilopogon cyanotis&quot;   &quot;Aviceda leuphotes&quot;   
-##  [3,] &quot;Dicaeum hirundinaceum&quot; &quot;Manorina flavigula&quot;  
-##  [4,] &quot;Lophura ignita&quot;        &quot;Carpococcyx radiceus&quot;
-##  [5,] &quot;Chloropsis venusta&quot;    &quot;Psilopogon oorti&quot;    
-##  [6,] &quot;Dicaeum pectorale&quot;     &quot;Lonchura leucosticta&quot;
-##  [7,] &quot;Pernis steerei&quot;        &quot;Sitta oenochlamys&quot;   
-##  [8,] &quot;Artamus monachus&quot;      &quot;Centropus celebensis&quot;
-##  [9,] &quot;Melidectes torquatus&quot;  &quot;Pycnopygius cinereus&quot;
-## [10,] &quot;Psilopogon javensis&quot;   &quot;Stachyris thoracica&quot; 
-##       [,3]                            [,4]                     
-##  [1,] &quot;Geopelia maugeus&quot;              &quot;Lonchura quinticolor&quot;   
-##  [2,] &quot;Hemiprocne coronata&quot;           &quot;Treron phayrei&quot;         
-##  [3,] &quot;Cygnus atratus&quot;                &quot;Psitteuteles versicolor&quot;
-##  [4,] &quot;Dicaeum everetti&quot;              &quot;Pitta baudii&quot;           
-##  [5,] &quot;Turdinus marmorata&quot;            &quot;Lophura rufa&quot;           
-##  [6,] &quot;Psittaculirostris desmarestii&quot; &quot;Chalcopsitta atra&quot;      
-##  [7,] &quot;Merops americanus&quot;             &quot;Pycnonotus urostictus&quot;  
-##  [8,] &quot;Dicaeum celebicum&quot;             &quot;Ducula luctuosa&quot;        
-##  [9,] &quot;Ptiloprora plumbea&quot;            &quot;Melipotes fumigatus&quot;    
-## [10,] &quot;Psilopogon australis&quot;          &quot;Loriculus pusillus&quot;     
-##       [,5]                        [,6]                        
-##  [1,] &quot;Pitta elegans&quot;             &quot;Nectarinia solaris&quot;        
-##  [2,] &quot;Treron phoenicopterus&quot;     &quot;Mirafra erythrocephala&quot;    
-##  [3,] &quot;Colluricincla woodwardi&quot;   &quot;Lichenostomus virescens&quot;   
-##  [4,] &quot;Ptilocichla leucogrammica&quot; &quot;Lacedo melanops&quot;           
-##  [5,] &quot;Dicrurus sumatranus&quot;       &quot;Pitta irena&quot;               
-##  [6,] &quot;Lonchura nevermanni&quot;       &quot;Cyclopsitta gulielmitertii&quot;
-##  [7,] &quot;Batrachostomus septimus&quot;   &quot;Microhierax erythrogenys&quot;  
-##  [8,] &quot;Nisaetus lanceolatus&quot;      &quot;Pernis celebensis&quot;         
-##  [9,] &quot;Poecilodryas albonotata&quot;   &quot;Melidectes belfordi&quot;       
-## [10,] &quot;Hemicircus concretus&quot;      &quot;Stachyris melanothorax&quot;    
-##       [,7]                       [,8]                        
-##  [1,] &quot;Circaetus gallicus&quot;       &quot;Zosterops wallacei&quot;        
-##  [2,] &quot;Ampeliceps coronatus&quot;     &quot;Tephrodornis pondicerianus&quot;
-##  [3,] &quot;Climacteris melanurus&quot;    &quot;Artamus superciliosus&quot;     
-##  [4,] &quot;Pitta schwaneri&quot;          &quot;Caloramphus fuliginosus&quot;   
-##  [5,] &quot;Trichastoma buettikoferi&quot; &quot;Psilopogon pyrolophus&quot;     
-##  [6,] &quot;Rhipidura maculipectus&quot;   &quot;Corvus fuscicapillus&quot;      
-##  [7,] &quot;Surniculus velutinus&quot;     &quot;Rhabdornis mystacalis&quot;     
-##  [8,] &quot;Prioniturus platurus&quot;     &quot;Trichoglossus ornatus&quot;     
-##  [9,] &quot;Amblyornis macgregoriae&quot;  &quot;Chalcites ruficollis&quot;      
-## [10,] &quot;Macronous flavicollis&quot;    &quot;Chrysophlegma mentale&quot;     
-##       [,9]                      [,10]                       
-##  [1,] &quot;Coracina dohertyi&quot;       &quot;Todiramphus australasia&quot;   
-##  [2,] &quot;Crypsirina temia&quot;        &quot;Chloropsis aurifrons&quot;      
-##  [3,] &quot;Malurus lamberti&quot;        &quot;Trichoglossus rubritorquis&quot;
-##  [4,] &quot;Cyornis superbus&quot;        &quot;Lonchura fuscans&quot;          
-##  [5,] &quot;Caloramphus hayii&quot;       &quot;Lophura erythrophthalma&quot;   
-##  [6,] &quot;Tanysiptera hydrocharis&quot; &quot;Dacelo tyro&quot;               
-##  [7,] &quot;Terpsiphone cinnamomea&quot;  &quot;Dicaeum australe&quot;          
-##  [8,] &quot;Turacoena manadensis&quot;    &quot;Tyto rosenbergii&quot;          
-##  [9,] &quot;Gerygone ruficollis&quot;     &quot;Aegotheles archboldi&quot;      
-## [10,] &quot;Arborophila javanica&quot;    &quot;Lonchura leucogastroides&quot;</code></pre>
-<p>The weighting on the influence of the top 10 driving birds on the clusters for each of the 10 clusters under the K=10 model.</p>
-<pre class="r"><code>par(mfrow=c(3,4))
-for(m in 1:10){
-  plot(driving_species_ind$scores[m,], col=&#39;red&#39;, pch = 20, cex = 1.5)
-}</code></pre>
-<p><img src="wallacea_analysis_birds_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+t(species_names)</code></pre>
+<pre><code>##       [,1]                      [,2]                     
+##  [1,] &quot;Coracina papuensis&quot;      &quot;Centropus rectunguis&quot;   
+##  [2,] &quot;Rhipidura leucophrys&quot;    &quot;Melanoperdix niger&quot;     
+##  [3,] &quot;Corvus orru&quot;             &quot;Trichixos pyrropygus&quot;   
+##  [4,] &quot;Cacatua galerita&quot;        &quot;Prionochilus thoracicus&quot;
+##  [5,] &quot;Accipiter cirrocephalus&quot; &quot;Rhinomyias umbratilis&quot;  
+##  [6,] &quot;Ardea plumifera&quot;         &quot;Rhipidura perlata&quot;      
+##  [7,] &quot;Ceyx azureus&quot;            &quot;Lyncornis temminckii&quot;   
+##  [8,] &quot;Radjah radjah&quot;           &quot;Caprimulgus concretus&quot;  
+##  [9,] &quot;Falco berigora&quot;          &quot;Cyornis caerulatus&quot;     
+## [10,] &quot;Rhipidura rufiventris&quot;   &quot;Ciconia stormi&quot;         
+##       [,3]                   
+##  [1,] &quot;Prinia hodgsonii&quot;     
+##  [2,] &quot;Sterna aurantia&quot;      
+##  [3,] &quot;Chloropsis aurifrons&quot; 
+##  [4,] &quot;Merops orientalis&quot;    
+##  [5,] &quot;Anas poecilorhyncha&quot;  
+##  [6,] &quot;Artamus fuscus&quot;       
+##  [7,] &quot;Clamator coromandus&quot;  
+##  [8,] &quot;Glaucidium cuculoides&quot;
+##  [9,] &quot;Coracias affinis&quot;     
+## [10,] &quot;Treron phayrei&quot;</code></pre>
 </div>
 </div>
 <div id="sessioninfo" class="section level2">

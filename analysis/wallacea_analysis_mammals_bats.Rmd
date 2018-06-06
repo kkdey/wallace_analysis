@@ -168,7 +168,7 @@ The geostructure plot for different K.
 ![](Wallacea_mammals_bats/geostructure_birds_10.png)
 
 
-## Important Birds
+## Important mammals species
 
 We obtain the driving bird species for each cluster using the **CountClust** package.
 
@@ -180,7 +180,7 @@ species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (
 t(species_names)
 ```
 
-### K = 2
+### K = 3
 
 ```{r}
 driving_species_ind <-  ExtractTopFeatures(topics_clust[[3]]$freq, method = "poisson", options = "min", top_features = 50)

@@ -96,7 +96,7 @@ richness <- rowSums(combined_data)
 ```
 
 ```{r fig.height=4, fig.width = 5}
-colorGradient <- colorRampPalette(c("blue", "white", "red"))(120)
+colorGradient <- colorRampPalette(c("blue", "white", "red"))(max(richness))
 plot(latlong[,1], latlong[,2], col= colorGradient[richness], pch = 20, cex = 1.5)
 ```
 

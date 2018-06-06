@@ -75,7 +75,7 @@ richness <- rowSums(birds)
 ```
 
 ```{r fig.height=4, fig.width = 5}
-colorGradient <- colorRampPalette(c("blue", "white", "red"))(500)
+colorGradient <- colorRampPalette(c("blue", "white", "red"))(max(richness))
 plot(latlong[,1], latlong[,2], col= colorGradient[richness], pch = 20, cex = 1.5)
 ```
 
@@ -128,12 +128,12 @@ The geostructure plot for different K.
 
 ### K = 2
 
-![geostructure2](Wallacea_w_seabirds//geostructure_birds_2.png)
+![geostructure2](Wallacea_w_seabirds/geostructure_birds_2.png)
 
 
 ### K = 3
 
-![geostructure3](Wallacea_w_seabirds//geostructure_birds_3.png)
+![geostructure3](Wallacea_w_seabirds/geostructure_birds_3.png)
 
 
 ### K = 4
@@ -166,7 +166,7 @@ The geostructure plot for different K.
 
 ![geostructure10](Wallacea_w_seabirds//geostructure_birds_10.png)
 
-## Important Birds
+## Key Birds
 
 We obtain the driving bird species for each cluster using the **CountClust** package.
 
@@ -175,26 +175,17 @@ We obtain the driving bird species for each cluster using the **CountClust** pac
 ```{r}
 driving_species_ind <-  ExtractTopFeatures(topics_clust[[2]]$freq, method = "poisson", options = "min", top_features = 50)
 species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
-species_names
+t(species_names)
 ```
 
-### K = 10
+### K = 3
 
 ```{r}
-driving_species_ind <-  ExtractTopFeatures(topics_clust[[10]]$freq, method = "poisson", options = "min")
+driving_species_ind <-  ExtractTopFeatures(topics_clust[[3]]$freq, method = "poisson", options = "min")
 species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[10]]$freq)[x]))
-species_names
+t(species_names)
 ```
 
-The weighting on the influence of the top 10 driving birds on the clusters for each of the 10 clusters under the K=10 model.
-
-```{r}
-par(mfrow=c(3,4))
-for(m in 1:10){
-  plot(driving_species_ind$scores[m,], col='red', pch = 20, cex = 1.5)
-}
-
-```
 
 ## SessionInfo
 

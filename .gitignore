@@ -14,3 +14,5 @@ output/methClust_best_runs_birds/
 output/methClust_best_runs_mammals_bats/
 output/methClust_best_runs_mammals_no_bats/
 output/methClust_best_runs_mammals_and_birds/
+output/methClust_best_runs_birds_transpose/
+output/methClust_best_runs_*_transpose/

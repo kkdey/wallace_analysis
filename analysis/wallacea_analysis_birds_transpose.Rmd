@@ -1,0 +1,157 @@
+---
+title: 'Wallacea region GoM analysis : birds transpose'
+author: "Kushal K Dey"
+date: "6/6/2018"
+output: html_document
+---
+
+## Intro
+
+Here we observe the presence absence data of bird species in the Australasian region (Wallacea).  We try to interpret that in the context of our Grade of Membership (GoM) model and its applications to presence absence data.
+
+## Packages
+
+```{r setup, include=TRUE, warning = FALSE, message = FALSE}
+library(methClust)
+library(CountClust)
+library(rasterVis)
+library(gtools)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)
+
+```
+
+Load the data
+
+## Wallacea Region data
+
+```{r}
+birds <- get(load("../data/wallacea_birds.rda"))
+latlong_chars_birds <- rownames(birds)
+latlong <- cbind.data.frame(as.numeric(sapply(latlong_chars_birds, 
+              function(x) return(strsplit(x, "_")[[1]][1]))),
+         as.numeric(sapply(latlong_chars_birds, 
+              function(x) return(strsplit(x, "_")[[1]][2]))))
+```
+
+
+## Map of Wallacea 
+
+```{r}
+world_map <- map_data("world")
+world_map <- world_map[world_map$region != "Antarctica",] # intercourse antarctica
+
+world_map <- world_map[world_map$long > 90 & world_map$long < 160, ]
+world_map <- world_map[world_map$lat > -18 & world_map$lat < 20, ]
+
+
+p <- ggplot() + coord_fixed() +
+  xlab("") + ylab("")
+
+#Add map to base plot
+base_world_messy <- p + geom_polygon(data=world_map, aes(x=long, y=lat, group=group), colour="light green", fill="light green")
+
+cleanup <- 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+        panel.background = element_rect(fill = 'white', colour = 'white'), 
+        axis.line = element_line(colour = "white"), legend.position="none",
+        axis.ticks=element_blank(), axis.text.x=element_blank(),
+        axis.text.y=element_blank())
+
+base_world <- base_world_messy + cleanup
+
+base_world
+
+```
+
+## Visualization
+
+```{r}
+topics_clust <- get(load("../output/methClust_wallacea_birds_transpose.rda"))
+```
+
+### K = 3
+
+```{r}
+topics <- topics_clust[[3]]
+latlong_chars <- rownames(topics$freq)
+latlong <- cbind.data.frame(as.numeric(sapply(latlong_chars, 
+              function(x) return(strsplit(x, "_")[[1]][1]))),
+         as.numeric(sapply(latlong_chars, 
+              function(x) return(strsplit(x, "_")[[1]][2]))))
+
+for(i in 1:dim(topics$freq)[2]){
+  tmp <- round(1000*topics$freq[,i])+1
+  colorGradient <- colorRampPalette(c("black", "darkseagreen3",
+                                    "orange","red"))(1001)
+  plot(latlong[,1], latlong[,2], col= colorGradient[tmp], pch = 20, cex = 1.5)
+}
+```
+
+
+### K = 5
+
+```{r}
+topics <- topics_clust[[5]]
+latlong_chars <- rownames(topics$freq)
+latlong <- cbind.data.frame(as.numeric(sapply(latlong_chars, 
+              function(x) return(strsplit(x, "_")[[1]][1]))),
+         as.numeric(sapply(latlong_chars, 
+              function(x) return(strsplit(x, "_")[[1]][2]))))
+
+for(i in 1:dim(topics$freq)[2]){
+  tmp <- round(1000*topics$freq[,i])+1
+  colorGradient <- colorRampPalette(c("black", "darkseagreen3",
+                                    "orange","red"))(1001)
+  plot(latlong[,1], latlong[,2], col= colorGradient[tmp], pch = 20, cex = 1.5)
+}
+```
+
+### K = 7
+
+```{r}
+topics <- topics_clust[[7]]
+latlong_chars <- rownames(topics$freq)
+latlong <- cbind.data.frame(as.numeric(sapply(latlong_chars, 
+              function(x) return(strsplit(x, "_")[[1]][1]))),
+         as.numeric(sapply(latlong_chars, 
+              function(x) return(strsplit(x, "_")[[1]][2]))))
+
+for(i in 1:dim(topics$freq)[2]){
+  tmp <- round(1000*topics$freq[,i])+1
+  colorGradient <- colorRampPalette(c("black", "darkseagreen3",
+                                    "orange","red"))(1001)
+  plot(latlong[,1], latlong[,2], col= colorGradient[tmp], pch = 20, cex = 1.5)
+}
+```
+
+### K = 10
+
+```{r}
+topics <- topics_clust[[10]]
+latlong_chars <- rownames(topics$freq)
+latlong <- cbind.data.frame(as.numeric(sapply(latlong_chars, 
+              function(x) return(strsplit(x, "_")[[1]][1]))),
+         as.numeric(sapply(latlong_chars, 
+              function(x) return(strsplit(x, "_")[[1]][2]))))
+
+for(i in 1:dim(topics$freq)[2]){
+  tmp <- round(1000*topics$freq[,i])+1
+  colorGradient <- colorRampPalette(c("black", "darkseagreen3",
+                                    "orange","red"))(1001)
+  plot(latlong[,1], latlong[,2], col= colorGradient[tmp], pch = 20, cex = 1.5)
+}
+```
+
+
+```{r}
+sessionInfo()
+```
+
+

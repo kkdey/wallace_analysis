@@ -4,6 +4,10 @@
 
 datalist <- get(load("../data/wallace_region_pres_ab_breeding_with_seabirds.rda"))
 long_lat_dat  <- paste0(datalist$location[,1], "_", datalist$location[,2])
+latlong <- cbind.data.frame(as.numeric(sapply(long_lat_dat,
+                                              function(x) return(strsplit(x, "_")[[1]][1]))),
+                            as.numeric(sapply(long_lat_dat,
+                                              function(x) return(strsplit(x, "_")[[1]][2]))))
 birds <- datalist$dat
 
 locs_filter <- read.csv("../data/long_lats_to_drop.csv")

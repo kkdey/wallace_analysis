@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Kushal K Dey" />
+
+
+<title>Wallacea region GoM analysis : mammals with bats</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">wallace_analysis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Wallacea region GoM analysis : mammals with bats</h1>
+<h4 class="author"><em>Kushal K Dey</em></h4>
+<h4 class="date"><em>6/5/2018</em></h4>
+
+</div>
+
+
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>Here we observe the presence absence data of mammals species (including different species of bats) in the Australasian region (Wallacea). We try to interpret that in the context of our Grade of Membership (GoM) model and its applications to presence absence data.</p>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<pre class="r"><code>library(methClust)
+library(CountClust)
+library(rasterVis)
+library(gtools)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)</code></pre>
+<p>Load the data</p>
+</div>
+<div id="wallacea-region-data" class="section level2">
+<h2>Wallacea Region data</h2>
+<pre class="r"><code>mamms &lt;- get(load(&quot;../data/mammals_with_bats.rda&quot;))
+latlong_chars &lt;- rownames(mamms)
+latlong &lt;- cbind.data.frame(as.numeric(sapply(latlong_chars, 
+                              function(x) return(strsplit(x, &quot;_&quot;)[[1]][1]))),
+         as.numeric(sapply(latlong_chars, 
+                           function(x) return(strsplit(x, &quot;_&quot;)[[1]][2]))))</code></pre>
+</div>
+<div id="map-of-wallacea" class="section level2">
+<h2>Map of Wallacea</h2>
+<pre class="r"><code>world_map &lt;- map_data(&quot;world&quot;)
+world_map &lt;- world_map[world_map$region != &quot;Antarctica&quot;,] # intercourse antarctica
+
+world_map &lt;- world_map[world_map$long &gt; 90 &amp; world_map$long &lt; 160, ]
+world_map &lt;- world_map[world_map$lat &gt; -18 &amp; world_map$lat &lt; 20, ]
+
+
+p &lt;- ggplot() + coord_fixed() +
+  xlab(&quot;&quot;) + ylab(&quot;&quot;)
+
+#Add map to base plot
+base_world_messy &lt;- p + geom_polygon(data=world_map, aes(x=long, y=lat, group=group), colour=&quot;light green&quot;, fill=&quot;light green&quot;)
+
+cleanup &lt;- 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+        panel.background = element_rect(fill = &#39;white&#39;, colour = &#39;white&#39;), 
+        axis.line = element_line(colour = &quot;white&quot;), legend.position=&quot;none&quot;,
+        axis.ticks=element_blank(), axis.text.x=element_blank(),
+        axis.text.y=element_blank())
+
+base_world &lt;- base_world_messy + cleanup
+
+base_world</code></pre>
+<p><img src="wallacea_analysis_mammals_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>mamms_data &lt;- mamms</code></pre>
+<pre class="r"><code>richness &lt;- rowSums(mamms_data)</code></pre>
+<pre class="r"><code>colorGradient &lt;- colorRampPalette(c(&quot;blue&quot;, &quot;white&quot;, &quot;red&quot;))(200)
+plot(latlong[,1], latlong[,2], col= colorGradient[richness], pch = 20, cex = 1)</code></pre>
+<p><img src="wallacea_analysis_mammals_files/figure-html/unnamed-chunk-5-1.png" width="480" /></p>
+<p>Applying methclust presence absence Grade of Membership model to the presence absence data</p>
+<pre class="r"><code>topics_clust &lt;- list()
+topics_clust[[1]] &lt;- NULL
+for(k in 2:10){
+  topics_clust[[k]] &lt;- meth_topics(mamms_data, 1 - mamms_data, 
+            K=k, tol = 10, use_squarem = FALSE)
+}
+save(topics_clust, file = &quot;../output/methClust_wallacea_mammals_bats.rda&quot;)</code></pre>
+</div>
+<div id="visualization" class="section level2">
+<h2>Visualization</h2>
+<pre class="r"><code>topics_clust &lt;- get(load(&quot;../output/methClust_wallacea_mammals_bats.rda&quot;))</code></pre>
+<pre class="r"><code>color = c(&quot;red&quot;, &quot;cornflowerblue&quot;, &quot;cyan&quot;, &quot;brown4&quot;, &quot;burlywood&quot;, &quot;darkgoldenrod1&quot;,
+          &quot;azure4&quot;, &quot;green&quot;,&quot;deepskyblue&quot;,&quot;yellow&quot;, &quot;azure1&quot;)
+intensity &lt;- 0.8
+for(k in 2:10){
+  png(filename=paste0(&quot;../docs/Wallacea_mammals_bats/geostructure_birds_&quot;, k, &quot;.png&quot;),width = 1000, height = 800)
+map(&quot;worldHires&quot;,
+    ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
+    col = &quot;gray&quot;, fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
+lapply(1:dim(topics_clust[[k]]$omega)[1], function(r)
+  add.pie(z=as.integer(100*topics_clust[[k]]$omega[r,]),
+          x=latlong[r,1], y=latlong[r,2], labels=c(&quot;&quot;,&quot;&quot;,&quot;&quot;),
+          radius = 0.5,
+          col=c(alpha(color[1],intensity),alpha(color[2],intensity),
+                alpha(color[3], intensity), alpha(color[4], intensity),
+                alpha(color[5], intensity), alpha(color[6], intensity),
+                alpha(color[7], intensity), alpha(color[8], intensity),
+                alpha(color[9], intensity), alpha(color[10], intensity),
+                alpha(color[11], intensity))));
+dev.off()
+}</code></pre>
+<p>The geostructure plot for different K.</p>
+<div id="k-2" class="section level3">
+<h3>K = 2</h3>
+<div class="figure">
+<img src="Wallacea_mammals_bats/geostructure_birds_2.png" />
+
+</div>
+</div>
+<div id="k-3" class="section level3">
+<h3>K = 3</h3>
+<div class="figure">
+<img src="Wallacea_mammals_bats/geostructure_birds_3.png" />
+
+</div>
+</div>
+<div id="k-4" class="section level3">
+<h3>K = 4</h3>
+<div class="figure">
+<img src="Wallacea_mammals_bats/geostructure_birds_4.png" />
+
+</div>
+</div>
+<div id="k-5" class="section level3">
+<h3>K = 5</h3>
+<div class="figure">
+<img src="Wallacea_mammals_bats/geostructure_birds_5.png" />
+
+</div>
+</div>
+<div id="k-6" class="section level3">
+<h3>K = 6</h3>
+<div class="figure">
+<img src="Wallacea_mammals_bats/geostructure_birds_6.png" />
+
+</div>
+</div>
+<div id="k-7" class="section level3">
+<h3>K = 7</h3>
+<div class="figure">
+<img src="Wallacea_mammals_bats/geostructure_birds_7.png" />
+
+</div>
+</div>
+<div id="k-8" class="section level3">
+<h3>K = 8</h3>
+<div class="figure">
+<img src="Wallacea_mammals_bats/geostructure_birds_8.png" />
+
+</div>
+</div>
+<div id="k-9" class="section level3">
+<h3>K = 9</h3>
+<div class="figure">
+<img src="Wallacea_mammals_bats/geostructure_birds_9.png" />
+
+</div>
+</div>
+<div id="k-10" class="section level3">
+<h3>K = 10</h3>
+<div class="figure">
+<img src="Wallacea_mammals_bats/geostructure_birds_10.png" />
+
+</div>
+</div>
+</div>
+<div id="important-mammals-species" class="section level2">
+<h2>Important mammals species</h2>
+<p>We obtain the driving bird species for each cluster using the <strong>CountClust</strong> package.</p>
+<div id="k-2-1" class="section level3">
+<h3>K = 2</h3>
+<pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[2]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;, top_features = 50)
+species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
+t(species_names)</code></pre>
+<pre><code>##       [,1]                          [,2]                      
+##  [1,] &quot;Pseudomys.delicatulus&quot;       &quot;Tragulus.kanchil&quot;        
+##  [2,] &quot;Pteropus.scapulatus&quot;         &quot;Arctogalidia.trivirgata&quot; 
+##  [3,] &quot;Saccolaimus.flaviventris&quot;    &quot;Leopoldamys.sabanus&quot;     
+##  [4,] &quot;Mormopterus.lumsdenae&quot;       &quot;Martes.flavigula&quot;        
+##  [5,] &quot;Petaurus.breviceps&quot;          &quot;Herpestes.brachyurus&quot;    
+##  [6,] &quot;Macropus.robustus&quot;           &quot;Paguma.larvata&quot;          
+##  [7,] &quot;Hydromys.chrysogaster&quot;       &quot;Rusa.unicolor&quot;           
+##  [8,] &quot;Lagorchestes.conspicillatus&quot; &quot;Hipposideros.doriae&quot;     
+##  [9,] &quot;Nyctophilus.bifax&quot;           &quot;Hystrix.brachyura&quot;       
+## [10,] &quot;Mormopterus.beccarii&quot;        &quot;Maxomys.surifer&quot;         
+## [11,] &quot;Pteropus.alecto&quot;             &quot;Arctictis.binturong&quot;     
+## [12,] &quot;Myotis.macropus&quot;             &quot;Trachypithecus.cristatus&quot;
+## [13,] &quot;Tachyglossus.aculeatus&quot;      &quot;Trichys.fasciculata&quot;     
+## [14,] &quot;Onychogalea.unguifera&quot;       &quot;Galeopterus.variegatus&quot;  
+## [15,] &quot;Chalinolobus.nigrogriseus&quot;   &quot;Hipposideros.galeritus&quot;  
+## [16,] &quot;Chaerephon.jobensis&quot;         &quot;Manis.javanica&quot;          
+## [17,] &quot;Leggadina.lakedownensis&quot;     &quot;Helarctos.malayanus&quot;     
+## [18,] &quot;Trichosurus.vulpecula&quot;       &quot;Sus.barbatus&quot;            
+## [19,] &quot;Nyctophilus.geoffroyi&quot;       &quot;Tupaia.tana&quot;             
+## [20,] &quot;Macroderma.gigas&quot;            &quot;Nycteris.tragata&quot;        
+## [21,] &quot;Macropus.antilopinus&quot;        &quot;Tragulus.napu&quot;           
+## [22,] &quot;Chalinolobus.gouldii&quot;        &quot;Glischropus.tylopus&quot;     
+## [23,] &quot;Scotorepens.greyii&quot;          &quot;Prionodon.linsang&quot;       
+## [24,] &quot;Nyctophilus.arnhemensis&quot;     &quot;Rhizomys.sumatrensis&quot;    
+## [25,] &quot;Zyzomys.argurus&quot;             &quot;Hylopetes.spadiceus&quot;     
+## [26,] &quot;Planigale.maculata&quot;          &quot;Echinosorex.gymnura&quot;     
+## [27,] &quot;Taphozous.georgianus&quot;        &quot;Hemigalus.derbyanus&quot;     
+## [28,] &quot;Pseudomys.nanus&quot;             &quot;Rhinolophus.stheno&quot;      
+## [29,] &quot;Macropus.agilis&quot;             &quot;Hipposideros.larvatus&quot;   
+## [30,] &quot;Mosia.nigrescens&quot;            &quot;Mustela.nudipes&quot;         
+## [31,] &quot;Rhinonicteris.aurantia&quot;      &quot;Nannosciurus.melanotis&quot;  
+## [32,] &quot;Rattus.tunneyi&quot;              &quot;Petaurista.petaurista&quot;   
+## [33,] &quot;Vespadelus.caurinus&quot;         &quot;Lutrogale.perspicillata&quot; 
+## [34,] &quot;Isoodon.macrourus&quot;           &quot;Pardofelis.marmorata&quot;    
+## [35,] &quot;Hipposideros.stenotis&quot;       &quot;Cynogale.bennettii&quot;      
+## [36,] &quot;Syconycteris.australis&quot;      &quot;Rhinolophus.trifoliatus&quot; 
+## [37,] &quot;Rhinolophus.euryotis&quot;        &quot;Ratufa.affinis&quot;          
+## [38,] &quot;Myotis.moluccarum&quot;           &quot;Sundasciurus.lowii&quot;      
+## [39,] &quot;Pteropus.hypomelanus&quot;        &quot;Maxomys.rajah&quot;           
+## [40,] &quot;Uromys.caudimaculatus&quot;       &quot;Maxomys.whiteheadi&quot;      
+## [41,] &quot;Spilocuscus.maculatus&quot;       &quot;Sundasciurus.hippurus&quot;   
+## [42,] &quot;Rattus.villosissimus&quot;        &quot;Penthetor.lucasi&quot;        
+## [43,] &quot;Dactylopsila.trivirgata&quot;     &quot;Callosciurus.prevostii&quot;  
+## [44,] &quot;Echymipera.rufescens&quot;        &quot;Megaerops.ecaudatus&quot;     
+## [45,] &quot;Nyctimene.albiventer&quot;        &quot;Petinomys.setosus&quot;       
+## [46,] &quot;Echymipera.kalubu&quot;           &quot;Macroglossus.sobrinus&quot;   
+## [47,] &quot;Melomys.rufescens&quot;           &quot;Tupaia.minor&quot;            
+## [48,] &quot;Pteropus.neohibernicus&quot;      &quot;Sundasciurus.tenuis&quot;     
+## [49,] &quot;Scotorepens.sanborni&quot;        &quot;Ratufa.bicolor&quot;          
+## [50,] &quot;Nyctophilus.walkeri&quot;         &quot;Aonyx.cinereus&quot;</code></pre>
+</div>
+<div id="k-3-1" class="section level3">
+<h3>K = 3</h3>
+<pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[3]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;, top_features = 50)
+species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
+t(species_names)</code></pre>
+<pre><code>##       [,1]                          [,2]                      
+##  [1,] &quot;Macropus.agilis&quot;             &quot;Trichys.fasciculata&quot;     
+##  [2,] &quot;Mormopterus.beccarii&quot;        &quot;Tupaia.tana&quot;             
+##  [3,] &quot;Pteropus.alecto&quot;             &quot;Trachypithecus.cristatus&quot;
+##  [4,] &quot;Pseudomys.delicatulus&quot;       &quot;Hipposideros.doriae&quot;     
+##  [5,] &quot;Lagorchestes.conspicillatus&quot; &quot;Herpestes.brachyurus&quot;    
+##  [6,] &quot;Chaerephon.jobensis&quot;         &quot;Penthetor.lucasi&quot;        
+##  [7,] &quot;Petaurus.breviceps&quot;          &quot;Tarsius.bancanus&quot;        
+##  [8,] &quot;Pteropus.scapulatus&quot;         &quot;Callosciurus.prevostii&quot;  
+##  [9,] &quot;Saccolaimus.flaviventris&quot;    &quot;Nannosciurus.melanotis&quot;  
+## [10,] &quot;Mormopterus.lumsdenae&quot;       &quot;Neofelis.diardi&quot;         
+## [11,] &quot;Hydromys.chrysogaster&quot;       &quot;Maxomys.rajah&quot;           
+## [12,] &quot;Chalinolobus.nigrogriseus&quot;   &quot;Maxomys.whiteheadi&quot;      
+## [13,] &quot;Tachyglossus.aculeatus&quot;      &quot;Sundasciurus.hippurus&quot;   
+## [14,] &quot;Myotis.macropus&quot;             &quot;Nycticebus.menagensis&quot;   
+## [15,] &quot;Mosia.nigrescens&quot;            &quot;Exilisciurus.exilis&quot;     
+## [16,] &quot;Macropus.robustus&quot;           &quot;Crocidura.foetida&quot;       
+## [17,] &quot;Nyctophilus.bifax&quot;           &quot;Hystrix.crassispinis&quot;    
+## [18,] &quot;Leggadina.lakedownensis&quot;     &quot;Muntiacus.atherodes&quot;     
+## [19,] &quot;Trichosurus.vulpecula&quot;       &quot;Myotis.gomantongensis&quot;   
+## [20,] &quot;Macropus.antilopinus&quot;        &quot;Eonycteris.major&quot;        
+## [21,] &quot;Rhinolophus.euryotis&quot;        &quot;Rheithrosciurus.macrotis&quot;
+## [22,] &quot;Pteropus.hypomelanus&quot;        &quot;Chiropodomys.pusillus&quot;   
+## [23,] &quot;Onychogalea.unguifera&quot;       &quot;Sundasciurus.lowii&quot;      
+## [24,] &quot;Isoodon.macrourus&quot;           &quot;Sundasciurus.tenuis&quot;     
+## [25,] &quot;Planigale.maculata&quot;          &quot;Ratufa.affinis&quot;          
+## [26,] &quot;Nyctophilus.geoffroyi&quot;       &quot;Tupaia.gracilis&quot;         
+## [27,] &quot;Macroderma.gigas&quot;            &quot;Nasalis.larvatus&quot;        
+## [28,] &quot;Chalinolobus.gouldii&quot;        &quot;Sus.barbatus&quot;            
+## [29,] &quot;Scotorepens.greyii&quot;          &quot;Herpestes.semitorquatus&quot; 
+## [30,] &quot;Nyctophilus.arnhemensis&quot;     &quot;Murina.suilla&quot;           
+## [31,] &quot;Zyzomys.argurus&quot;             &quot;Megaerops.ecaudatus&quot;     
+## [32,] &quot;Pseudomys.nanus&quot;             &quot;Tupaia.minor&quot;            
+## [33,] &quot;Taphozous.georgianus&quot;        &quot;Hylobates.muelleri&quot;      
+## [34,] &quot;Myotis.moluccarum&quot;           &quot;Callosciurus.notatus&quot;    
+## [35,] &quot;Syconycteris.australis&quot;      &quot;Presbytis.rubicunda&quot;     
+## [36,] &quot;Melomys.burtoni&quot;             &quot;Mustela.nudipes&quot;         
+## [37,] &quot;Rhinonicteris.aurantia&quot;      &quot;Cheiromeles.torquatus&quot;   
+## [38,] &quot;Pteropus.conspicillatus&quot;     &quot;Macaca.nemestrina&quot;       
+## [39,] &quot;Rattus.tunneyi&quot;              &quot;Tupaia.dorsalis&quot;         
+## [40,] &quot;Vespadelus.caurinus&quot;         &quot;Petinomys.genibarbis&quot;    
+## [41,] &quot;Scotorepens.sanborni&quot;        &quot;Rhinolophus.sedulus&quot;     
+## [42,] &quot;Hipposideros.stenotis&quot;       &quot;Muntiacus.muntjak&quot;       
+## [43,] &quot;Pipistrellus.adamsi&quot;         &quot;Hipposideros.dyacorum&quot;   
+## [44,] &quot;Nyctimene.albiventer&quot;        &quot;Lariscus.insignis&quot;       
+## [45,] &quot;Spilocuscus.maculatus&quot;       &quot;Aeromys.thomasi&quot;         
+## [46,] &quot;Sminthopsis.virginiae&quot;       &quot;Myotis.ridleyi&quot;          
+## [47,] &quot;Uromys.caudimaculatus&quot;       &quot;Kerivoula.intermedia&quot;    
+## [48,] &quot;Pteropus.neohibernicus&quot;      &quot;Echinosorex.gymnura&quot;     
+## [49,] &quot;Melomys.rufescens&quot;           &quot;Hemigalus.derbyanus&quot;     
+## [50,] &quot;Dactylopsila.trivirgata&quot;     &quot;Rattus.tiomanicus&quot;       
+##       [,3]                        
+##  [1,] &quot;Melogale.personata&quot;        
+##  [2,] &quot;Petaurista.philippensis&quot;   
+##  [3,] &quot;Megaerops.niphanae&quot;        
+##  [4,] &quot;Pipistrellus.coromandra&quot;   
+##  [5,] &quot;Bandicota.indica&quot;          
+##  [6,] &quot;Rhinolophus.microglobosus&quot; 
+##  [7,] &quot;Bandicota.savilei&quot;         
+##  [8,] &quot;Rattus.tanezumi&quot;           
+##  [9,] &quot;Lepus.peguensis&quot;           
+## [10,] &quot;Hesperoptenus.tickelli&quot;    
+## [11,] &quot;Tupaia.belangeri&quot;          
+## [12,] &quot;Scotophilus.heathii&quot;       
+## [13,] &quot;Berylmys.berdmorei&quot;        
+## [14,] &quot;Ursus.thibetanus&quot;          
+## [15,] &quot;Muntiacus.vaginalis&quot;       
+## [16,] &quot;Macaca.leonina&quot;            
+## [17,] &quot;Rhinolophus.malayanus&quot;     
+## [18,] &quot;Callosciurus.finlaysonii&quot;  
+## [19,] &quot;Canis.aureus&quot;              
+## [20,] &quot;Rhinolophus.shameli&quot;       
+## [21,] &quot;Tamiops.rodolphii&quot;         
+## [22,] &quot;Cannomys.badius&quot;           
+## [23,] &quot;Vandeleuria.oleracea&quot;      
+## [24,] &quot;Rhinolophus.thomasi&quot;       
+## [25,] &quot;Felis.chaus&quot;               
+## [26,] &quot;Viverra.megaspila&quot;         
+## [27,] &quot;Menetes.berdmorei&quot;         
+## [28,] &quot;Crocidura.vorax&quot;           
+## [29,] &quot;Rattus.losea&quot;              
+## [30,] &quot;Kerivoula.titania&quot;         
+## [31,] &quot;Nycticebus.bengalensis&quot;    
+## [32,] &quot;Myotis.rosseti&quot;            
+## [33,] &quot;Prionodon.pardicolor&quot;      
+## [34,] &quot;Arctonyx.collaris&quot;         
+## [35,] &quot;Trachypithecus.phayrei&quot;    
+## [36,] &quot;Rhinolophus.pearsonii&quot;     
+## [37,] &quot;Trachypithecus.germaini&quot;   
+## [38,] &quot;Hipposideros.pomona&quot;       
+## [39,] &quot;Niviventer.langbianis&quot;     
+## [40,] &quot;Mus.pahari&quot;                
+## [41,] &quot;Kerivoula.kachinensis&quot;     
+## [42,] &quot;Hylopetes.phayrei&quot;         
+## [43,] &quot;Crocidura.fuliginosa&quot;      
+## [44,] &quot;Capricornis.milneedwardsii&quot;
+## [45,] &quot;Murina.tubinaris&quot;          
+## [46,] &quot;Callosciurus.erythraeus&quot;   
+## [47,] &quot;Pipistrellus.pulveratus&quot;   
+## [48,] &quot;Atherurus.macrourus&quot;       
+## [49,] &quot;Nycticebus.pygmaeus&quot;       
+## [50,] &quot;Mustela.strigidorsa&quot;</code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 3.5.0 (2018-04-23)
+## Platform: x86_64-apple-darwin15.6.0 (64-bit)
+## Running under: macOS Sierra 10.12.6
+## 
+## Matrix products: default
+## BLAS: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRblas.0.dylib
+## LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] ggthemes_3.5.0      scales_0.5.0        mapplots_1.5       
+##  [4] mapdata_2.3.0       maps_3.3.0          rgdal_1.2-20       
+##  [7] gtools_3.5.0        rasterVis_0.44      latticeExtra_0.6-28
+## [10] RColorBrewer_1.1-2  lattice_0.20-35     raster_2.6-7       
+## [13] sp_1.2-7            CountClust_1.6.1    ggplot2_2.2.1      
+## [16] methClust_0.1.0    
+## 
+## loaded via a namespace (and not attached):
+##  [1] zoo_1.8-1         modeltools_0.2-21 slam_0.1-43      
+##  [4] reshape2_1.4.3    colorspace_1.3-2  htmltools_0.3.6  
+##  [7] stats4_3.5.0      viridisLite_0.3.0 yaml_2.1.19      
+## [10] mgcv_1.8-23       rlang_0.2.0       hexbin_1.27.2    
+## [13] pillar_1.2.2      plyr_1.8.4        stringr_1.3.1    
+## [16] munsell_0.4.3     gtable_0.2.0      evaluate_0.10.1  
+## [19] labeling_0.3      knitr_1.20        permute_0.9-4    
+## [22] flexmix_2.3-14    parallel_3.5.0    Rcpp_0.12.17     
+## [25] backports_1.1.2   limma_3.36.1      vegan_2.5-1      
+## [28] maptpx_1.9-5      picante_1.7       digest_0.6.15    
+## [31] stringi_1.2.2     cowplot_0.9.2     grid_3.5.0       
+## [34] rprojroot_1.3-2   tools_3.5.0       magrittr_1.5     
+## [37] lazyeval_0.2.1    tibble_1.4.2      cluster_2.0.7-1  
+## [40] ape_5.1           MASS_7.3-49       Matrix_1.2-14    
+## [43] SQUAREM_2017.10-1 assertthat_0.2.0  rmarkdown_1.9    
+## [46] boot_1.3-20       nnet_7.3-12       nlme_3.1-137     
+## [49] compiler_3.5.0</code></pre>
+</div>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+    This <a href="http://rmarkdown.rstudio.com">R Markdown</a> site was created with <a href="https://github.com/jdblischak/workflowr">workflowr</a>
+</p>
+<hr>
+
+<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+
+<!-- disqus
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+-->
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

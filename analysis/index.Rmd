@@ -22,9 +22,9 @@ Codes to reproduce the results in paper:
 # Birds
           
 * **EcoStructure on the entire Wallacea**
-    + [*with seabirds*](wallacea_analysis.html)
-    + [*without seabirds*](wallacea_analysis_no_seabirds.html)
-    + [*Regions of high admixture*](high_admixture_regions.html)
+    + [* by cell vs species *](wallacea_analysis_birds.html)
+    + [* by species vs cell *](wallacea_analysis_birds_transpose.html)
+    + [* Regions of high admixture *](high_admixture_regions_birds.html)
           
 * **Ecostructure on Indonesian region - Java, Bali, Lombok, Sumbaya**
     + [*analysis*](java_bali_lombok_analysis.html)
@@ -49,8 +49,8 @@ Codes to reproduce the results in paper:
 # Mammals
 
 * **EcoStructure on the entire Wallacea**
-    + [*with bats*](wallacea_analysis_mammals_bats.html)
-    + [*without bats*](wallacea_analysis_mammals_no_bats.html)
+    + [* by cell vs species *](wallacea_analysis_mammals.html)
+    + [* by species vs cells *](wallacea_analysis_mammals_transpose.html)
     + [*Regions of high admixture*](high_admixture_regions_mammals.html)
     
 # Mammals and Birds
