@@ -53,3 +53,8 @@ Codes to reproduce the results in paper:
     + [*without bats*](wallacea_analysis_mammals_no_bats.html)
     + [*Regions of high admixture*](high_admixture_regions_mammals.html)
     
+# Mammals and Birds
+
+* **EcoStructure on the entire Wallacea**
+    + [*with mammals and birds*](wallacea_analysis_mammals_and_birds.html)
+

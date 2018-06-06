@@ -13,3 +13,4 @@ output/phylo_meth/
 output/methClust_best_runs_birds/
 output/methClust_best_runs_mammals_bats/
 output/methClust_best_runs_mammals_no_bats/
+output/methClust_best_runs_mammals_and_birds/

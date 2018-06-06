@@ -44,5 +44,26 @@ for(m in 2:10){
 save(topics_clus_list, file = "../output/methClust_wallacea_w_seabirds.rda")
 
 
+topics_clus_list <- list()
+for(m in 2:10){
+  fit <- get(load(paste0("../output/methClust_best_runs_mammals_and_birds/methClust_",m, ".rda")))
+  loglik <- unlist(lapply(fit, function(x) return(x$L)))
+  ids <- which.max(loglik)
+  topics_clus_list[[m]] <- fit[[ids]]
+}
+
+save(topics_clus_list, file = "../output/methClust_wallacea_mammals_and_birds.rda")
+
+
+topics_clus_list <- list()
+for(m in 2:10){
+  fit <- get(load(paste0("../output/methClust_best_runs_birds/methClust_",m, ".rda")))
+  loglik <- unlist(lapply(fit, function(x) return(x$L)))
+  ids <- which.max(loglik)
+  topics_clus_list[[m]] <- fit[[ids]]
+}
+
+save(topics_clus_list, file = "../output/methClust_wallacea_birds.rda")
+
 
 
