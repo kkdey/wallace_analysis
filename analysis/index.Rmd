@@ -45,7 +45,7 @@ Codes to reproduce the results in paper:
     + [*by cell vs species - with mammals and birds with bats*](wallacea_analysis_mammals_and_birds.html)
     + [*by species vs cell - with mammals and birds with bats*](wallacea_analysis_mammals_and_birds_transpose.html)
     + [*by cell vs species - with mammals and birds without bats*](wallacea_analysis_mammals_and_birds_no_bats.html)
-    + [*by species vs cell - with mammals and birds without bats*](wallacea_analysis_mammals_and_birds_transpose.html)
+    + [*by species vs cell - with mammals and birds without bats*](wallacea_analysis_mammals_birds_no_bats_transpose.html)
 
 # Extras
           

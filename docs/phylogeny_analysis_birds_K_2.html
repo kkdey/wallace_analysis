@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Kushal K Dey" />
+
+
+<title>phylogenetic cluster birds : K = 2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">wallace_analysis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">phylogenetic cluster birds : K = 2</h1>
+<h4 class="author"><em>Kushal K Dey</em></h4>
+<h4 class="date"><em>6/8/2018</em></h4>
+
+</div>
+
+
+<div id="intro" class="section level2">
+<h2>Intro</h2>
+<p>We investigate how phylogeny drives the clustering of mammals species in the Wallacea region.</p>
+<pre class="r"><code>library(ape)
+library(phytools)</code></pre>
+<pre><code>## Loading required package: maps</code></pre>
+<pre class="r"><code>library(methClust)
+library(rasterVis)</code></pre>
+<pre><code>## Loading required package: raster</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## 
+## Attaching package: &#39;raster&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:ape&#39;:
+## 
+##     rotate, zoom</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## Loading required package: latticeExtra</code></pre>
+<pre><code>## Loading required package: RColorBrewer</code></pre>
+<pre class="r"><code>library(gtools)
+library(sp)
+library(rgdal)</code></pre>
+<pre><code>## rgdal: version: 1.2-20, (SVN revision 725)
+##  Geospatial Data Abstraction Library extensions to R successfully loaded
+##  Loaded GDAL runtime: GDAL 2.1.3, released 2017/20/01
+##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/gdal
+##  GDAL binary built with GEOS: FALSE 
+##  Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.5/Resources/library/rgdal/proj
+##  Linking to sp version: 1.2-7</code></pre>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;ggplot2&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:latticeExtra&#39;:
+## 
+##     layer</code></pre>
+<pre class="r"><code>library(maps)
+library(mapdata)
+library(mapplots)
+library(scales)
+library(ggthemes)</code></pre>
+</div>
+<div id="phylo-function" class="section level2">
+<h2>Phylo function</h2>
+<pre class="r"><code>phylo.counts = function(counts, tree, collapse_at){
+  root_node &lt;- length(tree$tip.label) + 1
+  root_age &lt;- ape::branching.times(tree)[names(ape::branching.times(tree)) == root_node]
+  trees_at_slice &lt;- phytools::treeSlice(tree, root_age - collapse_at)
+  counts_at_slice &lt;- base::as.data.frame(counts)
+  for( i in 1:length(trees_at_slice)){
+   # print(i)
+    new.column &lt;- base::as.data.frame(base::rowSums(counts[,trees_at_slice[[i]]$tip.label]))
+    colnames(new.column) &lt;- trees_at_slice[[i]]$tip.label[1]
+    drops &lt;- trees_at_slice[[i]]$tip.label
+    counts_at_slice &lt;- counts_at_slice[,!(names(counts_at_slice) %in% drops)]
+    counts_at_slice &lt;- cbind(counts_at_slice, new.column)
+  }
+  counts_at_slice &lt;- base::as.matrix(counts_at_slice)
+  return(counts_at_slice)
+}</code></pre>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<pre class="r"><code>birds &lt;- get(load(&quot;../data/wallacea_birds.rda&quot;))
+latlong_chars &lt;- rownames(birds)
+latlong &lt;- cbind.data.frame(as.numeric(sapply(latlong_chars, 
+                              function(x) return(strsplit(x, &quot;_&quot;)[[1]][1]))),
+         as.numeric(sapply(latlong_chars, 
+                           function(x) return(strsplit(x, &quot;_&quot;)[[1]][2]))))</code></pre>
+<pre class="r"><code>phylo_names &lt;- read.csv(&quot;../data/names_matched_to_phylogeny.csv&quot;, row.names = 1)
+species_to_consider &lt;- intersect(phylo_names[,1], colnames(birds))
+birds2 &lt;- birds[,species_to_consider]
+colnames(birds2) &lt;- phylo_names[match(species_to_consider, phylo_names[,1]),2]</code></pre>
+</div>
+<div id="birds" class="section level2">
+<h2>Birds</h2>
+<div id="create-phylogenic-counts-data" class="section level3">
+<h3>Create phylogenic counts data</h3>
+<pre class="r"><code>tree_file &lt;-  read.tree(&quot;../data/birds.nwk&quot;)
+colnames(birds2) &lt;- gsub(&quot; &quot;,&quot;_&quot;,colnames(birds2))
+tips_to_drop &lt;- setdiff(tree_file$tip.label, colnames(birds2))
+new_tree &lt;- drop.tip(tree_file, tips_to_drop, 
+                     trim.internal = TRUE, subtree = FALSE, root.edge = 0,
+                     rooted = is.rooted(tree_file),
+                     collapse.singles = TRUE, interactive = FALSE)
+if(is.null(new_tree)){
+  new_tree &lt;- tree_file
+}
+birds_data &lt;- birds2
+seq2 &lt;- seq(5, 50, length.out = 10)</code></pre>
+</div>
+<div id="model" class="section level3">
+<h3>Model</h3>
+<pre class="r"><code>phylo_gom &lt;- list()
+for(num in 1:length(seq2)){
+  birds_phylo &lt;- phylo.counts(birds_data, new_tree, collapse_at = seq2[num])
+  cat(&quot;Processing over&quot;, dim(birds_phylo)[2], &quot;species \n&quot;)
+  birds_phylo[birds_phylo &gt; 0] &lt;- 1
+  M &lt;- 10
+  fits_list &lt;- list()
+  L_array &lt;- c()
+  for(m in 1:M){
+    counter = 0
+    while(counter != 1){
+      tmp &lt;- try(meth_topics(birds_phylo, 1 - birds_phylo,
+                             K=2, tol = 10,
+                             use_squarem = FALSE), TRUE)
+      if(!inherits(tmp, &quot;try-error&quot;)){
+        counter = 1
+      }else{
+        counter = 0
+      }
+    }
+    fits_list[[m]] &lt;- tmp
+    cat(&quot;We are at iteration&quot;, m, &quot;\n&quot;)
+  }
+  
+  loglik &lt;- unlist(lapply(fits_list, function(x) return(x$L)))
+  ids &lt;- which.max(loglik)
+  phylo_gom[[num]] &lt;- fits_list[[ids]]
+}
+save(phylo_gom, file = &quot;../output/phylo_gom_birds/gom_2.rda&quot;)</code></pre>
+</div>
+<div id="phylogenet-cluster-plots" class="section level3">
+<h3>Phylogenet cluster plots</h3>
+<pre class="r"><code>phylo_gom &lt;- get(load(&quot;../output/phylo_gom_birds/gom_2.rda&quot;))</code></pre>
+<pre class="r"><code>color = c(&quot;red&quot;, &quot;cornflowerblue&quot;, &quot;cyan&quot;, &quot;brown4&quot;, &quot;burlywood&quot;, &quot;darkgoldenrod1&quot;,
+          &quot;azure4&quot;, &quot;green&quot;,&quot;deepskyblue&quot;,&quot;yellow&quot;, &quot;azure1&quot;)
+intensity &lt;- 0.8
+for(num in 1:length(seq2)){
+  png(filename=paste0(&quot;../docs/phylo_birds_K_2/geostructure_phylo_&quot;, seq2[num], &quot;.png&quot;),width = 1000, height = 800)
+map(&quot;worldHires&quot;,
+    ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
+    col = &quot;gray&quot;, fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
+lapply(1:dim(phylo_gom[[num]]$omega)[1], function(r)
+  add.pie(z=as.integer(100*phylo_gom[[num]]$omega[r,]),
+          x=latlong[r,1], y=latlong[r,2], labels=c(&quot;&quot;,&quot;&quot;,&quot;&quot;),
+          radius = 0.5,
+          col=c(alpha(color[1],intensity),alpha(color[2],intensity),
+                alpha(color[3], intensity), alpha(color[4], intensity),
+                alpha(color[5], intensity), alpha(color[6], intensity),
+                alpha(color[7], intensity), alpha(color[8], intensity),
+                alpha(color[9], intensity), alpha(color[10], intensity),
+                alpha(color[11], intensity))));
+dev.off()
+}</code></pre>
+</div>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+    This <a href="http://rmarkdown.rstudio.com">R Markdown</a> site was created with <a href="https://github.com/jdblischak/workflowr">workflowr</a>
+</p>
+<hr>
+
+<!-- To enable disqus, uncomment the section below and provide your disqus_shortname -->
+
+<!-- disqus
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rmarkdown'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+-->
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

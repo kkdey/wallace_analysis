@@ -26,7 +26,7 @@ id2 <- which(apply(out2, 1, min) < 0.5)
 out3 <- out2[id2,]
 tmp1 <- model[[2]]$freq[rownames(out3),]
 tmp2 <- model[[2]]$freq[rownames(out2),]
-
+save(tmp2, file = "../output/birds_species_not_separating_plus.rda")
 
 normed_model <- t(apply(model[[2]]$freq, 1, function(x) return(x/sum(x))))
 species1 <- rownames(normed_model[which(normed_model[,1]==1),])

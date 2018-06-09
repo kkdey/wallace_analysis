@@ -83,14 +83,14 @@ if(is.null(new_tree)){
   new_tree <- tree_file
 }
 birds_data <- birds2
+seq2 <- seq(5, 50, length.out = 10)
 ```
 
 
 ### Model
 
-```{r}
+```{r echo=TRUE, eval=FALSE}
 phylo_gom <- list()
-seq2 <- seq(5, 50, length.out = 10)
 for(num in 1:length(seq2)){
   birds_phylo <- phylo.counts(birds_data, new_tree, collapse_at = seq2[num])
   cat("Processing over", dim(birds_phylo)[2], "species \n")

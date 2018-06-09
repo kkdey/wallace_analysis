@@ -109,14 +109,14 @@ for(k in 2:10){
   topics_clust[[k]] <- meth_topics(combined_data, 1 - combined_data, 
             K=k, tol = 10, use_squarem = FALSE)
 }
-save(topics_clust, file = "../output/methClust_wallacea_mammals_and_birds.rda")
+save(topics_clust, file = "../output/methClust_wallacea_mammals_and_birds_no_bats.rda")
 
 ```
 
 ## Visualization
 
 ```{r}
-topics_clust <- get(load("../output/methClust_wallacea_mammals_and_birds.rda"))
+topics_clust <- get(load("../output/methClust_wallacea_mammals_and_birds_no_bats.rda"))
 ```
 
 ```{r}
@@ -124,7 +124,7 @@ color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod
           "azure4", "green","deepskyblue","yellow", "azure1")
 intensity <- 0.8
 for(k in 2:10){
-  png(filename=paste0("../docs/Wallacea_mammals_birds/geostructure_", k, ".png"),width = 1000, height = 800)
+  png(filename=paste0("../docs/Wallacea_mammals_birds_no_bats/geostructure_", k, ".png"),width = 1000, height = 800)
 map("worldHires",
     ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
     col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
