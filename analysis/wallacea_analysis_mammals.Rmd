@@ -175,7 +175,7 @@ We obtain the driving bird species for each cluster using the **CountClust** pac
 ### K = 2
 
 ```{r}
-driving_species_ind <-  ExtractTopFeatures(topics_clust[[2]]$freq, method = "poisson", options = "min", top_features = 50)
+driving_species_ind <-  ExtractTopFeatures(topics_clust[[2]]$freq, method = "poisson", options = "min", top_features = 200)
 species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
 t(species_names)
 ```
@@ -183,7 +183,7 @@ t(species_names)
 ### K = 3
 
 ```{r}
-driving_species_ind <-  ExtractTopFeatures(topics_clust[[3]]$freq, method = "poisson", options = "min", top_features = 50)
+driving_species_ind <-  ExtractTopFeatures(topics_clust[[3]]$freq, method = "poisson", options = "min", top_features = 200)
 species_names <- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
 t(species_names)
 ```

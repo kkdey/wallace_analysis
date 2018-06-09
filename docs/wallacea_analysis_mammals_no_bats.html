@@ -432,7 +432,13 @@ dev.off()
 </div>
 <div id="k-5" class="section level3">
 <h3>K = 5</h3>
-<p><img src="Wallacea_mammals_no_bats/geostructure_birds_5.png" /> ### K = 6</p>
+<div class="figure">
+<img src="Wallacea_mammals_no_bats/geostructure_birds_5.png" />
+
+</div>
+</div>
+<div id="k-6" class="section level3">
+<h3>K = 6</h3>
 <div class="figure">
 <img src="Wallacea_mammals_no_bats/geostructure_birds_6.png" />
 
@@ -475,57 +481,57 @@ dev.off()
 <pre class="r"><code>driving_species_ind &lt;-  ExtractTopFeatures(topics_clust[[2]]$freq, method = &quot;poisson&quot;, options = &quot;min&quot;, top_features = 50)
 species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
 t(species_names)</code></pre>
-<pre><code>##       [,1]                          [,2]                      
-##  [1,] &quot;Hydromys.chrysogaster&quot;       &quot;Martes.flavigula&quot;        
-##  [2,] &quot;Petaurus.breviceps&quot;          &quot;Hystrix.brachyura&quot;       
-##  [3,] &quot;Spilocuscus.maculatus&quot;       &quot;Leopoldamys.sabanus&quot;     
-##  [4,] &quot;Echymipera.rufescens&quot;        &quot;Viverra.zibetha&quot;         
-##  [5,] &quot;Echymipera.kalubu&quot;           &quot;Atherurus.macrourus&quot;     
-##  [6,] &quot;Melomys.rufescens&quot;           &quot;Helarctos.malayanus&quot;     
-##  [7,] &quot;Macropus.agilis&quot;             &quot;Arctogalidia.trivirgata&quot; 
-##  [8,] &quot;Tachyglossus.aculeatus&quot;      &quot;Crocidura.fuliginosa&quot;    
-##  [9,] &quot;Paramelomys.platyops&quot;        &quot;Herpestes.urva&quot;          
-## [10,] &quot;Uromys.caudimaculatus&quot;       &quot;Arctictis.binturong&quot;     
-## [11,] &quot;Phalanger.gymnotis&quot;          &quot;Viverricula.indica&quot;      
-## [12,] &quot;Dasyurus.albopunctatus&quot;      &quot;Panthera.pardus&quot;         
-## [13,] &quot;Xenuromys.barbatus&quot;          &quot;Ursus.thibetanus&quot;        
-## [14,] &quot;Dactylopsila.trivirgata&quot;     &quot;Echinosorex.gymnura&quot;     
-## [15,] &quot;Pseudomys.delicatulus&quot;       &quot;Viverra.megaspila&quot;       
-## [16,] &quot;Pseudochirulus.canescens&quot;    &quot;Muntiacus.vaginalis&quot;     
-## [17,] &quot;Distoechurus.pennatus&quot;       &quot;Maxomys.surifer&quot;         
-## [18,] &quot;Onychogalea.unguifera&quot;       &quot;Arctonyx.collaris&quot;       
-## [19,] &quot;Macropus.robustus&quot;           &quot;Tupaia.belangeri&quot;        
-## [20,] &quot;Lagorchestes.conspicillatus&quot; &quot;Niviventer.cremoriventer&quot;
-## [21,] &quot;Leggadina.lakedownensis&quot;     &quot;Herpestes.javanicus&quot;     
-## [22,] &quot;Pseudomys.nanus&quot;             &quot;Mustela.nudipes&quot;         
-## [23,] &quot;Rattus.praetor&quot;              &quot;Cynogale.bennettii&quot;      
-## [24,] &quot;Isoodon.macrourus&quot;           &quot;Rattus.tanezumi&quot;         
-## [25,] &quot;Phalanger.orientalis&quot;        &quot;Ratufa.affinis&quot;          
-## [26,] &quot;Peroryctes.raffrayana&quot;       &quot;Macaca.leonina&quot;          
-## [27,] &quot;Murexia.melanurus&quot;           &quot;Menetes.berdmorei&quot;       
-## [28,] &quot;Trichosurus.vulpecula&quot;       &quot;Galeopterus.variegatus&quot;  
-## [29,] &quot;Myoictis.melas&quot;              &quot;Nycticebus.bengalensis&quot;  
-## [30,] &quot;Murexia.longicaudata&quot;        &quot;Lepus.peguensis&quot;         
-## [31,] &quot;Macropus.antilopinus&quot;        &quot;Tragulus.kanchil&quot;        
-## [32,] &quot;Zyzomys.argurus&quot;             &quot;Maxomys.whiteheadi&quot;      
-## [33,] &quot;Planigale.maculata&quot;          &quot;Sundasciurus.hippurus&quot;   
-## [34,] &quot;Rattus.tunneyi&quot;              &quot;Petaurista.philippensis&quot; 
-## [35,] &quot;Pogonomys.macrourus&quot;         &quot;Rhizomys.pruinosus&quot;      
-## [36,] &quot;Paramelomys.rubex&quot;           &quot;Bandicota.indica&quot;        
-## [37,] &quot;Dactylonax.palpator&quot;         &quot;Rusa.unicolor&quot;           
-## [38,] &quot;Rattus.villosissimus&quot;        &quot;Melogale.personata&quot;      
-## [39,] &quot;Melomys.burtoni&quot;             &quot;Herpestes.brachyurus&quot;    
-## [40,] &quot;Sminthopsis.virginiae&quot;       &quot;Pardofelis.marmorata&quot;    
-## [41,] &quot;Cercartetus.caudatus&quot;        &quot;Niviventer.langbianis&quot;   
-## [42,] &quot;Melomys.lutillus&quot;            &quot;Callosciurus.erythraeus&quot; 
-## [43,] &quot;Rattus.verecundus&quot;           &quot;Exilisciurus.exilis&quot;     
-## [44,] &quot;Phascolosorex.dorsalis&quot;      &quot;Crocidura.foetida&quot;       
-## [45,] &quot;Rattus.leucopus&quot;             &quot;Hystrix.crassispinis&quot;    
-## [46,] &quot;Paramelomys.mollis&quot;          &quot;Muntiacus.atherodes&quot;     
-## [47,] &quot;Lorentzimys.nouhuysi&quot;        &quot;Rheithrosciurus.macrotis&quot;
-## [48,] &quot;Microperoryctes.longicauda&quot;  &quot;Chiropodomys.pusillus&quot;   
-## [49,] &quot;Pogonomys.loriae&quot;            &quot;Trichys.fasciculata&quot;     
-## [50,] &quot;Pseudomys.johnsoni&quot;          &quot;Rhizomys.sumatrensis&quot;</code></pre>
+<pre><code>##       [,1]                          [,2]                     
+##  [1,] &quot;Petaurus.breviceps&quot;          &quot;Arctogalidia.trivirgata&quot;
+##  [2,] &quot;Hydromys.chrysogaster&quot;       &quot;Tragulus.kanchil&quot;       
+##  [3,] &quot;Macropus.agilis&quot;             &quot;Herpestes.urva&quot;         
+##  [4,] &quot;Tachyglossus.aculeatus&quot;      &quot;Crocidura.fuliginosa&quot;   
+##  [5,] &quot;Pseudomys.delicatulus&quot;       &quot;Paguma.larvata&quot;         
+##  [6,] &quot;Macropus.antilopinus&quot;        &quot;Martes.flavigula&quot;       
+##  [7,] &quot;Planigale.maculata&quot;          &quot;Rusa.unicolor&quot;          
+##  [8,] &quot;Melomys.rufescens&quot;           &quot;Viverra.megaspila&quot;      
+##  [9,] &quot;Spilocuscus.maculatus&quot;       &quot;Muntiacus.vaginalis&quot;    
+## [10,] &quot;Macropus.robustus&quot;           &quot;Leopoldamys.sabanus&quot;    
+## [11,] &quot;Onychogalea.unguifera&quot;       &quot;Galeopterus.variegatus&quot; 
+## [12,] &quot;Uromys.caudimaculatus&quot;       &quot;Ursus.thibetanus&quot;       
+## [13,] &quot;Lagorchestes.conspicillatus&quot; &quot;Tupaia.belangeri&quot;       
+## [14,] &quot;Leggadina.lakedownensis&quot;     &quot;Arctonyx.collaris&quot;      
+## [15,] &quot;Echymipera.kalubu&quot;           &quot;Hystrix.brachyura&quot;      
+## [16,] &quot;Echymipera.rufescens&quot;        &quot;Rattus.tanezumi&quot;        
+## [17,] &quot;Isoodon.macrourus&quot;           &quot;Mus.caroli&quot;             
+## [18,] &quot;Dactylopsila.trivirgata&quot;     &quot;Pardofelis.marmorata&quot;   
+## [19,] &quot;Murexia.longicaudata&quot;        &quot;Petaurista.philippensis&quot;
+## [20,] &quot;Rattus.tunneyi&quot;              &quot;Rhizomys.sumatrensis&quot;   
+## [21,] &quot;Trichosurus.vulpecula&quot;       &quot;Menetes.berdmorei&quot;      
+## [22,] &quot;Xenuromys.barbatus&quot;          &quot;Rhizomys.pruinosus&quot;     
+## [23,] &quot;Dasyurus.albopunctatus&quot;      &quot;Bandicota.indica&quot;       
+## [24,] &quot;Zyzomys.argurus&quot;             &quot;Callosciurus.erythraeus&quot;
+## [25,] &quot;Pseudochirulus.canescens&quot;    &quot;Nycticebus.bengalensis&quot; 
+## [26,] &quot;Pseudomys.nanus&quot;             &quot;Tragulus.napu&quot;          
+## [27,] &quot;Distoechurus.pennatus&quot;       &quot;Macaca.leonina&quot;         
+## [28,] &quot;Murexia.melanurus&quot;           &quot;Hemigalus.derbyanus&quot;    
+## [29,] &quot;Melomys.lutillus&quot;            &quot;Echinosorex.gymnura&quot;    
+## [30,] &quot;Pogonomys.macrourus&quot;         &quot;Melogale.personata&quot;     
+## [31,] &quot;Paramelomys.platyops&quot;        &quot;Lepus.peguensis&quot;        
+## [32,] &quot;Rattus.praetor&quot;              &quot;Hylopetes.spadiceus&quot;    
+## [33,] &quot;Rattus.leucopus&quot;             &quot;Helarctos.malayanus&quot;    
+## [34,] &quot;Phalanger.gymnotis&quot;          &quot;Cynogale.bennettii&quot;     
+## [35,] &quot;Melomys.burtoni&quot;             &quot;Prionodon.linsang&quot;      
+## [36,] &quot;Conilurus.penicillatus&quot;      &quot;Maxomys.surifer&quot;        
+## [37,] &quot;Lorentzimys.nouhuysi&quot;        &quot;Mustela.nudipes&quot;        
+## [38,] &quot;Paramelomys.mollis&quot;          &quot;Ratufa.affinis&quot;         
+## [39,] &quot;Rattus.villosissimus&quot;        &quot;Sundasciurus.lowii&quot;     
+## [40,] &quot;Petrogale.brachyotis&quot;        &quot;Maxomys.rajah&quot;          
+## [41,] &quot;Microperoryctes.longicauda&quot;  &quot;Maxomys.whiteheadi&quot;     
+## [42,] &quot;Cercartetus.caudatus&quot;        &quot;Sundasciurus.hippurus&quot;  
+## [43,] &quot;Parahydromys.asper&quot;          &quot;Dremomys.rufigenis&quot;     
+## [44,] &quot;Rattus.steini&quot;               &quot;Manis.javanica&quot;         
+## [45,] &quot;Peroryctes.raffrayana&quot;       &quot;Bos.gaurus&quot;             
+## [46,] &quot;Sminthopsis.virginiae&quot;       &quot;Arctictis.binturong&quot;    
+## [47,] &quot;Anisomys.imitator&quot;           &quot;Callosciurus.prevostii&quot; 
+## [48,] &quot;Uromys.anak&quot;                 &quot;Herpestes.brachyurus&quot;   
+## [49,] &quot;Zaglossus.bartoni&quot;           &quot;Lutrogale.perspicillata&quot;
+## [50,] &quot;Pseudochirops.corinnae&quot;      &quot;Tupaia.minor&quot;</code></pre>
 </div>
 <div id="k-2-2" class="section level3">
 <h3>K = 2</h3>
@@ -533,107 +539,107 @@ t(species_names)</code></pre>
 species_names &lt;- apply(driving_species_ind$indices, c(1,2), function(x) return (rownames(topics_clust[[2]]$freq)[x]))
 t(species_names)</code></pre>
 <pre><code>##       [,1]                          [,2]                       
-##  [1,] &quot;Petaurus.breviceps&quot;          &quot;Trichys.fasciculata&quot;      
-##  [2,] &quot;Hydromys.chrysogaster&quot;       &quot;Herpestes.brachyurus&quot;     
-##  [3,] &quot;Macropus.agilis&quot;             &quot;Exilisciurus.exilis&quot;      
-##  [4,] &quot;Tachyglossus.aculeatus&quot;      &quot;Crocidura.foetida&quot;        
-##  [5,] &quot;Uromys.caudimaculatus&quot;       &quot;Hystrix.crassispinis&quot;     
-##  [6,] &quot;Echymipera.rufescens&quot;        &quot;Muntiacus.atherodes&quot;      
-##  [7,] &quot;Echymipera.kalubu&quot;           &quot;Rheithrosciurus.macrotis&quot; 
-##  [8,] &quot;Dactylopsila.trivirgata&quot;     &quot;Chiropodomys.pusillus&quot;    
-##  [9,] &quot;Melomys.rufescens&quot;           &quot;Sundasciurus.tenuis&quot;      
-## [10,] &quot;Pseudomys.delicatulus&quot;       &quot;Maxomys.whiteheadi&quot;       
-## [11,] &quot;Lagorchestes.conspicillatus&quot; &quot;Sundasciurus.hippurus&quot;    
-## [12,] &quot;Spilocuscus.maculatus&quot;       &quot;Maxomys.rajah&quot;            
-## [13,] &quot;Isoodon.macrourus&quot;           &quot;Trachypithecus.cristatus&quot; 
-## [14,] &quot;Leggadina.lakedownensis&quot;     &quot;Sundasciurus.lowii&quot;       
-## [15,] &quot;Macropus.robustus&quot;           &quot;Neofelis.diardi&quot;          
-## [16,] &quot;Phalanger.gymnotis&quot;          &quot;Callosciurus.prevostii&quot;   
-## [17,] &quot;Zyzomys.argurus&quot;             &quot;Nasalis.larvatus&quot;         
-## [18,] &quot;Onychogalea.unguifera&quot;       &quot;Ratufa.affinis&quot;           
-## [19,] &quot;Dasyurus.albopunctatus&quot;      &quot;Hylobates.muelleri&quot;       
-## [20,] &quot;Xenuromys.barbatus&quot;          &quot;Nannosciurus.melanotis&quot;   
-## [21,] &quot;Trichosurus.vulpecula&quot;       &quot;Tupaia.dorsalis&quot;          
-## [22,] &quot;Pseudomys.nanus&quot;             &quot;Tupaia.minor&quot;             
-## [23,] &quot;Distoechurus.pennatus&quot;       &quot;Tupaia.tana&quot;              
-## [24,] &quot;Macropus.antilopinus&quot;        &quot;Sus.barbatus&quot;             
-## [25,] &quot;Planigale.maculata&quot;          &quot;Aeromys.thomasi&quot;          
-## [26,] &quot;Melomys.burtoni&quot;             &quot;Mustela.nudipes&quot;          
-## [27,] &quot;Paramelomys.platyops&quot;        &quot;Macaca.nemestrina&quot;        
-## [28,] &quot;Rattus.praetor&quot;              &quot;Rhinosciurus.laticaudatus&quot;
-## [29,] &quot;Murexia.longicaudata&quot;        &quot;Herpestes.semitorquatus&quot;  
-## [30,] &quot;Pogonomys.macrourus&quot;         &quot;Petinomys.genibarbis&quot;     
-## [31,] &quot;Rattus.leucopus&quot;             &quot;Nycticebus.menagensis&quot;    
-## [32,] &quot;Pseudochirulus.canescens&quot;    &quot;Maxomys.tajuddinii&quot;       
-## [33,] &quot;Sminthopsis.virginiae&quot;       &quot;Cynogale.bennettii&quot;       
-## [34,] &quot;Rattus.tunneyi&quot;              &quot;Hemigalus.derbyanus&quot;      
-## [35,] &quot;Myoictis.melas&quot;              &quot;Lariscus.insignis&quot;        
-## [36,] &quot;Peroryctes.raffrayana&quot;       &quot;Catopuma.badia&quot;           
-## [37,] &quot;Murexia.melanurus&quot;           &quot;Presbytis.frontata&quot;       
-## [38,] &quot;Conilurus.penicillatus&quot;      &quot;Muntiacus.muntjak&quot;        
-## [39,] &quot;Cercartetus.caudatus&quot;        &quot;Prionailurus.planiceps&quot;   
-## [40,] &quot;Phalanger.orientalis&quot;        &quot;Echinosorex.gymnura&quot;      
-## [41,] &quot;Paramelomys.rubex&quot;           &quot;Sundasciurus.brookei&quot;     
-## [42,] &quot;Rattus.villosissimus&quot;        &quot;Iomys.horsfieldii&quot;        
-## [43,] &quot;Dactylonax.palpator&quot;         &quot;Tarsius.bancanus&quot;         
-## [44,] &quot;Paramelomys.mollis&quot;          &quot;Presbytis.rubicunda&quot;      
-## [45,] &quot;Microperoryctes.longicauda&quot;  &quot;Tupaia.gracilis&quot;          
-## [46,] &quot;Petrogale.brachyotis&quot;        &quot;Rattus.tiomanicus&quot;        
-## [47,] &quot;Melomys.lutillus&quot;            &quot;Niviventer.rapit&quot;         
-## [48,] &quot;Macropus.rufus&quot;              &quot;Pongo.pygmaeus&quot;           
-## [49,] &quot;Sminthopsis.macroura&quot;        &quot;Pteromyscus.pulverulentus&quot;
-## [50,] &quot;Parahydromys.asper&quot;          &quot;Callosciurus.notatus&quot;     
+##  [1,] &quot;Petaurus.breviceps&quot;          &quot;Tupaia.tana&quot;              
+##  [2,] &quot;Hydromys.chrysogaster&quot;       &quot;Trichys.fasciculata&quot;      
+##  [3,] &quot;Macropus.agilis&quot;             &quot;Trachypithecus.cristatus&quot; 
+##  [4,] &quot;Macropus.robustus&quot;           &quot;Herpestes.brachyurus&quot;     
+##  [5,] &quot;Lagorchestes.conspicillatus&quot; &quot;Neofelis.diardi&quot;          
+##  [6,] &quot;Tachyglossus.aculeatus&quot;      &quot;Callosciurus.prevostii&quot;   
+##  [7,] &quot;Onychogalea.unguifera&quot;       &quot;Tarsius.bancanus&quot;         
+##  [8,] &quot;Pseudomys.nanus&quot;             &quot;Nannosciurus.melanotis&quot;   
+##  [9,] &quot;Leggadina.lakedownensis&quot;     &quot;Maxomys.rajah&quot;            
+## [10,] &quot;Macropus.antilopinus&quot;        &quot;Maxomys.whiteheadi&quot;       
+## [11,] &quot;Pseudomys.delicatulus&quot;       &quot;Sundasciurus.hippurus&quot;    
+## [12,] &quot;Rattus.praetor&quot;              &quot;Sundasciurus.lowii&quot;       
+## [13,] &quot;Uromys.caudimaculatus&quot;       &quot;Sundasciurus.tenuis&quot;      
+## [14,] &quot;Spilocuscus.maculatus&quot;       &quot;Nycticebus.menagensis&quot;    
+## [15,] &quot;Myoictis.melas&quot;              &quot;Exilisciurus.exilis&quot;      
+## [16,] &quot;Rattus.tunneyi&quot;              &quot;Crocidura.foetida&quot;        
+## [17,] &quot;Phalanger.orientalis&quot;        &quot;Hystrix.crassispinis&quot;     
+## [18,] &quot;Melomys.rufescens&quot;           &quot;Muntiacus.atherodes&quot;      
+## [19,] &quot;Dactylopsila.trivirgata&quot;     &quot;Rheithrosciurus.macrotis&quot; 
+## [20,] &quot;Echymipera.kalubu&quot;           &quot;Chiropodomys.pusillus&quot;    
+## [21,] &quot;Echymipera.rufescens&quot;        &quot;Sus.barbatus&quot;             
+## [22,] &quot;Rattus.villosissimus&quot;        &quot;Callosciurus.notatus&quot;     
+## [23,] &quot;Zyzomys.argurus&quot;             &quot;Presbytis.rubicunda&quot;      
+## [24,] &quot;Rattus.everetti&quot;             &quot;Tupaia.gracilis&quot;          
+## [25,] &quot;Isoodon.macrourus&quot;           &quot;Nasalis.larvatus&quot;         
+## [26,] &quot;Conilurus.penicillatus&quot;      &quot;Herpestes.semitorquatus&quot;  
+## [27,] &quot;Planigale.maculata&quot;          &quot;Muntiacus.muntjak&quot;        
+## [28,] &quot;Pseudomys.johnsoni&quot;          &quot;Ratufa.affinis&quot;           
+## [29,] &quot;Trichosurus.vulpecula&quot;       &quot;Lariscus.insignis&quot;        
+## [30,] &quot;Paramelomys.platyops&quot;        &quot;Petinomys.genibarbis&quot;     
+## [31,] &quot;Sminthopsis.virginiae&quot;       &quot;Hylobates.muelleri&quot;       
+## [32,] &quot;Ailurops.ursinus&quot;            &quot;Tupaia.minor&quot;             
+## [33,] &quot;Sus.celebensis&quot;              &quot;Tupaia.ferruginea&quot;        
+## [34,] &quot;Prosciurillus.leucomus&quot;      &quot;Hystrix.sumatrae&quot;         
+## [35,] &quot;Rusa.marianna&quot;               &quot;Mustela.nudipes&quot;          
+## [36,] &quot;Petrogale.brachyotis&quot;        &quot;Tupaia.dorsalis&quot;          
+## [37,] &quot;Phalanger.gymnotis&quot;          &quot;Rhinosciurus.laticaudatus&quot;
+## [38,] &quot;Strigocuscus.celebensis&quot;     &quot;Macaca.nemestrina&quot;        
+## [39,] &quot;Macropus.rufus&quot;              &quot;Iomys.horsfieldii&quot;        
+## [40,] &quot;Phascolosorex.dorsalis&quot;      &quot;Rattus.tiomanicus&quot;        
+## [41,] &quot;Maxomys.musschenbroekii&quot;     &quot;Aeromys.thomasi&quot;          
+## [42,] &quot;Rubrisciurus.rubriventer&quot;    &quot;Maxomys.tajuddinii&quot;       
+## [43,] &quot;Rattus.hoffmanni&quot;            &quot;Presbytis.frontata&quot;       
+## [44,] &quot;Maxomys.hellwaldii&quot;          &quot;Catopuma.badia&quot;           
+## [45,] &quot;Bunomys.chrysocomus&quot;         &quot;Echinosorex.gymnura&quot;      
+## [46,] &quot;Paruromys.dominator&quot;         &quot;Hemigalus.derbyanus&quot;      
+## [47,] &quot;Xenuromys.barbatus&quot;          &quot;Cynogale.bennettii&quot;       
+## [48,] &quot;Melomys.burtoni&quot;             &quot;Sundasciurus.brookei&quot;     
+## [49,] &quot;Dasyurus.albopunctatus&quot;      &quot;Sundamys.muelleri&quot;        
+## [50,] &quot;Sminthopsis.macroura&quot;        &quot;Niviventer.rapit&quot;         
 ##       [,3]                        
-##  [1,] &quot;Macaca.leonina&quot;            
+##  [1,] &quot;Melogale.personata&quot;        
 ##  [2,] &quot;Lepus.peguensis&quot;           
-##  [3,] &quot;Melogale.personata&quot;        
-##  [4,] &quot;Ursus.thibetanus&quot;          
+##  [3,] &quot;Bandicota.indica&quot;          
+##  [4,] &quot;Macaca.leonina&quot;            
 ##  [5,] &quot;Petaurista.philippensis&quot;   
-##  [6,] &quot;Bandicota.indica&quot;          
+##  [6,] &quot;Bandicota.savilei&quot;         
 ##  [7,] &quot;Rattus.tanezumi&quot;           
-##  [8,] &quot;Tupaia.belangeri&quot;          
-##  [9,] &quot;Muntiacus.vaginalis&quot;       
-## [10,] &quot;Arctonyx.collaris&quot;         
-## [11,] &quot;Menetes.berdmorei&quot;         
-## [12,] &quot;Bandicota.savilei&quot;         
-## [13,] &quot;Berylmys.berdmorei&quot;        
-## [14,] &quot;Nycticebus.bengalensis&quot;    
-## [15,] &quot;Canis.aureus&quot;              
-## [16,] &quot;Viverra.megaspila&quot;         
-## [17,] &quot;Callosciurus.finlaysonii&quot;  
-## [18,] &quot;Felis.chaus&quot;               
-## [19,] &quot;Crocidura.fuliginosa&quot;      
-## [20,] &quot;Vandeleuria.oleracea&quot;      
-## [21,] &quot;Herpestes.urva&quot;            
-## [22,] &quot;Prionodon.pardicolor&quot;      
-## [23,] &quot;Capricornis.milneedwardsii&quot;
-## [24,] &quot;Niviventer.langbianis&quot;     
-## [25,] &quot;Rattus.losea&quot;              
-## [26,] &quot;Tamiops.rodolphii&quot;         
-## [27,] &quot;Rhizomys.pruinosus&quot;        
-## [28,] &quot;Hylopetes.phayrei&quot;         
-## [29,] &quot;Mus.pahari&quot;                
-## [30,] &quot;Callosciurus.erythraeus&quot;   
-## [31,] &quot;Bos.gaurus&quot;                
-## [32,] &quot;Atherurus.macrourus&quot;       
-## [33,] &quot;Viverra.zibetha&quot;           
-## [34,] &quot;Crocidura.attenuata&quot;       
-## [35,] &quot;Tamiops.macclellandii&quot;     
-## [36,] &quot;Trachypithecus.phayrei&quot;    
-## [37,] &quot;Mustela.strigidorsa&quot;       
-## [38,] &quot;Crocidura.vorax&quot;           
-## [39,] &quot;Mustela.kathiah&quot;           
-## [40,] &quot;Trachypithecus.germaini&quot;   
-## [41,] &quot;Macaca.arctoides&quot;          
-## [42,] &quot;Macaca.assamensis&quot;         
-## [43,] &quot;Cannomys.badius&quot;           
-## [44,] &quot;Macaca.mulatta&quot;            
-## [45,] &quot;Dremomys.rufigenis&quot;        
-## [46,] &quot;Rattus.nitidus&quot;            
-## [47,] &quot;Hylopetes.alboniger&quot;       
-## [48,] &quot;Nycticebus.pygmaeus&quot;       
-## [49,] &quot;Chiromyscus.chiropus&quot;      
-## [50,] &quot;Crocidura.indochinensis&quot;</code></pre>
+##  [8,] &quot;Canis.aureus&quot;              
+##  [9,] &quot;Tupaia.belangeri&quot;          
+## [10,] &quot;Niviventer.langbianis&quot;     
+## [11,] &quot;Mus.pahari&quot;                
+## [12,] &quot;Vandeleuria.oleracea&quot;      
+## [13,] &quot;Callosciurus.finlaysonii&quot;  
+## [14,] &quot;Berylmys.berdmorei&quot;        
+## [15,] &quot;Ursus.thibetanus&quot;          
+## [16,] &quot;Felis.chaus&quot;               
+## [17,] &quot;Muntiacus.vaginalis&quot;       
+## [18,] &quot;Tamiops.rodolphii&quot;         
+## [19,] &quot;Mustela.strigidorsa&quot;       
+## [20,] &quot;Prionodon.pardicolor&quot;      
+## [21,] &quot;Hylopetes.alboniger&quot;       
+## [22,] &quot;Macaca.assamensis&quot;         
+## [23,] &quot;Arctonyx.collaris&quot;         
+## [24,] &quot;Cannomys.badius&quot;           
+## [25,] &quot;Chiromyscus.chiropus&quot;      
+## [26,] &quot;Trachypithecus.phayrei&quot;    
+## [27,] &quot;Menetes.berdmorei&quot;         
+## [28,] &quot;Crocidura.indochinensis&quot;   
+## [29,] &quot;Nycticebus.bengalensis&quot;    
+## [30,] &quot;Nycticebus.pygmaeus&quot;       
+## [31,] &quot;Crocidura.vorax&quot;           
+## [32,] &quot;Trachypithecus.germaini&quot;   
+## [33,] &quot;Mustela.kathiah&quot;           
+## [34,] &quot;Macaca.mulatta&quot;            
+## [35,] &quot;Viverra.megaspila&quot;         
+## [36,] &quot;Rattus.nitidus&quot;            
+## [37,] &quot;Euroscaptor.klossi&quot;        
+## [38,] &quot;Mus.cookii&quot;                
+## [39,] &quot;Hylopetes.phayrei&quot;         
+## [40,] &quot;Capricornis.milneedwardsii&quot;
+## [41,] &quot;Mus.shortridgei&quot;           
+## [42,] &quot;Crocidura.fuliginosa&quot;      
+## [43,] &quot;Rattus.losea&quot;              
+## [44,] &quot;Rhizomys.pruinosus&quot;        
+## [45,] &quot;Callosciurus.erythraeus&quot;   
+## [46,] &quot;Herpestes.urva&quot;            
+## [47,] &quot;Rattus.andamanensis&quot;       
+## [48,] &quot;Melogale.moschata&quot;         
+## [49,] &quot;Tamiops.maritimus&quot;         
+## [50,] &quot;Niviventer.tenaster&quot;</code></pre>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>## R version 3.5.0 (2018-04-23)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)

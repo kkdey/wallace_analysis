@@ -29,15 +29,19 @@ Codes to reproduce the results in paper:
 # Mammals
 
 * **EcoStructure on the entire Wallacea**
-    + [*by cell vs species*](wallacea_analysis_mammals.html)
-    + [*by species vs cells*](wallacea_analysis_mammals_transpose.html)
+    + [*by cell vs species - with bats*](wallacea_analysis_mammals.html)
+    + [*by species vs cells - with bats*](wallacea_analysis_mammals_transpose.html)
+    + [*by cell vs species - without bats*](wallacea_analysis_mammals_no_bats.html)
+    + [*by species vs cells - without bats*](wallacea_analysis_mammals_no_bats_transpose.html)
     + [*Regions of high admixture*](high_admixture_regions_mammals.html)
     
 # Mammals and Birds
 
 * **EcoStructure on the entire Wallacea**
-    + [*with mammals and birds*](wallacea_analysis_mammals_and_birds.html)
-
+    + [*by cell vs species - with mammals and birds with bats*](wallacea_analysis_mammals_and_birds.html)
+    + [*by species vs cell - with mammals and birds with bats*](wallacea_analysis_mammals_and_birds_transpose.html)
+    + [*by cell vs species - with mammals and birds without bats*](wallacea_analysis_mammals_and_birds_no_bats.html)
+    + [*by species vs cell - with mammals and birds without bats*](wallacea_analysis_mammals_and_birds_transpose.html)
 
 # Extras
           

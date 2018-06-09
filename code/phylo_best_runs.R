@@ -22,3 +22,7 @@ for(k in 1:length(cuts)){
 
 
 save(topic_clust, file = "../output/phylogenetic_wallacea_methClust_9.rda")
+
+
+
+phy <- get(load("../output/bird_lists_for_phylogeny_clusters_2_wallacea.rda"))

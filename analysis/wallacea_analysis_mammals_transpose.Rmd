@@ -32,7 +32,7 @@ Load the data
 ## Wallacea Region data
 
 ```{r}
-birds <- get(load("../data/wallacea_birds.rda"))
+birds <- get(load("../data/mammals_with_bats.rda"))
 latlong_chars_birds <- rownames(birds)
 latlong <- cbind.data.frame(as.numeric(sapply(latlong_chars_birds, 
               function(x) return(strsplit(x, "_")[[1]][1]))),
