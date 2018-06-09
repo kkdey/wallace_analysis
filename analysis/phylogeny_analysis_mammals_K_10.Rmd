@@ -1,5 +1,5 @@
 ---
-title: 'Phylogeny clusters mammals : K=2'
+title: 'phylogenetic cluster mammals : K = 10'
 author: "Kushal K Dey"
 date: "6/8/2018"
 output: html_document
@@ -71,26 +71,26 @@ tips_to_drop <- setdiff(tree_file$tip.label, colnames(mammals_data))
 new_tree <- drop.tip(tree_file, tips_to_drop, trim.internal = TRUE, subtree = FALSE, root.edge = 0,
                      rooted = is.rooted(tree_file),
                      collapse.singles = TRUE, interactive = FALSE)
+seq2 <- seq(5, 50, length.out = 10)
 ```
 
 
 ### Model
 
-```{r}
+```{r echo=TRUE, eval=FALSE}
 phylo_gom <- list()
-seq2 <- seq(5, 50, length.out = 10)
 for(num in 1:length(seq2)){
   mammals_phylo <- phylo.counts(mammals_data, new_tree, collapse_at = seq2[num])
   cat("Processing over", dim(mammals_phylo)[2], "species \n")
   mammals_phylo[mammals_phylo > 0] <- 1
-  M <- 5
+  M <- 1
   fits_list <- list()
   L_array <- c()
   for(m in 1:M){
     counter = 0
     while(counter != 1){
       tmp <- try(meth_topics(mammals_phylo, 1 - mammals_phylo,
-                             K=2, tol = 10,
+                             K=10, tol = 10,
                              use_squarem = FALSE), TRUE)
       if(!inherits(tmp, "try-error")){
         counter = 1
@@ -106,14 +106,13 @@ for(num in 1:length(seq2)){
   ids <- which.max(loglik)
   phylo_gom[[num]] <- fits_list[[ids]]
 }
-save(phylo_gom, file = "../output/phylo_gom_mammals/gom_2.rda")
+save(phylo_gom, file = "../output/phylo_gom_mammals/gom_10.rda")
 ```
-
 
 ### Phylogenet cluster plots
 
 ```{r}
-phylo_gom <- get(load("../output/phylo_gom_mammals/gom_2.rda"))
+phylo_gom <- get(load("../output/phylo_gom_mammals/gom_10.rda"))
 ```
 
 ```{r}
@@ -121,7 +120,7 @@ color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod
           "azure4", "green","deepskyblue","yellow", "azure1")
 intensity <- 0.8
 for(num in 1:length(seq2)){
-  png(filename=paste0("../docs/phylo_mammals_K_2/geostructure_phylo_", seq2[num], ".png"),width = 1000, height = 800)
+  png(filename=paste0("../docs/phylo_mammals_K_10/geostructure_phylo_", seq2[num], ".png"),width = 1000, height = 800)
 map("worldHires",
     ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
     col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
@@ -160,21 +159,21 @@ collapse.singles = TRUE, interactive = FALSE)
 
 ### Model
 
-```{r}
+```{r echo=TRUE, eval=FALSE}
 phylo_gom <- list()
 seq2 <- seq(5, 50, length.out = 10)
 for(num in 1:length(seq2)){
   mammals_phylo <- phylo.counts(mammals_data, new_tree, collapse_at = seq2[num])
   cat("Processing over", dim(mammals_phylo)[2], "species \n")
   mammals_phylo[mammals_phylo > 0] <- 1
-  M <- 5
+  M <- 1
   fits_list <- list()
   L_array <- c()
   for(m in 1:M){
     counter = 0
     while(counter != 1){
       tmp <- try(meth_topics(mammals_phylo, 1 - mammals_phylo,
-                             K=2, tol = 10,
+                             K=10, tol = 10,
                              use_squarem = FALSE), TRUE)
       if(!inherits(tmp, "try-error")){
         counter = 1
@@ -190,13 +189,13 @@ for(num in 1:length(seq2)){
   ids <- which.max(loglik)
   phylo_gom[[num]] <- fits_list[[ids]]
 }
-save(phylo_gom, file = "../output/phylo_gom_mammals_no_bats/gom_2.rda")
+save(phylo_gom, file = "../output/phylo_gom_mammals_no_bats/gom_10.rda")
 ```
 
 ### Phylogenet cluster plots
 
 ```{r}
-phylo_gom <- get(load("../output/phylo_gom_mammals_no_bats/gom_2.rda"))
+phylo_gom <- get(load("../output/phylo_gom_mammals_no_bats/gom_10.rda"))
 ```
 
 ```{r}
@@ -204,7 +203,7 @@ color = c("red", "cornflowerblue", "cyan", "brown4", "burlywood", "darkgoldenrod
           "azure4", "green","deepskyblue","yellow", "azure1")
 intensity <- 0.8
 for(num in 1:length(seq2)){
-  png(filename=paste0("../docs/phylo_mammals_no_bats_K_2/geostructure_phylo_", seq2[num], ".png"),width = 1000, height = 800)
+  png(filename=paste0("../docs/phylo_mammals_no_bats_K_10/geostructure_phylo_", seq2[num], ".png"),width = 1000, height = 800)
 map("worldHires",
     ylim=c(-18,20), xlim=c(90,160), # Re-defines the latitude and longitude range
     col = "gray", fill=TRUE, mar=c(0.1,0.1,0.1,0.1))
